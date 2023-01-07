@@ -19,7 +19,7 @@
             s.GamplayUpdate();
 
             if (s.creepFunctions.CreepCount() <= 0) {
-                return PreRoundIdle_ScenarioState.Get(s);
+                return EndRound_ScenarioState.Get();
             }
             return null;
         }

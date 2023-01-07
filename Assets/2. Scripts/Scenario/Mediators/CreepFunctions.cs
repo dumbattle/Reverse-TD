@@ -26,11 +26,22 @@ namespace Core {
             behaviour.AssignCreep(s, c);
             creep2behaviour.Add(c, behaviour);
         }
-        
-        public void UpdateAllCreeps(ScenarioInstance s) {
-            creepManager.UpdateAllCreeps(s);
-        }
 
+        public void UpdateAllCreeps(ScenarioInstance s) {
+            // iterate in reverse to make removal easier
+            for (int i = creepManager.allCreeps.Count - 1; i >= 0; i--) {
+                CreepInstance c = creepManager.allCreeps[i];
+                c.Update(s);
+                creepManager.grid.UpdateItem(c, LPE.Math.Geometry.CircleAABB(c.position, c.radius));
+                
+                
+                if (s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius)) {
+                    s.playerFunctions.AddMoney((10 * c.health.current / c.health.max));
+                    DestroyCreep(c);
+                }
+            }
+        }
+        
         public CreepInstance GetNearestCreep(Vector2 location, float maxRange) {
             creepResults.Clear();
 
@@ -50,17 +61,22 @@ namespace Core {
             }
             return closet;
         }
- 
+
         public void DamageCreep(CreepInstance c, int amnt) {
             c.health.DealDamage(amnt);
 
             if (c.health.current <= 0) {
-                creepManager.RemoveCreep(c);
-                GameObject.Destroy(creep2behaviour[c].gameObject);
-                creep2behaviour.Remove(c);
-                c.Return();
+                DestroyCreep(c);
             }
         }
+
+        public void DestroyCreep(CreepInstance c) {
+            creepManager.RemoveCreep(c);
+            GameObject.Destroy(creep2behaviour[c].gameObject);
+            creep2behaviour.Remove(c);
+            c.Return();
+        }
+
 
         public int CreepCount() {
             return creepManager.CreepCount();

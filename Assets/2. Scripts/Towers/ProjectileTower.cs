@@ -3,8 +3,8 @@
 namespace Core {
     public class ProjectileTower : TowerBehaviour {
         [SerializeField] Transform rotationPivot;
-        float atkDelay = 1;
-        int damage = 1;
+        float atkDelay = 0.25f;
+        int damage = 15;
         float range = 5;
 
         float atkTimer = 0;

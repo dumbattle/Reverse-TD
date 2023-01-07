@@ -20,6 +20,8 @@ namespace Core {
 
         public IFSM_State Update(ScenarioInstance s) {
             BuildMap(s);
+            s.playerFunctions.AddMoney(1000);
+            // initial towers
             var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
             s.towerFunctions.AddMainTower(TowerPrefabCache.MainBasic(s, center));
             s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(-1, -1)));
@@ -29,9 +31,10 @@ namespace Core {
 
             s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(-1, 2)));
             s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(2, -1)));
-            s.creepArmy.Init();
+            s.playerFunctions.GetCreepArmy().Init();
 
             // TODO refactor out
+            s.parameters.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
             s.parameters.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
             s.parameters.ui.startButton.SetClickListener(InputManager.Set.Start);
             return PreRoundIdle_ScenarioState.Get(s);
@@ -50,27 +53,5 @@ namespace Core {
                 }
             }
         }
-    }
-
-    public class PreRoundIdle_ScenarioState : IFSM_State {
-        //******************************************************************************
-        // Singleton
-        //******************************************************************************
-        PreRoundIdle_ScenarioState() { }
-        static PreRoundIdle_ScenarioState instance = new PreRoundIdle_ScenarioState();
-
-        public static PreRoundIdle_ScenarioState Get(ScenarioInstance s) {
-            s.parameters.ui.BeginPreRound();
-            return instance;
-        }
-        public IFSM_State Update(ScenarioInstance s) {
-
-            s.HandleMoveZoomInput();
-            if (InputManager.Start.requested) {
-                return SpawnCreeps_ScenarioState.Get(s);
-            }
-            return null;
-        }
-
     }
 }

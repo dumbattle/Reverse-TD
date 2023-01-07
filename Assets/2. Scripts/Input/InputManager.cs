@@ -8,15 +8,21 @@ namespace Core {
             public static void MoveCamera(Vector2 d) {
                 InputManager.MoveCamera.dir = d;
             }
+
             public static void ZoomCamera(float val) {
                 InputManager.ZoomCamera.val = val;
             }
+
             public static void ButtonDown() {
                 InputManager.ButtonDown.yes = true;
             }
 
             public static void Start() {
                 InputManager.Start.requested = true;
+            }
+
+            public static void Continue() {
+                InputManager.Continue.requested = true;
             }
         }
 
@@ -26,6 +32,7 @@ namespace Core {
             ZoomCamera.val = 0;
             ButtonDown.yes = false;
             Start.requested = false;
+            Continue.requested = false;
         }
 
         // inputs
@@ -48,6 +55,9 @@ namespace Core {
         }
 
         public static class Start {
+            public static bool requested = false;
+        }
+        public static class Continue {
             public static bool requested = false;
         }
     }

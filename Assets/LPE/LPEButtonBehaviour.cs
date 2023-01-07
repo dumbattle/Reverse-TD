@@ -7,8 +7,6 @@ namespace LPE {
         event Action OnDown;
         event Action OnClick;
 
-
-
         void IPointerDownHandler.OnPointerDown(PointerEventData ped) {
             OnDown?.Invoke();
         }

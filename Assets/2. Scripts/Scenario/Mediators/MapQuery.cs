@@ -21,11 +21,11 @@ namespace Core {
 
             if (Random.value < 1f * width / (width + height)) {
                 delta = new Vector2Int(0, 1);
-                maxRange = width;
+                maxRange = height;
             }
             else {
                 delta = new Vector2Int(1, 0);
-                maxRange = height;
+                maxRange = width;
             }
 
             if (Random.value < 0.5f) {
@@ -35,9 +35,11 @@ namespace Core {
                 corner = new Vector2Int(width, height);
                 delta *= -1;
             }
-
-            return corner + delta * (1 + Random.Range(0, maxRange));
+            var result = corner + delta * (1 + Random.Range(0, maxRange));
+            return result;
         }
+
+
         public Vector2 TileToWorld(float x, float y) {
             return new Vector2(x - width / 2f + 0.5f, y - height / 2f + 0.5f);
         }

@@ -34,7 +34,7 @@
                 return null;
             }
 
-            var army = s.creepArmy;
+            var army = s.playerFunctions.GetCreepArmy();
             var squad = army.GetSquad(currentSquad);
             s.creepFunctions.AddCreep(CreepInstance.Get(squad, s.mapQuery.GetRandomSpawn()));
             currentSquadCount++;

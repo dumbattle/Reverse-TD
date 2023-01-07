@@ -27,9 +27,10 @@ namespace Core {
             var d = s.creepPathfinder.GetDirection(this);
             d = s.creepPathfinder.SteerCreep(this, d);
 
-            d = d * (1f / 60f);
+            d = d * (1f / 60f) * definition.speed ;
             direction = d;
             position = s.creepPathfinder.GetUnitMoveDestination(position, d, radius, this);
+
         }
 
         public void Return() {

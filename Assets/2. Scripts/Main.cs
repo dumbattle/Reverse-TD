@@ -9,6 +9,7 @@ public class Main : MonoBehaviour {
     ScenarioInstance s;
     ScenarioController controller;
     void Start() {
+        Application.targetFrameRate = 60;
         s = ScenarioInstance.Get(parameters);
         controller = ScenarioController.Get(s);
     }
