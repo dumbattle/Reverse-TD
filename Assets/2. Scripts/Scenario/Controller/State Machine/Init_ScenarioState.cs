@@ -23,20 +23,23 @@ namespace Core {
             s.playerFunctions.AddMoney(1000);
             // initial towers
             var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
-            s.towerFunctions.AddMainTower(TowerPrefabCache.MainBasic(s, center));
-            s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(-1, -1)));
 
-            s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(2, 2)));
+            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.cannon_1, center);
+            s.towerFunctions.AddStartingGroups(TowerDefinitionCatalog.cannon_1, TowerDefinitionCatalog.wall1);
+            //s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic.GetNewInstance(s, center));
 
+            //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(-2, -2)));
+            //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(3, 3)));
+            //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(-2, 3)));
+            //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(3, -2)));
 
-            s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(-1, 2)));
-            s.towerFunctions.AddTower(TowerPrefabCache.Cannon1(s, center + new Vector2Int(2, -1)));
             s.playerFunctions.GetCreepArmy().Init();
 
             // TODO refactor out
             s.parameters.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
             s.parameters.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
             s.parameters.ui.startButton.SetClickListener(InputManager.Set.Start);
+            s.parameters.ui.preRoundBehaviour.creepButton.SetClickListener(InputManager.Set.PreRoundUI.CreepMenuOpen);
             return PreRoundIdle_ScenarioState.Get(s);
         }
 

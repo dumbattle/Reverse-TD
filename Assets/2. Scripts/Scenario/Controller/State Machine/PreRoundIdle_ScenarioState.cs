@@ -11,13 +11,15 @@
             return instance;
         }
         public IFSM_State Update(ScenarioInstance s) {
-
             s.HandleMoveZoomInput();
             if (InputManager.Start.requested) {
                 return SpawnCreeps_ScenarioState.Get(s);
             }
+
+            if (InputManager.PreRoundUI.creepMenuOpen) {
+                return PreRoundIdle_CreepMenu_ScenarioState.Get(s);
+            }
             return null;
         }
-
     }
 }

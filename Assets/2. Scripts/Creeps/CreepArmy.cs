@@ -3,20 +3,20 @@
 
 namespace Core {
     public class CreepArmy {
-        List<CreepDefinition> squads = new List<CreepDefinition>();
+        List<CreepSquad> squads = new List<CreepSquad>();
         public int count => squads.Count;
 
-
         public void Init() {
-            squads.Add(CreepSelectionUtility.GetInitialCreep());
+            AddNewSquad(CreepSelectionUtility.GetInitialCreep());
         }
 
         public void AddNewSquad(CreepDefinition cdef) {
-            squads.Add(cdef);
+            squads.Add(new CreepSquad(cdef));
         }
 
-        public CreepDefinition GetSquad(int index) {
+        public CreepSquad GetSquad(int index) {
             return squads[index];
         }
     }
+
 }

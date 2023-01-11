@@ -16,7 +16,7 @@ namespace Core {
             result.map = new ScenarioMap(p.width, p.height);
             result.towerManager = new TowerManager(p.width, p.height);
             result.creepManager = new CreepManager(p.width, p.height);
-
+            result.placementManager = new TowerPlacementManager(result, result.towerManager);
 
             result.delaunay = new Delaunay();
             result.delaunay.AddPoint(new Vector2(-5.5f, -0.5f));
@@ -29,7 +29,7 @@ namespace Core {
 
             result.pathfinder.Set(result.delaunay);
             result.mapQuery = new MapQuery(result.map);
-            result.towerFunctions = new TowerFunctions(result, result.towerManager, result.delaunay, result.pathfinder);
+            result.towerFunctions = new TowerFunctions(result, result.towerManager, result.delaunay, result.pathfinder, result.placementManager);
             result.creepFunctions = new CreepFunctions(result, result.creepManager);
             result.creepPathfinder = new CreepPathfinder(result.creepManager, result.towerManager, result.pathfinder);
             result.playerFunctions = new PlayerFunctions(result.parameters, result.player);
@@ -44,6 +44,7 @@ namespace Core {
         PlayerData player = new PlayerData();
 
         TowerManager towerManager;
+        TowerPlacementManager placementManager;
         ScenarioMap map;
         Delaunay delaunay;
         DelaunayPathfinder pathfinder;
@@ -70,17 +71,8 @@ namespace Core {
             delaunay.DrawGizmos(offset);
         }
     }
- 
-    
-    public class RoundManager {
-        public int current = 1;
 
-        public void NextRound() {
-            current++;
-        }
+    public class TowerSet {
 
-        public int GetCurrentRoundMoneyReward() {
-            return 80 + current * 10 + Random.Range(0, 26);
-        }
     }
 }

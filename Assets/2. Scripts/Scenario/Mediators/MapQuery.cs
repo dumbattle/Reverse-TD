@@ -13,7 +13,13 @@ namespace Core {
         public int width => map.width;
         public int height => map.height;
 
-
+        public bool IsInRange(int x, int y) {
+            return
+                x >= 0 &&
+                y >= 0 &&
+                x < width &&
+                y < height;
+        }
         public Vector2Int GetRandomSpawn() {
             Vector2Int corner; ;
             Vector2Int delta;

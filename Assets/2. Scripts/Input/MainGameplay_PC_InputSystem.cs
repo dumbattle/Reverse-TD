@@ -11,6 +11,9 @@ namespace Core {
         
         
         public void GetInput(ScenarioInstance s) {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                InputManager.Set.Cancel();
+            }
             DirectionalKeyboard();
             Mouse(s);
         }

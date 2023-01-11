@@ -36,10 +36,10 @@
 
             var army = s.playerFunctions.GetCreepArmy();
             var squad = army.GetSquad(currentSquad);
-            s.creepFunctions.AddCreep(CreepInstance.Get(squad, s.mapQuery.GetRandomSpawn()));
+            s.creepFunctions.AddCreep(CreepInstance.Get(squad.actualDefinition, s.mapQuery.GetRandomSpawn()));
             currentSquadCount++;
 
-            if (currentSquadCount >= squad.count) {
+            if (currentSquadCount >= (int)(squad.actualDefinition.count)) {
                 currentSquad++;
                 currentSquadCount = 0;
                 if (currentSquad >= army.count) {
@@ -47,7 +47,7 @@
                 }
                 squad = army.GetSquad(currentSquad);
             }
-            timer = squad.spacing;
+            timer = squad.actualDefinition.spacing;
             return null;
         }
     }

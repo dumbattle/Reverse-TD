@@ -36,7 +36,7 @@ namespace Core {
                 
                 
                 if (s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius)) {
-                    s.playerFunctions.AddMoney((10 * c.health.current / c.health.max));
+                    s.playerFunctions.AddMoney(((int)(c.definition.moneyReward) * c.health.current / c.health.max));
                     DestroyCreep(c);
                 }
             }

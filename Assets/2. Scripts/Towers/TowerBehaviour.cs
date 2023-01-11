@@ -8,8 +8,9 @@ namespace Core {
         Vector2Int tr;
         RectangleShape shape;
         public Vector2 position => shape.position;
+        public int Size => size;
 
-        
+
         public void Init(ScenarioInstance s, Vector2Int bl) {
             this.bl = bl;
             tr = bl + new Vector2Int(size - 1, size - 1);

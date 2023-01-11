@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Core {
+
     public class ProjectileTower : TowerBehaviour {
         [SerializeField] Transform rotationPivot;
         float atkDelay = 0.25f;

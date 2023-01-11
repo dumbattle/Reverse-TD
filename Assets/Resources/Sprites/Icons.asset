@@ -15,5 +15,15 @@ MonoBehaviour:
   data:
     m_keys:
     - Money Reward
+    - Creep +HP
+    - Creep +Money
+    - Creep +Speed
+    - Creep +Count
+    - Green Plus
     m_values:
     - {fileID: 2130535880278150251, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -8179040606652740800, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -6931339683150358059, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 3220665290143086019, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 3434086634727231013, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 2514988542215765323, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}

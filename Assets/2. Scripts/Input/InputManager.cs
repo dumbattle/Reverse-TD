@@ -24,6 +24,15 @@ namespace Core {
             public static void Continue() {
                 InputManager.Continue.requested = true;
             }
+            public static void Cancel() {
+                InputManager.Cancel.requested = true;
+            }
+
+            public static class PreRoundUI {
+                public static void CreepMenuOpen() {
+                    InputManager.PreRoundUI.creepMenuOpen = true;
+                }
+            }
         }
 
         // clear
@@ -33,6 +42,8 @@ namespace Core {
             ButtonDown.yes = false;
             Start.requested = false;
             Continue.requested = false;
+            Cancel.requested = false;
+            PreRoundUI.creepMenuOpen= false;
         }
 
         // inputs
@@ -59,6 +70,13 @@ namespace Core {
         }
         public static class Continue {
             public static bool requested = false;
+        }
+        public static class Cancel {
+            public static bool requested = false;
+        }
+
+        public static class PreRoundUI {
+            public static bool creepMenuOpen;
         }
     }
 }
