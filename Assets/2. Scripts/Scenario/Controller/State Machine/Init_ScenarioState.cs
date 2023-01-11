@@ -19,7 +19,6 @@ namespace Core {
         //******************************************************************************
 
         public IFSM_State Update(ScenarioInstance s) {
-            BuildMap(s);
             s.playerFunctions.AddMoney(1000);
             // initial towers
             var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
@@ -32,6 +31,7 @@ namespace Core {
             //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(3, 3)));
             //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(-2, 3)));
             //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(3, -2)));
+            BuildMap(s);
 
             s.playerFunctions.GetCreepArmy().Init();
 
@@ -55,6 +55,7 @@ namespace Core {
                     t.transform.position = s.mapQuery.TileToWorld(x, y);
                 }
             }
+
         }
     }
 }

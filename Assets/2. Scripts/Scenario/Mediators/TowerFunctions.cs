@@ -7,19 +7,15 @@ namespace Core {
     public class TowerFunctions {
         TowerManager towerManager;
         TowerPlacementManager placementManager;
-        Delaunay delaunay;
-        DelaunayPathfinder pathfinder;
         ScenarioInstance s;
 
 
         CircleShape cachedCircle = new CircleShape(1);
 
 
-        public TowerFunctions(ScenarioInstance s, TowerManager towerManager, Delaunay delaunay, DelaunayPathfinder pathfinder, TowerPlacementManager placementManager) {
+        public TowerFunctions(ScenarioInstance s, TowerManager towerManager, TowerPlacementManager placementManager) {
             this.towerManager = towerManager ?? throw new ArgumentNullException(nameof(towerManager));
-            this.delaunay = delaunay ?? throw new ArgumentNullException(nameof(delaunay));
             this.s = s;
-            this.pathfinder = pathfinder;
             this.placementManager = placementManager;
         }
 
@@ -29,6 +25,7 @@ namespace Core {
                 return;
             }
             AddTower(t);
+            s.mapQuery.CalculateTileDistances();
         }
         public void AddStartingGroups(TowerDefinition tower, TowerDefinition wall) {
             int area = s.mapQuery.width * s.mapQuery.height;
@@ -51,6 +48,7 @@ namespace Core {
                     AddTower(t);
                 }
             }
+            s.mapQuery.CalculateTileDistances();
         }
         public void AddMainTower(TowerDefinition main, TowerDefinition startingSupport, Vector2Int bl) {
             var mainTower = main.GetNewInstance(s, bl);
@@ -72,34 +70,20 @@ namespace Core {
             placementManager.StartNewGroup(t2, false);
             placementManager.StartNewGroup(t3, false);
             placementManager.StartNewGroup(t4, false);
+            s.mapQuery.CalculateTileDistances();
         }
-        
+
         void AddMainTower(ITower t) {
-            AddTower_Helper(t);
+            AddTower(t);
             towerManager.target = t;
 
             Vector2Int bl = t.GetBottomLeft();
             Vector2Int tr = t.GetTopRight();
             towerManager.targetLocation = (Vector2)(bl + tr) / 2f;
+
         }
-        
+
         void AddTower(ITower t) {
-            AddTower_Helper(t);
-            // add to triangulation
-            var verts = t.GetShape().Vertices();
-            for (int i = 1; i < verts.Length; i++) {
-                delaunay.AddConstraint(verts[i - 1], verts[i], 0);
-            }
-            delaunay.AddConstraint(verts[0], verts[verts.Length - 1], 0);
-
-            // clear pathfinding cache
-            pathfinder.ClearCache();
-
-            // add to grid
-            towerManager.grid.Add(t, t.GetShape().AABB());
-
-        }
-        void AddTower_Helper(ITower t) {
             Vector2Int bl = t.GetBottomLeft();
             Vector2Int tr = t.GetTopRight();
 

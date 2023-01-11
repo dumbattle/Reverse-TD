@@ -36,7 +36,7 @@
 
             var army = s.playerFunctions.GetCreepArmy();
             var squad = army.GetSquad(currentSquad);
-            s.creepFunctions.AddCreep(CreepInstance.Get(squad.actualDefinition, s.mapQuery.GetRandomSpawn()));
+            s.creepFunctions.AddCreep(CreepInstance.Get(s, squad.actualDefinition, s.mapQuery.GetRandomCreepSpawn()));
             currentSquadCount++;
 
             if (currentSquadCount >= (int)(squad.actualDefinition.count)) {

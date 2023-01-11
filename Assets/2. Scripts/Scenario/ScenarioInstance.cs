@@ -18,20 +18,10 @@ namespace Core {
             result.creepManager = new CreepManager(p.width, p.height);
             result.placementManager = new TowerPlacementManager(result, result.towerManager);
 
-            result.delaunay = new Delaunay();
-            result.delaunay.AddPoint(new Vector2(-5.5f, -0.5f));
-            result.delaunay.AddPoint(new Vector2(p.width + 5.5f, -5.5f));
-            result.delaunay.AddPoint(new Vector2(-5.5f, p.height + 5.5f));
-            result.delaunay.AddPoint(new Vector2(p.width + 5.5f, p.height + 5.5f));
-            result.pathfinder = new DelaunayPathfinder();
 
-
-
-            result.pathfinder.Set(result.delaunay);
-            result.mapQuery = new MapQuery(result.map);
-            result.towerFunctions = new TowerFunctions(result, result.towerManager, result.delaunay, result.pathfinder, result.placementManager);
+            result.mapQuery = new MapQuery(result.map, result.towerManager);
+            result.towerFunctions = new TowerFunctions(result, result.towerManager, result.placementManager);
             result.creepFunctions = new CreepFunctions(result, result.creepManager);
-            result.creepPathfinder = new CreepPathfinder(result.creepManager, result.towerManager, result.pathfinder);
             result.playerFunctions = new PlayerFunctions(result.parameters, result.player);
             return result;
         }
@@ -46,8 +36,6 @@ namespace Core {
         TowerManager towerManager;
         TowerPlacementManager placementManager;
         ScenarioMap map;
-        Delaunay delaunay;
-        DelaunayPathfinder pathfinder;
         CreepManager creepManager;
 
         //******************************************************************************
@@ -57,7 +45,6 @@ namespace Core {
         public MapQuery mapQuery;
         public TowerFunctions towerFunctions;
         public CreepFunctions creepFunctions;
-        public CreepPathfinder creepPathfinder;
         public PlayerFunctions playerFunctions;
         public RoundManager roundManager = new RoundManager();
 
@@ -68,7 +55,6 @@ namespace Core {
         public void DrawGizmos() {
             var offset = mapQuery.TileToWorld(0, 0);
             Gizmos.color = Color.blue;
-            delaunay.DrawGizmos(offset);
         }
     }
 

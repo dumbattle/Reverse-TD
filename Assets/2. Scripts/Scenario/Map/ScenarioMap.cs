@@ -2,7 +2,7 @@
 
 namespace Core {
     public class ScenarioMap {
-        Tile[,] tiles;
+        public Tile[,] tiles;
         
         public int width => tiles.GetLength(0);
         public int height => tiles.GetLength(1);
@@ -13,6 +13,7 @@ namespace Core {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     tiles[x, y] = new Tile();
+                    tiles[x, y].distFromTarget = width *height;
                 }
             }
         }
