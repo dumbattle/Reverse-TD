@@ -2,6 +2,8 @@
 using UnityEngine;
 using System;
 using LPE.Shape2D;
+using System.Collections.Generic;
+
 
 namespace Core {
     public class TowerFunctions {
@@ -11,7 +13,7 @@ namespace Core {
 
 
         CircleShape cachedCircle = new CircleShape(1);
-
+        List<UpgradeOption> upgradeCache = new List<UpgradeOption>();
 
         public TowerFunctions(ScenarioInstance s, TowerManager towerManager, TowerPlacementManager placementManager) {
             this.towerManager = towerManager ?? throw new ArgumentNullException(nameof(towerManager));
@@ -27,6 +29,7 @@ namespace Core {
             AddTower(t);
             s.mapQuery.CalculateTileDistances();
         }
+      
         public void AddStartingGroups(TowerDefinition tower, TowerDefinition wall) {
             int area = s.mapQuery.width * s.mapQuery.height;
             int targetCount = area / 50;
@@ -50,6 +53,7 @@ namespace Core {
             }
             s.mapQuery.CalculateTileDistances();
         }
+
         public void AddMainTower(TowerDefinition main, TowerDefinition startingSupport, Vector2Int bl) {
             var mainTower = main.GetNewInstance(s, bl);
           
@@ -104,6 +108,11 @@ namespace Core {
                 t.GameUpdate(s);
             }
         }
+        public void EndRound() {
+            foreach (var t in towerManager.allTowers) {
+                t.EndRound();
+            }
+        }
 
         public bool IsCollidingWithMainTower(Vector2 pos, float radius) {
             cachedCircle.radius = radius;
@@ -111,6 +120,49 @@ namespace Core {
 
             var mainShape = towerManager.target.GetShape();
             return mainShape.CheckCollision(cachedCircle);
+        }
+    
+        public void UpgradeTowers() {
+            while (true) {
+                // get options
+                upgradeCache.Clear();
+
+                foreach (var t in towerManager.allTowers) {
+                    if (t == towerManager.target) {
+                        continue;
+                    }
+                    t.GetUpgradeOptions(upgradeCache);
+                }
+
+                // select options
+                TowerUpgradeDetails upgrade = null;
+                float r = 0;
+                foreach (var opt in upgradeCache) {
+                    if (!opt.upgrade.UpgradeAvailable()) {
+                        continue;
+                    }
+                    if (opt.upgrade.CurrentUpgradeCost() > s.towerController.money) {
+                        continue;
+                    }
+                    var w = opt.rawWeight * opt.upgrade.CurrentUpgradeCost();
+                    r += w;
+                    if (UnityEngine.Random.value < w / r) {
+                        upgrade = opt.upgrade;
+                    }
+                }
+
+                if (upgrade != null) {
+                    s.towerController.money -= upgrade.CurrentUpgradeCost();
+                    upgrade.IncrmentLevel();
+                }
+                else {
+                    break;
+                }
+            }
+
+            foreach (var t in towerManager.allTowers) {
+                t.Refresh();
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Core {
         //******************************************************************************
 
         public IFSM_State Update(ScenarioInstance s) {
-            s.playerFunctions.AddMoney(1000);
+            s.playerFunctions.AddMoney(100);
             // initial towers
             var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
 

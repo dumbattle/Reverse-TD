@@ -20,15 +20,19 @@
 
         public IFSM_State Update(ScenarioInstance s) {
             if (mode == 0) {
+                s.towerController.money += 100 * s.roundManager.current;
+                s.towerFunctions.UpgradeTowers();
                 // unlock new creep
-                //var newCreep = CreepSelectionUtility.GetRandomNewCreep();
-                //s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
-                //s.parameters.ui.endRoundUnlockBehaviour.AddEntry(newCreep.sprite, newCreep.name);
+                var newCreep = CreepSelectionUtility.GetRandomNewCreep();
+                s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
+                s.parameters.ui.endRoundUnlockBehaviour.AddEntry(newCreep.sprite, newCreep.name);
 
                 // unlock new item
-                var newItem = PlayerItemUtility.GetRandomItem(s.roundManager.current);
-                s.playerFunctions.AddItem(newItem);
-                s.parameters.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
+                for (int i = 0; i < 2; i++) {
+                    var newItem = PlayerItemUtility.GetRandomItem(s.roundManager.current);
+                    s.playerFunctions.AddItem(newItem);
+                    s.parameters.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
+                }
 
                 // money reward
                 var m = s.roundManager.GetCurrentRoundMoneyReward();
@@ -68,13 +72,10 @@
                 s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
                 s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
                 s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.cannon_1);
+                if (s.roundManager.current % 3 == 0) {
+                    s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.cannon_1);
+
+                }
 
                 s.roundManager.NextRound();
                 // go to pre round

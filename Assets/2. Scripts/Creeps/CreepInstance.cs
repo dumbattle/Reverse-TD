@@ -15,7 +15,7 @@ namespace Core {
             result.direction = new Vector2(0, 0);
 
             result.tileDist = 0;
-            result.offset = Random.insideUnitCircle * (1 - def.radius * 2);
+            result.offset = Random.insideUnitCircle * (.5f - def.radius);
             result.tileA = pos + result.offset;
             result.destTile = GetDestinationTile(s, pos);
             result.tileB = result.destTile + result.offset;

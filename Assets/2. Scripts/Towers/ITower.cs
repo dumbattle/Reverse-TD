@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using LPE.Shape2D;
+using System.Collections.Generic;
 
 namespace Core {
     public interface ITower {
@@ -8,5 +9,10 @@ namespace Core {
         Vector2Int GetTopRight();
         void GameUpdate(ScenarioInstance s);
         Shape2D GetShape();
+        void EndRound();
+        void GetUpgradeOptions(List<UpgradeOption> results);
+
+        void Refresh();
     }
+
 }

@@ -38,9 +38,9 @@ namespace Core {
                 result.name = "Swarmly";
                 result.radius = Random.Range(0.275f, 0.325f);
                 result.speed = Random.Range(1.8f, 2.2f);
-                result.hp = Random.Range(85, 11500);
+                result.hp = Random.Range(85, 115);
 
-                result.count = Random.Range(10, 15);
+                result.count = Random.Range(15, 20);
                 result.spacing = 5f / result.count;
                 result.sprite = CreepResourceCache.circleSpriteGreen;
                 result.moneyReward = 100 / result.count;

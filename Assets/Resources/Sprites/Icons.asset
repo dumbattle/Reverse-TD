@@ -20,6 +20,18 @@ MonoBehaviour:
     - Creep +Speed
     - Creep +Count
     - Green Plus
+    - Rank 1
+    - Rank 2
+    - Rank 3
+    - Rank 4
+    - Rank 5
+    - Rank 6
+    - Rank 7
+    - Rank 8
+    - Rank 9
+    - Rank 10
+    - Rank 11
+    - Rank 12
     m_values:
     - {fileID: 2130535880278150251, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -8179040606652740800, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
@@ -27,3 +39,15 @@ MonoBehaviour:
     - {fileID: 3220665290143086019, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: 3434086634727231013, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: 2514988542215765323, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 3052315535316524931, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -1772244045117237821, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 5681967267464321869, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -2319476694228375547, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 9151725625850188775, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -7539582390867499684, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -3862903190024489479, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -168777754515822616, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -8930018218856646630, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -7058561907366660472, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -9205221584584489300, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 1341854236672496375, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}

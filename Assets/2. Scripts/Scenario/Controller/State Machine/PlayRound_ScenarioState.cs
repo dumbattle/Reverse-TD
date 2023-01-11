@@ -8,8 +8,15 @@
         static PlayRound_ScenarioState instance = new PlayRound_ScenarioState();
 
         public static PlayRound_ScenarioState Get() {
+            instance.bufferFrames = 100;
             return instance;
         }
+
+        //******************************************************************************
+        // State
+        //******************************************************************************
+
+        int bufferFrames = 0;
 
         //******************************************************************************
         // IFSM_State
@@ -19,7 +26,11 @@
             s.GamplayUpdate();
 
             if (s.creepFunctions.CreepCount() <= 0) {
-                return EndRound_ScenarioState.Get();
+                bufferFrames--;
+                if (bufferFrames <= 0) {
+                    s.towerFunctions.EndRound();
+                    return EndRound_ScenarioState.Get();
+                }
             }
             return null;
         }

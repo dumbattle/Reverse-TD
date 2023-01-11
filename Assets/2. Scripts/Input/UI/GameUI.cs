@@ -9,12 +9,13 @@ namespace Core {
         public EndRoundUnlockBehaviour endRoundUnlockBehaviour;
         public TextMeshProUGUI moneyText;
         public PreRoundUIBehaviour preRoundBehaviour;
-
+        public Transform healthBarPivot;
 
         private void Awake() {
             startButton.gameObject.SetActive(false);
             preRoundBehaviour.Close();
         }
+
 
         public void BeginRound() {
             startButton.gameObject.SetActive(false);

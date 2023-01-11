@@ -8,16 +8,17 @@ namespace Core {
     public class CreepFunctions {
         ScenarioInstance s;
         CreepManager creepManager;
-
+        TowerController towerController;
 
         Dictionary<CreepInstance, CreepBehaviour> creep2behaviour = new Dictionary<CreepInstance, CreepBehaviour>();
 
         CircleShape cachedCircleShape = new CircleShape(1);
         List<CreepInstance> creepResults = new List<CreepInstance>();
 
-        public CreepFunctions(ScenarioInstance s, CreepManager creepManager) {
+        public CreepFunctions(ScenarioInstance s, CreepManager creepManager, TowerController towerController) {
             this.s = s;
             this.creepManager = creepManager ?? throw new ArgumentNullException(nameof(creepManager));
+            this.towerController = towerController;
         }
 
         public void AddCreep(CreepInstance c) {
@@ -37,6 +38,9 @@ namespace Core {
                 
                 if (s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius)) {
                     s.playerFunctions.AddMoney(((int)(c.definition.moneyReward) * c.health.current / c.health.max));
+
+                    towerController.health.DealDamage(c.health.current);
+                    s.parameters.ui.healthBarPivot.transform.localScale = new Vector3((float)towerController.health.current / towerController.health.max, 1, 1);
                     DestroyCreep(c);
                 }
             }
