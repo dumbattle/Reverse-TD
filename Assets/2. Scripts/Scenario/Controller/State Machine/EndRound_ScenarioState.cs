@@ -20,7 +20,7 @@
 
         public IFSM_State Update(ScenarioInstance s) {
             if (mode == 0) {
-                s.towerController.money += 100 * s.roundManager.current;
+                s.towerController.money += 100 + 100 * s.roundManager.current;
                 s.towerFunctions.UpgradeTowers();
                 // unlock new creep
                 var newCreep = CreepSelectionUtility.GetRandomNewCreep();
@@ -69,15 +69,13 @@
             }
             else if (mode == 4) {
                 // more towers
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-                if (s.roundManager.current % 3 == 0) {
-                    s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.cannon_1);
+                for (int i = 0; i < s.mapQuery.width * s.mapQuery.height / 40f; i++) {
+                    s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
 
                 }
 
                 s.roundManager.NextRound();
+
                 // go to pre round
                 return PreRoundIdle_ScenarioState.Get(s);
             }

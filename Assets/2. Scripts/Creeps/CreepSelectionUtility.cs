@@ -70,7 +70,7 @@ namespace Core {
                 result.name = "Fastly Swarmy";
 
                 result.radius *= .9f;
-                result.speed *= 2;
+                result.speed *= 1.75f;
                 result.hp /= 2;
 
                 result.sprite = CreepResourceCache.circleSpriteYellow;

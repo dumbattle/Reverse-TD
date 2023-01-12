@@ -6,6 +6,7 @@ namespace Core {
     public class TowerController {
         public Health health = new Health(100_000);
         public int money = 0;
+        public int towerPurchases = 0;
     }
 
     public class ScenarioInstance {

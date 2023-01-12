@@ -698,7 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8608640813090152027}
   - component: {fileID: 8608640813090152026}
-  - component: {fileID: 9003878032850889224}
+  - component: {fileID: 2168459530744206277}
   m_Layer: 0
   m_Name: Main Tower
   m_TagString: Untagged
@@ -738,7 +738,7 @@ SortingGroup:
   m_SortingLayerID: -370809371
   m_SortingLayer: 1
   m_SortingOrder: 0
---- !u!114 &9003878032850889224
+--- !u!114 &2168459530744206277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,18 +747,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8608640813090152028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 686d74505338bbc4497dc8421d483f9f, type: 3}
+  m_Script: {fileID: 11500000, guid: ff6cc142d3e6078479b05a8fa7cd3a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rankIcon: {fileID: 6911177397148460145}
   size: 2
   projectileSrc: {fileID: 7745094495245500203, guid: a08f482a6486efb42a200aee084beabd, type: 3}
   rotationPivot: {fileID: 8608640812095108250}
-  atkDelay: 0.05
-  damage: 3
-  range: 5
-  projectileSpeed: 15
   projectileRadius: 0.1
-  dmgStep: 1
-  rangeScale: 1.1
-  atkDelayScale: 0.875

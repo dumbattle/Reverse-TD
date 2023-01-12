@@ -3,7 +3,6 @@
 
 namespace LPE.Shape2D {
     class CastedShape : Shape2D {
-
         Shape2D source;
         Vector2 dir;
 
@@ -31,7 +30,7 @@ namespace LPE.Shape2D {
         }
 
         //*****************************************************************************************************
-        // Abstract
+        // override
         //*****************************************************************************************************
 
         public override Vector2 Project(Vector2 line) {

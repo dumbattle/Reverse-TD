@@ -5,43 +5,27 @@ using System.Collections.Generic;
 
 
 namespace Core {
-    public class ProjectileTower : TowerBehaviour {
-        public ProjectileBehaviour projectileSrc;
+
+    public abstract class ProjectileTower<T> : TowerBehaviour where T : ProjectileBehaviour {
+        public T projectileSrc;
 
         public Transform rotationPivot;
-        [Header("Base stats")]
-        public float atkDelay = 0.25f;
-        public int damage = 15;
-        public float range = 5;
-        public float projectileSpeed = 1;
-        public float projectileRadius = 1;
-
-        [Header("Upgrades")]
-        public int dmgStep = 5;
-        public float rangeScale = 1.25f;
-        public float atkDelayScale = 0.875f;
+ 
         
         float atkTimer = 0;
 
-        ObjectPool<ProjectileBehaviour> projectilePool;
-        List<ProjectileBehaviour> activeProjectiles = new List<ProjectileBehaviour>();
+        ObjectPool<T> projectilePool;
+        List<T> activeProjectiles = new List<T>();
+        public float projectileRadius;
 
-
-
-
-        TowerUpgradeDetails dmgUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.DAMAGE, 25, 50, 100, 175, 275);
-        TowerUpgradeDetails spdUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.SPEED, 45, 100, 210, 375, 595);
-        TowerUpgradeDetails rangeUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.RANGE, 30, 60, 120, 210, 340);
-        
-        
         private void Awake() {
             projectileSrc.gameObject.SetActive(false);
-            projectilePool = new ObjectPool<ProjectileBehaviour>(() => Instantiate(projectileSrc));
+            projectilePool = new ObjectPool<T>(() => Instantiate(projectileSrc));
         }
 
         public override void GameUpdate(ScenarioInstance s) {
-            for (int i = activeProjectiles.Count - 1; i >=0; i--) {
-                ProjectileBehaviour proj = activeProjectiles[i];
+            for (int i = activeProjectiles.Count - 1; i >= 0; i--) {
+                T proj = activeProjectiles[i];
                 proj.GameUpdate(s);
                 if (!proj.Active()) {
                     activeProjectiles.RemoveAt(i);
@@ -60,48 +44,57 @@ namespace Core {
             }
 
             // scan for creeps
-            float r = 1;
-            for (int i = 0; i < rangeUpgrade.currentLevel; i++) {
-                r *= rangeScale;
-            }
-            var target = s.creepFunctions.GetNearestCreep(position, r * range);
+            var range = GetRange();
+            var target = s.creepFunctions.GetNearestCreep(position, range);
             if (target == null) {
                 return;
             }
-
-            var delay = atkDelay;
-            for (int i = 0; i < spdUpgrade.currentLevel; i++) {
-                delay *= atkDelayScale;
+            // make sure is in range
+            var dist2 = (target.position - position).sqrMagnitude;
+            if (dist2 > (range + target.radius) * (range + target.radius)) {
+                return;
             }
-            atkTimer += delay;
+
+            atkTimer += GetAtkDelay();
 
             var dir = target.position - position;
             rotationPivot.up = dir;
 
             var p = projectilePool.Get();
-            p.Init(s, position, dir, projectileSpeed / r, range * 2, projectileRadius, damage + dmgStep * dmgUpgrade.currentLevel);
+            p.Init(
+                s,
+                position,
+                dir,
+                GetProjectileSpeed(),
+                range * 1.2f,
+                projectileRadius,
+                GetDamage());
+            SetProjectile(p);
             activeProjectiles.Add(p);
-
         }
 
         public override void EndRound() {
             for (int i = activeProjectiles.Count - 1; i >= 0; i--) {
-                ProjectileBehaviour proj = activeProjectiles[i];
+                T proj = activeProjectiles[i];
                 proj.gameObject.SetActive(false);
                 projectilePool.Return(proj);
             }
             activeProjectiles.Clear();
         }
 
-        public override void GetUpgradeOptions(List<UpgradeOption> results) {
-            //results.Add(new UpgradeOption(dmgUpgrade, 1));
-            results.Add(new UpgradeOption(spdUpgrade, 1));
-            //results.Add(new UpgradeOption(rangeUpgrade, 1));
-        }
+        public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) { }
 
+        //******************************************************************************************************
+        // Abstract
+        //******************************************************************************************************
 
-        protected override int GetTotalUpgradeLevel() {
-            return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel;
-        }
+        protected abstract int GetDamage();
+        protected abstract float GetAtkDelay();
+
+        protected abstract float GetRange();
+
+        protected abstract float GetProjectileSpeed();
+        
+        protected virtual void SetProjectile(T proj) {}
     }
 }

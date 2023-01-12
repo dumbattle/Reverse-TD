@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 
 namespace Core {
-
-
-    public class TestProjectileBehaviour : ProjectileBehaviour {
+    public class BombProjectileBehaviour : ProjectileBehaviour {
         public SpriteRenderer sr;
 
-        Vector2 start; 
-        Vector2 direction; 
-        float speed; 
+        Vector2 start;
+        Vector2 direction;
+        float speed;
         float maxDist;
         float radius;
         int damage;
@@ -17,6 +15,9 @@ namespace Core {
         bool active;
         bool hit;
 
+
+        float splashRadius;
+        float splashScale; // damage scale at edge
 
         public override void Init(ScenarioInstance s, Vector2 start, Vector2 direction, float speed, float maxDist, float radius, int damage) {
             this.start = start;

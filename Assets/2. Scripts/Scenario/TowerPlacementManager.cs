@@ -112,6 +112,16 @@ namespace Core {
             return result;
         }
 
+
+        public void ReplaceTower(ITower old, ITower replaceWith) {
+            foreach (var g in _groups) {
+                if (g.members.Contains(old)) {
+                    g.members.Remove(old);
+                    g.members.Add(replaceWith);
+                }
+            }
+        }
+
         //***************************************************************************************************
         // Helpers
         //***************************************************************************************************
@@ -190,7 +200,7 @@ namespace Core {
         class Group {
             public bool main;
 
-            public List<ITower> members = new List<ITower>();
+            public HashSet<ITower> members = new HashSet<ITower>();
 
             /// <summary>
             /// Includes all tiles occupied by towers as well a 1 tile buffer

@@ -23,8 +23,8 @@ namespace Core {
             // initial towers
             var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
 
-            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.cannon_1, center);
-            s.towerFunctions.AddStartingGroups(TowerDefinitionCatalog.cannon_1, TowerDefinitionCatalog.wall1);
+            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.gun_1, center);
+            s.towerFunctions.AddStartingGroups(TowerDefinitionCatalog.wall1);
             //s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic.GetNewInstance(s, center));
 
             //s.towerFunctions.AddTower(TowerDefinitionCatalog.cannon_1.GetNewInstance(s, center + new Vector2Int(-2, -2)));

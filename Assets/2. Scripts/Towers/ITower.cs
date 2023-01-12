@@ -9,10 +9,15 @@ namespace Core {
         Vector2Int GetTopRight();
         void GameUpdate(ScenarioInstance s);
         Shape2D GetShape();
+
         void EndRound();
-        void GetUpgradeOptions(List<UpgradeOption> results);
-
+        void GetGeneralUpgradeOptions(List<UpgradeOption> results);
+        void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results);
         void Refresh();
-    }
 
+        void Destroy();
+        List<TowerUpgradeDetails> GetGeneralUpgrades();
+        void TransferGeneralUpgrade(TowerUpgradeDetails d);
+        void OnBeforeUpgrade(ScenarioInstance s);
+    }
 }

@@ -13,13 +13,16 @@ namespace Core {
 
 
         CircleShape cachedCircle = new CircleShape(1);
-        List<UpgradeOption> upgradeCache = new List<UpgradeOption>();
+        List<UpgradeOption> generalUpgradeCache = new List<UpgradeOption>();
+        List<SpecializationUpgradeOptions> specializationUpgradeCache = new List<SpecializationUpgradeOptions>();
 
         public TowerFunctions(ScenarioInstance s, TowerManager towerManager, TowerPlacementManager placementManager) {
             this.towerManager = towerManager ?? throw new ArgumentNullException(nameof(towerManager));
             this.s = s;
             this.placementManager = placementManager;
         }
+
+        public int numTowers => towerManager.allTowers.Count;
 
         public void AddTowerRandomPlacement(TowerDefinition towerDef) {
             var t = placementManager.SpawnTowerRandom(towerDef);
@@ -30,7 +33,7 @@ namespace Core {
             s.mapQuery.CalculateTileDistances();
         }
       
-        public void AddStartingGroups(TowerDefinition tower, TowerDefinition wall) {
+        public void AddStartingGroups(TowerDefinition wall) {
             int area = s.mapQuery.width * s.mapQuery.height;
             int targetCount = area / 50;
 
@@ -40,7 +43,7 @@ namespace Core {
                     continue;
                 }
 
-                var t = tower.GetNewInstance(s, tile);
+                var t = wall.GetNewInstance(s, tile);
                 AddTower(t);
                 placementManager.StartNewGroup(t, false);
             }
@@ -51,6 +54,7 @@ namespace Core {
                     AddTower(t);
                 }
             }
+       
             s.mapQuery.CalculateTileDistances();
         }
 
@@ -124,45 +128,131 @@ namespace Core {
     
         public void UpgradeTowers() {
             while (true) {
+                var up = GetUpgrade();
+                var spec = GetSpecialization();
+                
+                bool doUp = up.upgrade != null;
+                bool doSpec = spec.spec.current != null;
+
+                if (doUp && doSpec) {
+                    if (UnityEngine.Random.value < (up.totalWeight / (up.totalWeight + spec.totalWeight))) {
+                        doSpec = false;
+                    }
+                    else {
+                        doUp = false;
+                    }
+                }
+
+                if (doUp) {
+                    s.towerController.money -= up.upgrade.CurrentUpgradeCost();
+                    up.upgrade.IncrmentLevel();
+                }
+                else if (doSpec) {
+                    ReplaceTower(spec.spec.current, spec.spec.upgradeResult);
+                    s.towerController.money -= spec.spec.cost;
+                }
+                else {
+                    break;
+                }
+
+            }
+
+            foreach (var t in towerManager.allTowers) {
+                t.Refresh();
+            }
+
+            (TowerUpgradeDetails upgrade, float totalWeight) GetUpgrade() {
                 // get options
-                upgradeCache.Clear();
+                generalUpgradeCache.Clear();
 
                 foreach (var t in towerManager.allTowers) {
                     if (t == towerManager.target) {
                         continue;
                     }
-                    t.GetUpgradeOptions(upgradeCache);
+                    t.GetGeneralUpgradeOptions(generalUpgradeCache);
                 }
 
                 // select options
                 TowerUpgradeDetails upgrade = null;
                 float r = 0;
-                foreach (var opt in upgradeCache) {
+                foreach (var opt in generalUpgradeCache) {
                     if (!opt.upgrade.UpgradeAvailable()) {
                         continue;
                     }
                     if (opt.upgrade.CurrentUpgradeCost() > s.towerController.money) {
                         continue;
                     }
-                    var w = opt.rawWeight * opt.upgrade.CurrentUpgradeCost();
+                    var w = 1;
                     r += w;
                     if (UnityEngine.Random.value < w / r) {
                         upgrade = opt.upgrade;
                     }
                 }
+                return (upgrade, r);
+            }
+        
+            (SpecializationUpgradeOptions spec, float totalWeight) GetSpecialization() {
+                SpecializationUpgradeOptions result = new SpecializationUpgradeOptions();
+                float r = 0;
 
-                if (upgrade != null) {
-                    s.towerController.money -= upgrade.CurrentUpgradeCost();
-                    upgrade.IncrmentLevel();
+                // get options
+                specializationUpgradeCache.Clear();
+                foreach (var t in towerManager.allTowers) {
+                    if (t == towerManager.target) {
+                        continue;
+                    }
+                    t.GetSpecializationUpgradeOptions(s, specializationUpgradeCache);
                 }
-                else {
-                    break;
+
+                // select option
+                foreach (var opt in specializationUpgradeCache) {
+                    if (opt.cost > s.towerController.money) {
+                        continue;
+                    }
+                    
+                    var w =  opt.weight;
+                    r += w;
+
+                    if (UnityEngine.Random.value < w / r) {
+                        result = opt;
+                    }
+                }
+                return (result, r);
+            }
+        }
+        
+        //***********************************************************************************************************************************
+        // Helpers
+        //***********************************************************************************************************************************
+
+        void ReplaceTower(ITower t, TowerDefinition upgrade) {
+            t.OnBeforeUpgrade(s);
+            var newTower = upgrade.GetNewInstance(s, t.GetBottomLeft());
+            
+            Vector2Int bl = t.GetBottomLeft();
+            Vector2Int tr = t.GetTopRight();
+
+            // replace in grid 
+            for (int x = bl.x; x <= tr.x; x++) {
+                for (int y = bl.y; y <= tr.y; y++) {
+                    towerManager.towers[x, y] = newTower;
                 }
             }
 
-            foreach (var t in towerManager.allTowers) {
-                t.Refresh();
+            // replace in list
+            towerManager.allTowers.Remove(t);
+            towerManager.allTowers.Add(newTower);
+
+            // replace in placement
+            placementManager.ReplaceTower(t, newTower);
+
+            // transfer upgrades
+            foreach (var up in t.GetGeneralUpgrades()) {
+                newTower.TransferGeneralUpgrade(up);
             }
+
+            // destroy old
+            t.Destroy();
         }
     }
 }
