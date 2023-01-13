@@ -18,7 +18,6 @@ namespace Core {
         //***************************************************************************************************
         // public
         //***************************************************************************************************
-
         public void StartNewGroup(ITower tower, bool main = false) {
             var newGroup = new Group();
             newGroup.main = main;
@@ -72,7 +71,7 @@ namespace Core {
                     g.expandOptions.RemoveAt(i);
                     continue;
                 }
-                float w = r + 1;
+                float w = 1;
                 r += w;
 
                 if (Random.value < w / r) {
@@ -91,12 +90,40 @@ namespace Core {
 
             return t;
         }
+        public ITower SpawnTowerDisconected(TowerDefinition d) {
+            if (d.size > 1) {
+                throw new System.NotImplementedException("Cannot spawn tower with size greater than 1");
+            }
+            // select group
+            Group g = _groups[0];
+
+            foreach (var group in _groups) {
+                if (group.main) {
+                    continue;
+                }
+                if (group.members.Count < g.members.Count) {
+                    g = group;
+                }
+            }
+
+            var tile = GetRandomGroupSpawnLocation();
+            if (tile == new Vector2Int(-1,-1)) {
+                return null;
+            }
+
+            var t = d.GetNewInstance(s, tile);
+
+            // add to group
+            AddTowerToGroup(t, g);
+
+            return t;
+        }
 
         /// <summary>
         /// TODO - Currently O(n^2), optimize?
         /// </summary>
         public Vector2Int GetRandomGroupSpawnLocation() {
-            Vector2Int result = new Vector2Int();
+            Vector2Int result = new Vector2Int(-1, -1);
             int r = 0;
 
             for (int x = 1; x < s.mapQuery.width - 1; x++) {

@@ -8,10 +8,13 @@ namespace Core {
 
         List<CreepAttatchment> allModifiers = new List<CreepAttatchment>();
         List<CreepAttatchment> level1Modifier = new List<CreepAttatchment>();
+        GlobalCreeepUpgrades globalUpgrades;
 
-        public CreepSquad(CreepDefinition def) {
+
+        public CreepSquad(CreepDefinition def, GlobalCreeepUpgrades globalUpgrades) {
             baseDefinition = def;
             actualDefinition = def.Copy();
+            this.globalUpgrades = globalUpgrades;
         }
 
         public void AddModifier(CreepAttatchment mod) {
@@ -28,7 +31,7 @@ namespace Core {
             return allModifiers[index];
         }
 
-        void RecalculateActual() {
+        public void RecalculateActual() {
             actualDefinition.hp = baseDefinition.hp;
             actualDefinition.speed = baseDefinition.speed;
             actualDefinition.radius = baseDefinition.radius;
@@ -39,6 +42,7 @@ namespace Core {
             foreach (var l1 in level1Modifier) {
                 l1.ApplyModification(baseDefinition, actualDefinition);
             }
+            globalUpgrades.ApplyModification(baseDefinition, actualDefinition);
         }
     }
 

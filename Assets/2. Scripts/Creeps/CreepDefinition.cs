@@ -6,7 +6,7 @@ namespace Core {
         public string name;
         public Sprite sprite;
 
-        public int hp;
+        public float hp;
         public float speed;
         public float radius;
         public float moneyReward;

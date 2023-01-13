@@ -20,13 +20,11 @@
 
         public IFSM_State Update(ScenarioInstance s) {
             if (mode == 0) {
+                s.playerFunctions.GetShop().Refresh(s);
+
                 s.towerController.money += 100 + 100 * s.roundManager.current;
                 s.towerFunctions.UpgradeTowers();
-                // unlock new creep
-                var newCreep = CreepSelectionUtility.GetRandomNewCreep();
-                s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
-                s.parameters.ui.endRoundUnlockBehaviour.AddEntry(newCreep.sprite, newCreep.name);
-
+       
                 // unlock new item
                 for (int i = 0; i < 2; i++) {
                     var newItem = PlayerItemUtility.GetRandomItem(s.roundManager.current);

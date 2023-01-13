@@ -5,11 +5,15 @@ using TMPro;
 
 namespace Core {
     public class GameUI : MonoBehaviour {
+        [Header("HUD")]
         public LPEButtonBehaviour startButton;
-        public EndRoundUnlockBehaviour endRoundUnlockBehaviour;
         public TextMeshProUGUI moneyText;
-        public PreRoundUIBehaviour preRoundBehaviour;
         public Transform healthBarPivot;
+
+        [Header("Menus")]
+        public PreRoundUIBehaviour preRoundBehaviour;
+        [Header("Other")]
+        public EndRoundUnlockBehaviour endRoundUnlockBehaviour;
 
         private void Awake() {
             startButton.gameObject.SetActive(false);

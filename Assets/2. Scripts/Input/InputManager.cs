@@ -32,6 +32,9 @@ namespace Core {
                 public static void CreepMenuOpen() {
                     InputManager.PreRoundUI.creepMenuOpen = true;
                 }
+                public static void ShopMenuOpen() {
+                    InputManager.PreRoundUI.shopMenuOpen = true;
+                }
             }
         }
 
@@ -44,6 +47,7 @@ namespace Core {
             Continue.requested = false;
             Cancel.requested = false;
             PreRoundUI.creepMenuOpen= false;
+            PreRoundUI.shopMenuOpen = false;
         }
 
         // inputs
@@ -77,6 +81,7 @@ namespace Core {
 
         public static class PreRoundUI {
             public static bool creepMenuOpen;
+            public static bool shopMenuOpen;
         }
     }
 }

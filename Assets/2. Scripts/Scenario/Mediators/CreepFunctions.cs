@@ -48,7 +48,6 @@ namespace Core {
         
         public CreepInstance GetNearestCreep(Vector2 location, float maxRange) {
             creepResults.Clear();
-
             cachedCircleShape.SetPosition(location);
             cachedCircleShape.SetScale(maxRange);
             creepManager.grid.QueryItems(cachedCircleShape.AABB(), creepResults);
@@ -64,6 +63,30 @@ namespace Core {
                 }
             }
             return closet;
+        }
+
+        /// <summary>
+        /// 'results' is returned
+        /// If 'results' is null, a new List is created and returned
+        /// </summary>
+        public List<CreepInstance> QueryCreeps(Vector2 location, float maxRange, List<CreepInstance> results) {
+            if (results == null) {
+                results = new List<CreepInstance>();
+            }
+            creepResults.Clear();
+            cachedCircleShape.SetPosition(location);
+            cachedCircleShape.SetScale(maxRange);
+            creepManager.grid.QueryItems(cachedCircleShape.AABB(), creepResults);
+
+
+            foreach (var c in creepResults) {
+                var d = (c.position - location).sqrMagnitude;
+                var maxDist = maxRange + c.radius;
+                if (d < maxDist * maxDist) {
+                    results.Add(c);
+                }
+            }
+            return results;
         }
 
         public void DamageCreep(CreepInstance c, int amnt) {

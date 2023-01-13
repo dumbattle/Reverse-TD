@@ -5,7 +5,7 @@
 namespace Core {
     public class Gun_1_Tower : ProjectileTower<TestProjectileBehaviour> {
         static int[] _damage = { 35, 40, 45, 50 };
-        static float[] _atkRate = { 2, 2.66f, 3.33f, 4 };
+        static float[] _atkRate = { 1, 1.33f, 1.66f, 2 };
         static float[] _range = { 3, 3.3f, 3.6f, 4f };
 
         TowerUpgradeDetails dmgUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.DAMAGE, 25, 50, 100);
@@ -40,8 +40,8 @@ namespace Core {
         public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
             if (GetTotalUpgradeLevel() >= 4) {
                 results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.gun_2, 150, 2));
-            }
                 results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.bomb_1, 150, 2));
+            }
         }
 
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {

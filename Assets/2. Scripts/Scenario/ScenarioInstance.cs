@@ -24,11 +24,12 @@ namespace Core {
             result.creepManager = new CreepManager(p.width, p.height);
             result.placementManager = new TowerPlacementManager(result, result.towerManager);
             result.towerController = new TowerController();
-
+            result.player = new PlayerData();
             result.mapQuery = new MapQuery(result.map, result.towerManager);
             result.towerFunctions = new TowerFunctions(result, result.towerManager, result.placementManager);
             result.creepFunctions = new CreepFunctions(result, result.creepManager, result.towerController);
             result.playerFunctions = new PlayerFunctions(result.parameters, result.player);
+            result.player.Init(result);
             return result;
         }
 
@@ -37,7 +38,7 @@ namespace Core {
         //******************************************************************************
         
         public ScenarioParameters parameters { get; private set; }
-        PlayerData player = new PlayerData();
+        PlayerData player;
 
         TowerManager towerManager;
         TowerPlacementManager placementManager;

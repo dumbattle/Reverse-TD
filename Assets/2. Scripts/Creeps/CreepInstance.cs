@@ -11,7 +11,7 @@ namespace Core {
             var result = _pool.Get();
             result.definition = def;
             result.position = pos;
-            result.health = new Health(def.hp);
+            result.health = new Health((int)def.hp);
             result.direction = new Vector2(0, 0);
 
             result.tileDist = 0;
@@ -53,7 +53,7 @@ namespace Core {
         }
 
 
-        static Vector2Int GetDestinationTile(ScenarioInstance s, Vector2Int current) {
+        public static Vector2Int GetDestinationTile(ScenarioInstance s, Vector2Int current) {
             var d = s.mapQuery.GetTile(current.x, current.y).distFromTarget;
 
             var top = current + new Vector2Int(0, 1);

@@ -5,7 +5,7 @@ using TMPro;
 
 
 namespace Core {
-    public class PreRoundCreepMenuBehaviour : MonoBehaviour {
+    public class PreRound_CreepMenu_Behaviour : MonoBehaviour {
         [SerializeField] PreRoundCreepMenu_CreepEntry_Behaviour creepEntrySrc;
         [SerializeField] PreRoundCreepMenu_InventoryItemEntry_Behaviour itemEntrySrc;
         [SerializeField] CreepDetailsReferences creepDetailsReferences;
@@ -137,7 +137,7 @@ namespace Core {
         void UpdateCreepStatsDisplay() {
             var c = currentSquad.actualDefinition;
 
-            creepDetailsReferences.hpText.text = c.hp.ToString();
+            creepDetailsReferences.hpText.text = ((int)c.hp).ToString();
             creepDetailsReferences.moneyText.text = ((int)c.moneyReward).ToString();
             creepDetailsReferences.speedText.text = c.speed.ToString("f1");
             creepDetailsReferences.countText.text = ((int)c.count).ToString();

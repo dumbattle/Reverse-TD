@@ -10,14 +10,21 @@ namespace Core {
             this.parameters = parameters;
             this.player = player;
         }
-
+        public int CurrentMoney() {
+            return player.money;
+        }
         public void AddMoney(int amnt) {
             player.money += amnt;
             parameters.ui.moneyText.text = player.money.ToString();
         }
-
+        public ShopInstance GetShop() {
+            return player.shop;
+        }
         public CreepArmy GetCreepArmy() {
             return player.creepArmy;
+        }
+        public GlobalCreeepUpgrades GetGlobalCreeepUpgrades() {
+            return player.globalCreeepUpgrades;
         }
 
         public void AddItem(IPlayerItem item) {

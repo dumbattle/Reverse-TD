@@ -23,6 +23,11 @@ namespace Core {
 
         public static Sprite moneyReward => iconDict.obj["Money Reward"];
         public static Sprite availablePlus=> iconDict.obj["Green Plus"];
+        public static Sprite health => iconDict.obj["Health"];
+        public static Sprite greenCheck => iconDict.obj["Green Check"];
+        public static Sprite locked => iconDict.obj["Lock"]; 
+        public static Sprite lockedDark => iconDict.obj["Lock Dark"]; 
+        public static Sprite newCreep => iconDict.obj["New Creep"]; 
 
 
         public static Sprite creepAttachmentHP => iconDict.obj["Creep +HP"];

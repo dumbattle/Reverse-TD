@@ -32,6 +32,11 @@ MonoBehaviour:
     - Rank 10
     - Rank 11
     - Rank 12
+    - Health
+    - Lock
+    - Green Check
+    - Lock Dark
+    - New Creep
     m_values:
     - {fileID: 2130535880278150251, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -8179040606652740800, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
@@ -51,3 +56,8 @@ MonoBehaviour:
     - {fileID: -7058561907366660472, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -9205221584584489300, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: 1341854236672496375, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 1202984965197363600, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -5330826594950682575, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -7899933087549869777, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -4737426781762327817, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 2486193441875991756, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}

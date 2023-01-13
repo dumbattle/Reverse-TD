@@ -6,12 +6,12 @@ namespace Core {
     public class Gun_2_Tower : ProjectileTower<TestProjectileBehaviour> {
         static int[] _damage = { 20, 23, 26, 33, 36, 40 };
         static float[] _atkRate = { 
-            4,
-            4.8f,
-            5.6f,
-            6.4f,
-            7.2f,
-            8
+            2,
+            2.4f,
+            2.8f,
+            3.2f,
+            3.6f,
+            4
         };
 
         static float[] _range = { 3, 3.2f, 3.4f, 3.6f, 3.8f, 4f };

@@ -70,9 +70,9 @@ namespace Core {
                 result.name = "Fastly Swarmy";
 
                 result.radius *= .9f;
-                result.speed *= 1.75f;
-                result.hp /= 2;
-
+                result.speed *= 1.25f;
+                result.hp = result.hp / 1.5f;
+                result.count /= 1.25f;
                 result.sprite = CreepResourceCache.circleSpriteYellow;
                 result.moneyReward = 100 / result.count;
                 return result;
@@ -83,12 +83,12 @@ namespace Core {
                 var result = base.GetDefinition();
                 result.name = "Fatly Swarmy";
 
-                result.radius *= 1.5f;
+                result.radius *= 1.25f;
                 result.radius = Mathf.Min(result.radius, 0.45f);
 
-                result.hp *= 2;
+                result.hp = result.hp  * 1.25f;
                 
-                result.speed /= 1.5f;
+                result.speed /= 1.25f;
 
                 result.count /= 1.5f;
                 result.spacing = 5f / result.count;

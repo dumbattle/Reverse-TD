@@ -5,18 +5,26 @@
 namespace Core {
     public class Bomb_1_Tower : ProjectileTower<BombProjectileBehaviour> {
         static int[] _damage = { 
-            40, 45, 50, 55, 
-            60, 65
+            60, 70, 80, 90, 
+            100, 110
         };
         
         static float[] _atkRate = {
-            .5f, .6f, .7f, .8f, 
-            .9f, 1f
+            .5f, .55f, .6f, .65f, 
+            .7f, .75f
         };
 
-        static float[] _range = { 
-            4, 4.4f, 4.8f, 5.2f, 
-            5.6f, 6f 
+        static float[] _range = {
+            4, 4.4f, 4.8f, 5.2f,
+            5.6f, 6f
+        };
+        static float[] _splashRadius = {
+            .5f, .7f, .9f, 1.1f,
+            1.3f, 1.5f
+        };
+        static float[] _splashScale = {
+            .1f, .25f, .4f, .55f,
+            .7f, .85f
         };
 
         TowerUpgradeDetails dmgUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.DAMAGE, 25, 50, 100, 175, 275);
@@ -53,6 +61,11 @@ namespace Core {
         
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {
             return new List<TowerUpgradeDetails>() { dmgUpgrade, spdUpgrade, rangeUpgrade, splashUpgrade };
+        }
+
+        protected override void SetProjectile(BombProjectileBehaviour proj) {
+            base.SetProjectile(proj);
+            proj.InitSplash(_splashRadius[splashUpgrade.currentLevel], _splashScale[splashUpgrade.currentLevel]);
         }
 
     }

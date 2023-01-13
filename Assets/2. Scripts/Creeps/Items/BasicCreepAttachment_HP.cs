@@ -8,7 +8,7 @@ namespace Core {
         public override void ApplyModification(CreepDefinition baseDef, CreepDefinition result) {
             var baseHP = baseDef.hp;
             var additional = baseHP * SCALE;
-            result.hp += (int)additional;
+            result.hp += additional;
         }
 
         public override Sprite GetIcon() {

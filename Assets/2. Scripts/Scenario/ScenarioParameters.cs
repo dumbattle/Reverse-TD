@@ -7,7 +7,7 @@ namespace Core {
     public class ScenarioParameters {
         public int width;
         public int height;
-        public GameObject tileSrc;
+        public FloorTileBehaviour tileSrc;
         public CreepBehaviour creepSrc;
 
         public GameObject cameraPivot;

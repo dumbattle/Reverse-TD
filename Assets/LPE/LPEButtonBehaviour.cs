@@ -17,10 +17,10 @@ namespace LPE {
         
         
         public void SetClickListener(Action cb) {
-            OnClick += cb;
+            OnClick = cb;
         }
         public void SetDownListener(Action cb) {
-            OnDown += cb;
+            OnDown = cb;
         }
     }
 }

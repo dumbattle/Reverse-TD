@@ -8,7 +8,7 @@
         static PlayRound_ScenarioState instance = new PlayRound_ScenarioState();
 
         public static PlayRound_ScenarioState Get() {
-            instance.bufferFrames = 100;
+            instance.bufferFrames = 40;
             return instance;
         }
 
