@@ -10,7 +10,6 @@ namespace Core {
         CreepManager creepManager;
         TowerController towerController;
 
-        Dictionary<CreepInstance, CreepBehaviour> creep2behaviour = new Dictionary<CreepInstance, CreepBehaviour>();
 
         CircleShape cachedCircleShape = new CircleShape(1);
         List<CreepInstance> creepResults = new List<CreepInstance>();
@@ -23,9 +22,6 @@ namespace Core {
 
         public void AddCreep(CreepInstance c) {
             creepManager.AddCreep(c);
-            var behaviour = GameObject.Instantiate(s.parameters.creepSrc);
-            behaviour.AssignCreep(s, c);
-            creep2behaviour.Add(c, behaviour);
         }
 
         public void UpdateAllCreeps(ScenarioInstance s) {
@@ -99,8 +95,6 @@ namespace Core {
 
         public void DestroyCreep(CreepInstance c) {
             creepManager.RemoveCreep(c);
-            GameObject.Destroy(creep2behaviour[c].gameObject);
-            creep2behaviour.Remove(c);
             c.Return();
         }
 

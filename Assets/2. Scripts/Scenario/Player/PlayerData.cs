@@ -166,6 +166,8 @@ shop.Init(s);
             public AttachmentSlot prereq;
             public ShopInstance shop;
 
+            bool purchased;
+
             public AttachmentSlot(ScenarioInstance s, int unlockCost, AttachmentSlot unlockPrereq, ShopInstance shop) {
                 if (unlockPrereq == null) {
                     unlocked = true;
@@ -181,6 +183,7 @@ shop.Init(s);
 
 
             public void OnPurchase() {
+                purchased = true;
                 if (!unlocked) {
                     unlocked = true;
                     Roll();
@@ -199,6 +202,7 @@ shop.Init(s);
             }
         
             public void Roll() {
+                purchased = false;
                 item = PlayerItemUtility.GetRandomItem(1);
                 Redraw();
             }
@@ -215,12 +219,23 @@ shop.Init(s);
                     };
                     return;
                 }
-                shopItem = new ShopItem() {
-                    icon = item.GetIcon(),
-                    name = item.GetName(),
-                    cost = 100,
-                    purchaseCallback = this
-                };
+                else if (!purchased) {
+                    shopItem = new ShopItem() {
+                        icon = item.GetIcon(),
+                        name = item.GetName(),
+                        cost = 100,
+                        purchaseCallback = this
+                    };
+                }
+                else {
+
+                    shopItem = new ShopItem() {
+                        icon = IconResourceCache.greenCheck,
+                        name = "Purchased",
+                        cost = -1,
+                        purchaseCallback = null
+                    };
+                }
             }
         }
     }

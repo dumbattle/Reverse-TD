@@ -7,16 +7,12 @@ namespace LPE {
         Dictionary<T, Item> returnDict = new Dictionary<T, Item>();
         Func<T> _constructor;
         LinkedList<Item> freeItems = new LinkedList<Item>();
+        int warningCount;
+     
 
-        public ObjectPool(Func<T> constructor) {
-            _constructor = constructor;
-        }
-
-        public ObjectPool(Func<T> objCreater, int initialCapacity) {
+        public ObjectPool(Func<T> objCreater, int warningCount = 1000) {
             _constructor = objCreater;
-            for (int i = 0; i < initialCapacity; i++) {
-                CreateItem();
-            }
+            this.warningCount = warningCount;
         }
 
         public T Get() {
@@ -44,6 +40,10 @@ namespace LPE {
 
             returnDict.Add(t, i);
             freeItems.AddLast(i.node);
+
+            if (returnDict.Count % warningCount == 0) {
+                UnityEngine.Debug.LogWarning($"ObjectPool<{typeof(T).Name}> capacity reached {returnDict.Count}");
+            }
             return i;
         }
 

@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
+using LPE;
+
 
 namespace Core {
     public class CreepBehaviour : MonoBehaviour {
         public SpriteRenderer sr;
         public SpriteRenderer glowSr;
         public SpriteRenderer hpBar;
+        public ParticleSystem deathParticles;
 
         CreepInstance c;
         ScenarioInstance s;
-        
-        public void AssignCreep(ScenarioInstance s, CreepInstance c) {
+
+        ObjectPool<CreepBehaviour> parentPool;
+        public void AssignCreep(ScenarioInstance s, CreepInstance c, ObjectPool<CreepBehaviour> parentPool) {
             this.c = c;
             this.s = s;
             gameObject.SetActive(true);
@@ -17,9 +21,20 @@ namespace Core {
             sr.transform.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
             transform.position = s.mapQuery.TileToWorld(c.position);
             glowSr.color = c.definition.glowColor;
+            this.parentPool = parentPool;
+            sr.enabled = true;
+            glowSr.enabled = true;
+            hpBar.enabled = true;
         }
 
         void Update() {
+            if (c == null) {
+                if (!deathParticles.isPlaying) {
+                    parentPool.Return(this);
+                    gameObject.SetActive(false);
+                }
+                return;
+            }
             sr.transform.up = c.direction;
             transform.position = s.mapQuery.TileToWorld(c.position);
 
@@ -40,6 +55,23 @@ namespace Core {
             }
             hpBar.color = col;
 
+        }
+    
+        public void PlayDeathAnim() {
+            if (c==null) {
+                return; 
+            }
+            var m = deathParticles.main;
+            var sc = m.startColor;
+            sc.color = c.definition.glowColor;
+            m.startColor = sc;
+            deathParticles.Play();
+            c = null;
+            sr.enabled = false;
+            glowSr.enabled = false;
+            hpBar.enabled = false;
+            //parentPool.Return(this);
+            //gameObject.SetActive(false);
         }
     }
 }

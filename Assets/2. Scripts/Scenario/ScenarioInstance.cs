@@ -21,7 +21,7 @@ namespace Core {
             result.parameters = p;
             result.map = new ScenarioMap(p.width, p.height);
             result.towerManager = new TowerManager(p.width, p.height);
-            result.creepManager = new CreepManager(p.width, p.height);
+            result.creepManager = new CreepManager(result, p.width, p.height);
             result.placementManager = new TowerPlacementManager(result, result.towerManager);
             result.towerController = new TowerController();
             result.player = new PlayerData();
