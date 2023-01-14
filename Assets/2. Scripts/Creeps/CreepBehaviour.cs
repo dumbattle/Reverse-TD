@@ -3,6 +3,7 @@
 namespace Core {
     public class CreepBehaviour : MonoBehaviour {
         public SpriteRenderer sr;
+        public SpriteRenderer glowSr;
         public SpriteRenderer hpBar;
 
         CreepInstance c;
@@ -15,6 +16,7 @@ namespace Core {
             sr.sprite = c.definition.sprite;
             sr.transform.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
             transform.position = s.mapQuery.TileToWorld(c.position);
+            glowSr.color = c.definition.glowColor;
         }
 
         void Update() {

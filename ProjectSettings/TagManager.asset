@@ -41,9 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Creep
+    uniqueID: 3945187793
+    locked: 0
   - name: Tower
     uniqueID: 3924157925
     locked: 0
-  - name: Creep
-    uniqueID: 3945187793
+  - name: UI
+    uniqueID: 1054993267
     locked: 0

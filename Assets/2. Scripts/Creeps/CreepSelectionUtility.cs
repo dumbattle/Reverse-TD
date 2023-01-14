@@ -44,6 +44,7 @@ namespace Core {
                 result.spacing = 5f / result.count;
                 result.sprite = CreepResourceCache.circleSpriteGreen;
                 result.moneyReward = 100 / result.count;
+                result.glowColor = Color.green;
                 return result;
             }
         }
@@ -61,6 +62,7 @@ namespace Core {
 
                 result.sprite = CreepResourceCache.circleSpriteBlue;
                 result.moneyReward = 100 / result.count;
+                result.glowColor = Color.blue;
                 return result;
             }
         }
@@ -75,6 +77,7 @@ namespace Core {
                 result.count /= 1.25f;
                 result.sprite = CreepResourceCache.circleSpriteYellow;
                 result.moneyReward = 100 / result.count;
+                result.glowColor = Color.yellow;
                 return result;
             }
         }
@@ -94,6 +97,7 @@ namespace Core {
                 result.spacing = 5f / result.count;
                 result.sprite = CreepResourceCache.circleSpriteRed;
                 result.moneyReward = 100 / result.count;
+                result.glowColor = Color.red;
                 return result;
             }
         }

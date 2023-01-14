@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -370809371
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 1341854236672496375, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,8 +150,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -370809371
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: -8760288009359856575, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -263,8 +263,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -370809371
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1281890600674870062, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -286,7 +286,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8608640813090152027}
-  - component: {fileID: 8608640813090152026}
   - component: {fileID: 7233047179249096305}
   m_Layer: 0
   m_Name: Bomb Tower 1
@@ -312,17 +311,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &8608640813090152026
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8608640813090152028}
-  m_Enabled: 1
-  m_SortingLayerID: -370809371
-  m_SortingLayer: 1
-  m_SortingOrder: 0
 --- !u!114 &7233047179249096305
 MonoBehaviour:
   m_ObjectHideFlags: 0

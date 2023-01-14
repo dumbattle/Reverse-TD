@@ -54,7 +54,7 @@ namespace Core {
             }
         }
         public void Destroy() {
-            GameObject.Destroy(this);
+            GameObject.Destroy(this.gameObject);
         }
         List<TowerUpgradeDetails> ITower.GetGeneralUpgrades() {
             return upgrades;

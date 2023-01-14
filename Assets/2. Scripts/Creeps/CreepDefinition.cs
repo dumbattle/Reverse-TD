@@ -14,6 +14,8 @@ namespace Core {
         // group data
         public float count;
         public float spacing;
+        public Color glowColor;
+
 
         public CreepDefinition Copy() {
             var result = new CreepDefinition();
@@ -25,6 +27,7 @@ namespace Core {
             result.moneyReward = moneyReward;
             result.count = count;
             result.spacing = spacing;
+            result.glowColor = glowColor;
 
             return result;
         }

@@ -124,7 +124,7 @@ SortingGroup:
   m_GameObject: {fileID: 8608640813090152028}
   m_Enabled: 1
   m_SortingLayerID: -370809371
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
 --- !u!114 &-872439726585025378
 MonoBehaviour:
@@ -138,4 +138,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f26b3949e6635148a57dbed9a72d717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rankIcon: {fileID: 0}
   size: 1
