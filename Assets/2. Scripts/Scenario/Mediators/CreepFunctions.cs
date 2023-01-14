@@ -33,7 +33,8 @@ namespace Core {
                 
                 
                 if (s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius)) {
-                    s.playerFunctions.AddMoney(((int)(c.definition.moneyReward) * c.health.current / c.health.max));
+                    float hpScale = (float)c.health.current / c.health.max;
+                    s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward* hpScale));
 
                     towerController.health.DealDamage(c.health.current);
                     s.parameters.ui.healthBarPivot.transform.localScale = new Vector3((float)towerController.health.current / towerController.health.max, 1, 1);

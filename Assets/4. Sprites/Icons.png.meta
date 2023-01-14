@@ -89,6 +89,9 @@ TextureImporter:
   - first:
       213: 2486193441875991756
     second: new Creep
+  - first:
+      213: -148319563816140896
+    second: Creep +Spacing
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -786,7 +789,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -794,6 +797,27 @@ TextureImporter:
       bones: []
       spriteID: ccc9ce153cbb08220800000000000000
       internalID: 2486193441875991756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep +Spacing
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af7f7d742011fdf0800000000000000
+      internalID: -148319563816140896
       vertices: []
       indices: 
       edges: []

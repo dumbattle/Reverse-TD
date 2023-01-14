@@ -18,8 +18,24 @@ MonoBehaviour:
     - Circle Blue
     - Circle Yellow
     - Circle Red
+    - Square Green
+    - Square Red
+    - Square Blue
+    - Square Yellow
+    - Triangle Blue
+    - Triangle Green
+    - Triangle Red
+    - Triangle Yellow
     m_values:
     - {fileID: -4266793787539025326, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
     - {fileID: -3878424851900761284, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
     - {fileID: -4665158833867747918, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
     - {fileID: -3571398121901083983, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: 1082532127601982577, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: 1886104044880701281, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: -1724378921474252199, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: -5108485994374385394, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: 6874984610964018052, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: 7678220590169514801, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: 7741676372604440307, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}
+    - {fileID: -5138473902979378074, guid: e4679d015fdeda94c8cf6b3925f5e4a5, type: 3}

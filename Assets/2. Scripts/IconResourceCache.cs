@@ -34,6 +34,7 @@ namespace Core {
         public static Sprite creepAttachmentSpeed => iconDict.obj["Creep +Speed"];
         public static Sprite creepAttachmentMoney => iconDict.obj["Creep +Money"];
         public static Sprite creepAttachmentCount => iconDict.obj["Creep +Count"];
+        public static Sprite creepAttachmentGroup => iconDict.obj["Creep +Grouping"];
 
         public static Sprite Rank(int rank) {
             if (rank <= 0) {

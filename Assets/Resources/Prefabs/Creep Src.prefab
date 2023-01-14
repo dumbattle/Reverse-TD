@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1568174457020395435}
   - component: {fileID: 4682421148359925061}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,6 +111,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1565038602523720662}
+  - {fileID: 2391535878846086594}
   m_Father: {fileID: 2065012362238081854}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -277,7 +278,6 @@ Transform:
   m_Children:
   - {fileID: 7587627443526263960}
   - {fileID: 1568174457020395435}
-  - {fileID: 2391535878846086594}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -322,12 +322,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5373878550685803581}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2065012362238081854}
-  m_RootOrder: 2
+  m_Father: {fileID: 1568174457020395435}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &3039915758874885170
 ParticleSystem:
@@ -1345,13 +1345,13 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.6478292
-          value: 0.67919475
-          inSlope: 0.07468199
-          outSlope: 0.07468199
+          time: 0.6407902
+          value: 0.603881
+          inSlope: -0.78208464
+          outSlope: -0.78208464
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.21696393
           outWeight: 0.6698401
         - serializedVersion: 3
           time: 1
@@ -2404,6 +2404,15 @@ ParticleSystem:
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.49611652
+          value: 0.07756687
+          inSlope: -0.1160901
+          outSlope: -0.1160901
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.43054056
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1

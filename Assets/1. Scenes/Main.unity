@@ -6058,8 +6058,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters:
-    width: 15
-    height: 15
+    width: 25
+    height: 25
     tileSrc: {fileID: 940043590}
     creepSrc: {fileID: -5938341677282724075, guid: 6359a2a1e75018b42a98df80c4402cd2, type: 3}
     cameraPivot: {fileID: 1360611165}
@@ -6090,7 +6090,6 @@ GameObject:
   - component: {fileID: 940043589}
   - component: {fileID: 940043588}
   - component: {fileID: 940043590}
-  - component: {fileID: 940043591}
   m_Layer: 0
   m_Name: Tile src
   m_TagString: Untagged
@@ -6177,32 +6176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 940043588}
---- !u!61 &940043591
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 940043587}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &998837684
 GameObject:
   m_ObjectHideFlags: 0

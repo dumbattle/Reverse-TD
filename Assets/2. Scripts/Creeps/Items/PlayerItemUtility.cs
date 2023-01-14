@@ -9,6 +9,7 @@ namespace Core {
             new Entry(new BasicCreepAttachment_HP(), 100, 0),
             new Entry(new BasicCreepAttachment_SPD(), 100, 0),
             new Entry(new BasicCreepAttachment_Money(), 50, 0),
+            new Entry(new BasicCreepAttachment_Grouping(), 100, 0),
         };
 
         public static IPlayerItem GetRandomItem(int round) {
