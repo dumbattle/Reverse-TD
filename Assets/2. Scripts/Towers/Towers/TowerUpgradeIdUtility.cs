@@ -4,5 +4,6 @@
         public const string SPEED = "__spd";
         public const string RANGE = "__range";
         public const string SPLASH = "__SPLASH";
+        public const string SLOW = "__SLOW";
     }
 }

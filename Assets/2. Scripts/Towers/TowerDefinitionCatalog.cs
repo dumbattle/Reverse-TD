@@ -8,6 +8,8 @@ namespace Core {
         public static TowerDefinition gun_1 = new TowerDefinition("Prefabs/Gun Tower 1");
         public static TowerDefinition gun_2 = new TowerDefinition("Prefabs/Gun Tower 2");
         public static TowerDefinition bomb_1 = new TowerDefinition("Prefabs/Bomb Tower 1");
+        public static TowerDefinition circleAOE_1 = new TowerDefinition("Prefabs/Circle AOE 1");
+        public static TowerDefinition circleAOE_slow_1 = new TowerDefinition("Prefabs/Circle AOE Slow 1");
         public static TowerDefinition wall1 = new TowerDefinition("Prefabs/Wall 1");
     }
 

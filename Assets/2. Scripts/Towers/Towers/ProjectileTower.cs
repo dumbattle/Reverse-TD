@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 
 namespace Core {
-
     public abstract class ProjectileTower<T> : TowerBehaviour where T : ProjectileBehaviour {
         public T projectileSrc;
 

@@ -19,6 +19,9 @@ namespace Core {
             result.tileA = pos + result.offset;
             result.destTile = GetDestinationTile(s, pos);
             result.tileB = result.destTile + result.offset;
+
+            result.slowLevel = 0;
+            result.slowTimer = 0;
             return result;
         }
 
@@ -29,15 +32,42 @@ namespace Core {
         public CreepDefinition definition;
         public Health health;
 
-
+        //--------------------------------------------------------------------------------------
+        // Pathfinding
+        //--------------------------------------------------------------------------------------
         float tileDist;
         Vector2 offset;
         Vector2 tileA;
         Vector2 tileB;
         Vector2Int destTile;
 
+        //--------------------------------------------------------------------------------------
+        // Status
+        //--------------------------------------------------------------------------------------
+
+        float slowLevel;
+        float slowTimer;
+
+        //.............................................................................
+        // Apply
+        //.............................................................................
+
+        public void ApplySlow(float strength, float time) {
+            slowLevel = Mathf.Sqrt(slowLevel * slowLevel + strength * strength);
+            slowTimer = Mathf.Sqrt(slowTimer * slowTimer + time * time);
+        }
+        
+        //**********************************************************************************************************
+        // Control
+        //**********************************************************************************************************
+
         public void Update(ScenarioInstance s) {
-            tileDist += definition.speed / 60f;
+            slowTimer -= 1f / 60f;
+            if (slowTimer < 0) {
+                slowLevel = 0;
+            }
+
+            tileDist += GetCurrentSpeed() / 60f;
             while (tileDist > 1) {
                 tileDist--;
                 tileA = tileB;
@@ -50,6 +80,14 @@ namespace Core {
 
         public void Return() {
             _pool.Return(this);
+        }
+
+        //**********************************************************************************************************
+        // Helpers
+        //**********************************************************************************************************
+
+        float GetCurrentSpeed() {
+            return definition.speed / (slowLevel + 1f);
         }
 
 

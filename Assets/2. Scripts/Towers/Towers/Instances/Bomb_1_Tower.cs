@@ -68,5 +68,11 @@ namespace Core {
             proj.InitSplash(_splashRadius[splashUpgrade.currentLevel], _splashScale[splashUpgrade.currentLevel]);
         }
 
+        public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
+            if (GetTotalUpgradeLevel() >= 10) {
+                results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_1, 275, 4));
+            }
+        }
+
     }
 }

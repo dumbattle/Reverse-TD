@@ -743,7 +743,7 @@ MonoBehaviour:
   size: 2
   projectileSrc: {fileID: 7745094495245500203, guid: a08f482a6486efb42a200aee084beabd, type: 3}
   rotationPivot: {fileID: 8608640812095108250}
-  projectileRadius: 0.1
+  projectileRadius: 0.23
 --- !u!61 &5085652487126087615
 BoxCollider2D:
   m_ObjectHideFlags: 0

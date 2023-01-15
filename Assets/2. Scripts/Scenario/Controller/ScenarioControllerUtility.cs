@@ -4,7 +4,7 @@
 namespace Core {
     public static class ScenarioControllerUtility { 
         public static void GamplayUpdate(this ScenarioInstance s) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 1; i++) {
                 s.creepFunctions.UpdateAllCreeps(s);
                 s.towerFunctions.UpdateAllTowers();
             }

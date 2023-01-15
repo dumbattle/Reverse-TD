@@ -5,6 +5,7 @@ using LPE;
 namespace Core {
     public class IconResourceCache {
         static LazyLoadResource<SpriteReferenceDictionary> iconDict = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Icons");
+        static LazyLoadResource<SpriteReferenceDictionary> rankIconDict = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Rank Icons");
 
         static string[] ranks = { 
             "Rank 1",
@@ -19,6 +20,24 @@ namespace Core {
             "Rank 10",
             "Rank 11",
             "Rank 12",
+            "Rank 13",
+            "Rank 14",
+            "Rank 15",
+            "Rank 16",
+            "Rank 17",
+            "Rank 18",
+            "Rank 19",
+            "Rank 20",
+            "Rank 21",
+            "Rank 22",
+            "Rank 23",
+            "Rank 24",
+            "Rank 25",
+            "Rank 26",
+            "Rank 27",
+            "Rank 28",
+            "Rank 29",
+            "Rank 30",
         };
 
         public static Sprite moneyReward => iconDict.obj["Money Reward"];
@@ -44,7 +63,7 @@ namespace Core {
             if (rank >= ranks.Length) {
                 rank = ranks.Length - 1;
             }
-            return iconDict.obj[ranks[rank]];
+            return rankIconDict.obj[ranks[rank]];
         }
     }
 }

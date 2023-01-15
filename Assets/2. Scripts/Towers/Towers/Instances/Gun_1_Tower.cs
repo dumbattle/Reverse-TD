@@ -37,8 +37,9 @@ namespace Core {
         protected override int GetTotalUpgradeLevel() {
             return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel;
         }
+        
         public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
-            if (GetTotalUpgradeLevel() >= 4) {
+            if (GetTotalUpgradeLevel() >= 5) {
                 results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.gun_2, 150, 2));
                 results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.bomb_1, 150, 2));
             }

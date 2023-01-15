@@ -4,186 +4,269 @@
 namespace Core {
     public static class CreepSelectionUtility {
         static BaseCreepDefinition[] _allCreeps = {
+            
             new Circle_Green(),
+            new Circle_Blue(),
             new Circle_Red(),
             new Circle_Yellow(),
-            new Circle_Blue(),
 
-            new Square_Green(),
             new Square_Yellow(),    
-            new Square_Red(),
             new Square_Blue(),
+            new Square_Green(),
+            new Square_Red(),
+
 
         };
+       static  RandomCreepDefinition randDef = new RandomCreepDefinition();
+
         public static CreepDefinition GetRandomNewCreep() {
+            //return randDef.GetDefinition();
             var def = _allCreeps[Random.Range(0, _allCreeps.Length)];
             return def.GetDefinition();
         }
         public static CreepDefinition GetInitialCreep() {
+            //return randDef.GetDefinition();
             return _allCreeps[0].GetDefinition();
         }
         //**************************************************************************************
         // Helpers
         //**************************************************************************************
 
-        // Color Codes:
-        //  - Green : well balanced 
-        //  - Blue : Swarm
-        //  - Red : Tanky
-        //  - Yellow : Fast
-
-
         abstract class BaseCreepDefinition {
             public abstract CreepDefinition GetDefinition();
         }
 
-        class Circle_Green : BaseCreepDefinition {
+        class RandomCreepDefinition : BaseCreepDefinition {
+            static Sprite[] sprites = {
+                CreepResourceCache.circleSpriteBlue,
+                CreepResourceCache.circleSpriteGreen,
+                CreepResourceCache.circleSpriteRed,
+                CreepResourceCache.circleSpriteYellow,
+
+                CreepResourceCache.squareSpriteGreen,
+                CreepResourceCache.squareSpriteBlue,
+                CreepResourceCache.squareSpriteRed,
+                CreepResourceCache.squareSpriteYellow,
+            };
             public override CreepDefinition GetDefinition() {
                 var result = new CreepDefinition();
-                result.name = "Swarmly";
-                result.radius = Random.Range(0.275f, 0.325f);
-                result.speed = Random.Range(1.8f, 2.2f);
-                result.hp = Random.Range(85, 115);
+                RandomWeights weights = GetWeights();
 
-                result.count = Random.Range(15, 20);
-                result.spacing = 5f / result.count;
-                result.sprite = CreepResourceCache.circleSpriteGreen;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = new Color(.65f, .94f, .14f);
-                return result;
-            }
-        }
-        class Circle_Blue : Circle_Green {
-            public override CreepDefinition GetDefinition() {
-                var result = base.GetDefinition();
-                result.name = "Verly Swarmy";
-
-                result.radius /= 1.15f;
-                result.speed *= 1.15f;
-                result.hp /= 2;
-
-                result.count *= 1.8f;
-                result.spacing /= 1.8f;
-
-                result.sprite = CreepResourceCache.circleSpriteBlue;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = new Color(.23f, .55f, .93f);
-                return result; 
-            }
-        }
-        class Circle_Yellow : Circle_Green {
-            public override CreepDefinition GetDefinition() {
-                var result = base.GetDefinition();
-                result.name = "Fastly Swarmy";
-
-                result.radius *= .9f;
-                result.speed *= 1.2f;
-                result.hp = result.hp / 1.5f;
-                result.count /= 1.2f;
-                result.spacing *= 1.8f;
-                result.sprite = CreepResourceCache.circleSpriteYellow;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = new Color(.96f, .64f, .16f);
-                return result;
-            }
-        }
-        class Circle_Red : Circle_Green {
-            public override CreepDefinition GetDefinition() {
-                var result = base.GetDefinition();
-                result.name = "Fatly Swarmy";
-
-                result.radius *= 1.25f;
+                result.name = GetName();
+                result.hp = weights.hp * 100;
+                result.radius = .1f + .2f * weights.hp / weights.count;
                 result.radius = Mathf.Min(result.radius, 0.45f);
+                result.speed = weights.speed *2 ;
 
-                result.hp = result.hp * 1.25f;
-
-                result.speed /= 1.25f;
-
-                result.count /= 1.35f;
-                result.spacing *= 1.35f;
-
-                result.sprite = CreepResourceCache.circleSpriteRed;
+                result.count = 20 * weights.count;
+                result.spacing = 5f / weights.spacing / result.count;
+                result.sprite = GetSprite();
                 result.moneyReward = 100 / result.count;
-                result.glowColor = Color.red;
+                result.glowColor = Random.ColorHSV(0,1,.5f,1,1,1);
                 return result;
+            }
+            public virtual string GetName() {
+                return "Happy";
+            }
+            public virtual RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.Randomize();
+                return result;
+            }
+            public virtual Sprite GetSprite() {
+                return sprites[Random.Range(0, sprites.Length)];
+            }
+        }
+        class Circle_Green : RandomCreepDefinition {
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 1;
+                result.speed = 1;
+                result.count = 1;
+                result.spacing = 1;
+                return result;
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.circleSpriteGreen;
+            }
+            public override string GetName() {
+                return "Swarmly";
+            }
+        }
+        class Circle_Blue : RandomCreepDefinition {
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 0.6f;
+                result.speed = 1f;
+                result.count = 1.5f;
+                result.spacing = 1.15f;
+                return result;
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.circleSpriteBlue;
+            }
+            public override string GetName() {
+                return "Verly Swarmly";
+            }
+        }
+        class Circle_Yellow : RandomCreepDefinition {
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = .7f;
+                result.speed = 1.5f;
+                result.count = .8f;
+                result.spacing = 1;
+                return result;
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.circleSpriteYellow;
+            }
+            public override string GetName() {
+                return "Speedly Swarmly";
+            }
+        }
+        class Circle_Red : RandomCreepDefinition {
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 1.3f;
+                result.speed = .75f;
+                result.count = .7f;
+                result.spacing = 1.3f;
+                return result;
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.circleSpriteRed;
+            }
+            public override string GetName() {
+                return "Fatly Swarmly";
             }
         }
 
 
-        class Square_Green : BaseCreepDefinition {
-            public override CreepDefinition GetDefinition() {
-                var result = new CreepDefinition();
-                result.name = "Tankit";
-                result.radius = Random.Range(0.325f, 0.375f);
-                result.speed = Random.Range(.9f, 1.1f);
-                result.hp = Random.Range(190, 230);
-
-                result.count = Random.Range(7, 10);
-                result.spacing = 7f / result.count;
-                result.sprite = CreepResourceCache.squareSpriteGreen;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = Color.green;
+        class Square_Green : RandomCreepDefinition {
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 2;
+                result.speed = .65f;
+                result.count = .6f;
+                result.spacing = .8f;
                 return result;
             }
-        }
-        class Square_Blue : Square_Green {
-            public override CreepDefinition GetDefinition() {
-                var result = base.GetDefinition();
-                result.name = "Diet Tankit";
-
-                result.radius /= 1.35f;
-                result.speed /= 1.45f;
-                result.hp /= 1.7f;
-
-                result.count *= 1.55f;
-                result.spacing /= 1.55f;
-
-                result.sprite = CreepResourceCache.squareSpriteBlue;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = Color.blue;
-                return result;
+            public override Sprite GetSprite() {
+                return CreepResourceCache.squareSpriteGreen;
+            }
+            public override string GetName() {
+                return "Tankit";
             }
         }
-        class Square_Yellow : Square_Green {
-            public override CreepDefinition GetDefinition() {
-                var result = base.GetDefinition();
-                result.name = "Quickit Tankit";
+        class Square_Blue : RandomCreepDefinition {
 
-                result.radius *= 1.05f;
-               
-                result.speed *= 1.25f;
-                result.hp /= 1.35f;
-               
-                result.count /= 1.35f;
-                result.spacing /= 1.25f;
-               
-                result.sprite = CreepResourceCache.squareSpriteYellow;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = new Color(.84f, 1, 0);
-                return result;
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 1.3f;
+                result.speed = .6f;
+                result.count = .9f;
+                result.spacing = 1.2f;
+                return result;  
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.squareSpriteBlue;
+            }
+            public override string GetName() {
+                return "Diet Tankit";
             }
         }
-        class Square_Red : Square_Green {
-            public override CreepDefinition GetDefinition() {
-                var result = base.GetDefinition();
-                result.name = "Biggit Tankit";
+        class Square_Yellow : RandomCreepDefinition {
 
-                result.radius *= 1.15f;
-                
-                result.hp = result.hp * 1.25f;
-                result.speed /= 1.45f;
-
-                result.count /= 1.35f;
-                result.spacing *= 1.35f;
-
-                result.sprite = CreepResourceCache.squareSpriteRed;
-                result.moneyReward = 100 / result.count;
-                result.glowColor = new Color(1, .09f, .60f);
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 1.7f;
+                result.speed = .9f;
+                result.count = .6f;
+                result.spacing = .7f;
                 return result;
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.squareSpriteYellow;
+            }
+            public override string GetName() {
+                return "Quickit Tankit";
+            }
+        }
+        class Square_Red : RandomCreepDefinition {
+            public override RandomWeights GetWeights() {
+                var result = new RandomWeights();
+                result.hp = 3;
+                result.speed = .5f;
+                result.count = .5f;
+                result.spacing = .6f;
+                return result;
+            }
+            public override Sprite GetSprite() {
+                return CreepResourceCache.squareSpriteRed;
+            }
+            public override string GetName() {
+                return "Biggit Tankit";
             }
         }
 
+        struct RandomWeights {
 
+            public float hp;
+            public float speed;
+            public float count;
+            public float spacing;
 
+            public void Randomize() {
+                hp = 100;
+                speed = 100;
+                count = 100;
+                spacing = 100;
+
+                int total = 400;
+
+                for (int i = 0; i < 10; i++) {
+                    var ind = Random.Range(0, 4);
+                    SetStat(ind, GetStat(ind) + i * i);
+                    total += i * i;
+                }
+                hp = hp / total * 4;
+                speed = speed / total * 4;
+                count = count / total * 4;
+                spacing = spacing / total * 4;
+            }
+
+            public float GetStat(int index) {
+                switch (index) {
+                    case 0:
+                        return hp;
+                    case 1:
+                        return speed;
+                    case 2:
+                        return count;
+                    case 3:
+                        return spacing;
+                }
+                return -1;
+            }
+
+            public void SetStat(int index, float val) {
+
+                switch (index) {
+                    case 0:
+                        hp = val;
+                        break;
+                    case 1:
+                        speed = val;
+                        break;
+                    case 2:
+                        count = val;
+                        break;
+                    case 3:
+                        spacing = val;
+                        break;
+                }
+            }
+        }
     }
 }
