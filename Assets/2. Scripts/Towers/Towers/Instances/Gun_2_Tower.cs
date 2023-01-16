@@ -4,7 +4,7 @@
 
 namespace Core {
     public class Gun_2_Tower : ProjectileTower<TestProjectileBehaviour> {
-        static int[] _damage = { 20, 23, 26, 33, 36, 40 };
+        static int[] _damage = { 30, 35, 40, 45, 50, 55 };
         static float[] _atkRate = { 
             2,
             2.4f,
@@ -17,8 +17,8 @@ namespace Core {
         static float[] _range = { 3, 3.2f, 3.4f, 3.6f, 3.8f, 4f };
 
         TowerUpgradeDetails dmgUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.DAMAGE, 25, 50, 100, 175, 275);
-        TowerUpgradeDetails spdUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.SPEED, 45, 100, 210, 375, 595);
-        TowerUpgradeDetails rangeUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.RANGE, 30, 60, 120, 210, 340);
+        TowerUpgradeDetails spdUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.SPEED, 25, 50, 100, 175, 275);
+        TowerUpgradeDetails rangeUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.RANGE, 25, 50, 100, 175, 275);
 
         public override void GetGeneralUpgradeOptions(List<UpgradeOption> results) {
             results.Add(new UpgradeOption(dmgUpgrade, 1));

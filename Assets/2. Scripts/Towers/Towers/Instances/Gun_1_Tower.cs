@@ -9,8 +9,8 @@ namespace Core {
         static float[] _range = { 3, 3.3f, 3.6f, 4f };
 
         TowerUpgradeDetails dmgUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.DAMAGE, 25, 50, 100);
-        TowerUpgradeDetails spdUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.SPEED, 45, 100, 210);
-        TowerUpgradeDetails rangeUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.RANGE, 30, 60, 120);
+        TowerUpgradeDetails spdUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.SPEED, 25, 50, 100);
+        TowerUpgradeDetails rangeUpgrade = new TowerUpgradeDetails(TowerUpgradeIdUtility.RANGE, 25, 50, 100);
 
         public override void GetGeneralUpgradeOptions(List<UpgradeOption> results) {
             results.Add(new UpgradeOption(dmgUpgrade, 1));
@@ -39,10 +39,8 @@ namespace Core {
         }
         
         public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
-            if (GetTotalUpgradeLevel() >= 5) {
-                results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.gun_2, 150, 2));
-                results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.bomb_1, 150, 2));
-            }
+            results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.gun_2, 150, 2));
+            results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.bomb_1, 150, 2));
         }
 
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {

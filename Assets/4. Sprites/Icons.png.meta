@@ -146,6 +146,18 @@ TextureImporter:
   - first:
       213: -3970898316476944209
     second: Rank 30
+  - first:
+      213: 1562533389854618834
+    second: Creep +Regen
+  - first:
+      213: 6510515419312912815
+    second: Creep Tank Shift
+  - first:
+      213: -505306787334139433
+    second: Creep Speed Shift
+  - first:
+      213: 2594068508085724225
+    second: Creep Group Shift
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1250,6 +1262,90 @@ TextureImporter:
       bones: []
       spriteID: fa0f137150984e8c0800000000000000
       internalID: -3970898316476944209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep +Regen
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d4b8f3e6db3fa510800000000000000
+      internalID: 1562533389854618834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Tank Shift
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa979d8974ff95a50800000000000000
+      internalID: 6510515419312912815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Speed Shift
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d1da56772accf8f0800000000000000
+      internalID: -505306787334139433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Group Shift
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1442a7b609bfff320800000000000000
+      internalID: 2594068508085724225
       vertices: []
       indices: 
       edges: []

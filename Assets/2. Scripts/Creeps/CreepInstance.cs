@@ -22,6 +22,8 @@ namespace Core {
 
             result.slowLevel = 0;
             result.slowTimer = 0;
+
+            result.hpRegen = 0;
             return result;
         }
 
@@ -33,8 +35,15 @@ namespace Core {
         public Health health;
 
         //--------------------------------------------------------------------------------------
-        // Pathfinding
+        // State
         //--------------------------------------------------------------------------------------
+
+        float hpRegen;
+
+        //.............................................................................
+        // Pathfinding
+        //.............................................................................
+
         float tileDist;
         Vector2 offset;
         Vector2 tileA;
@@ -62,18 +71,29 @@ namespace Core {
         //**********************************************************************************************************
 
         public void Update(ScenarioInstance s) {
+            // hp regen
+            hpRegen += health.max * definition.hpRegenRate / 60f;
+            var healAmnt = (int)hpRegen;
+            health.AddHealth(healAmnt);
+            hpRegen -= healAmnt;
+            // update slow
             slowTimer -= 1f / 60f;
             if (slowTimer < 0) {
                 slowLevel = 0;
             }
 
+            // move 
             tileDist += GetCurrentSpeed() / 60f;
+
+            // update tiles destinations
             while (tileDist > 1) {
                 tileDist--;
                 tileA = tileB;
                 destTile = GetDestinationTile(s, destTile);
                 tileB = destTile + offset;
             }
+
+            // set position + direction
             position = Vector2.Lerp(tileA, tileB, tileDist);
             direction = tileB - tileA;
         }

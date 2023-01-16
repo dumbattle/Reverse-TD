@@ -139,10 +139,10 @@ namespace Core {
 
             creepDetailsReferences.hpText.text = ((int)c.hp).ToString();
             creepDetailsReferences.moneyText.text = ((int)c.moneyReward).ToString();
-            creepDetailsReferences.speedText.text = c.speed.ToString("f1");
+            creepDetailsReferences.speedText.text = c.speed.ToString("f2");
             creepDetailsReferences.countText.text = ((int)c.count).ToString();
-            creepDetailsReferences.spacingText.text = c.spacing.ToString("f1");
-            creepDetailsReferences.diameterText.text = (c.radius * 2).ToString("f1");
+            creepDetailsReferences.spacingText.text = c.spacing.ToString("f2");
+            creepDetailsReferences.diameterText.text = (c.radius * 2).ToString("f2");
         }
 
         void UpdateItemSelectionMenu() {

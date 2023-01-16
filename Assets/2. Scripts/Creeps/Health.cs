@@ -10,5 +10,12 @@
         public void DealDamage(int amnt) {
             current -= amnt;
         }
+
+        public void AddHealth(int amnt) {
+            current += amnt;
+            if (current > max) {
+                current = max;
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@
             if (mode == 0) {
                 s.playerFunctions.GetShop().Refresh(s);
 
-                s.towerController.money += 100 + 100 * s.roundManager.current;
+                s.towerController.money += 100 +150 * s.roundManager.current;
                 s.towerFunctions.UpgradeTowers();
        
                 // unlock new item

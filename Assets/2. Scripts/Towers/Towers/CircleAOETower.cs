@@ -21,7 +21,7 @@ namespace Core {
             float radius = GetRange();
 
             animTimer -= 1f / 15f;
-            var scale = radius * 2 * Mathf.Clamp01(1 - animTimer);
+            var scale = (radius + GetExtraRange()) * 2 * Mathf.Clamp01(1 - animTimer);
             atkRenderer.transform.localScale = new Vector3(scale, scale, 1);
             var col = atkRenderer.color;
             col.a = animTimer;

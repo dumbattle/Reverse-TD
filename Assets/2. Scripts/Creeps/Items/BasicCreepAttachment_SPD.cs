@@ -22,6 +22,10 @@ namespace Core {
         public override string GetDescription() {
             return "Increases speed by 30%";
         }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L2;
+        }
     }
 
 }

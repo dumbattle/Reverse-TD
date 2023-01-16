@@ -26,6 +26,10 @@ MonoBehaviour:
     - Lock Dark
     - New Creep
     - Creep +Grouping
+    - Creep +Regen
+    - Creep Tank Shift
+    - Creep Speed Shift
+    - Creep Group Shift
     m_values:
     - {fileID: 2130535880278150251, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -8179040606652740800, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
@@ -39,3 +43,7 @@ MonoBehaviour:
     - {fileID: -4737426781762327817, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: 2486193441875991756, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -148319563816140896, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 1562533389854618834, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 6510515419312912815, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: -505306787334139433, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 2594068508085724225, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}

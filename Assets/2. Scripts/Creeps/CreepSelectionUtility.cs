@@ -20,13 +20,13 @@ namespace Core {
        static  RandomCreepDefinition randDef = new RandomCreepDefinition();
 
         public static CreepDefinition GetRandomNewCreep() {
-            //return randDef.GetDefinition();
-            var def = _allCreeps[Random.Range(0, _allCreeps.Length)];
-            return def.GetDefinition();
+            return randDef.GetDefinition();
+            //var def = _allCreeps[Random.Range(0, _allCreeps.Length)];
+            //return def.GetDefinition();
         }
         public static CreepDefinition GetInitialCreep() {
-            //return randDef.GetDefinition();
-            return _allCreeps[0].GetDefinition();
+            return randDef.GetDefinition();
+            //return _allCreeps[0].GetDefinition();
         }
         //**************************************************************************************
         // Helpers
@@ -52,9 +52,14 @@ namespace Core {
                 var result = new CreepDefinition();
                 RandomWeights weights = GetWeights();
 
+                weights.hp = 1;
+                weights.speed = 1;
+                weights.count = 1;
+                weights.spacing = 1;
+
                 result.name = GetName();
                 result.hp = weights.hp * 100;
-                result.radius = .1f + .2f * weights.hp / weights.count;
+                result.radius = .1f + .15f * weights.hp / weights.count;
                 result.radius = Mathf.Min(result.radius, 0.45f);
                 result.speed = weights.speed *2 ;
 

@@ -6059,7 +6059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters:
     width: 25
-    height: 25
+    height: 10
     tileSrc: {fileID: 940043590}
     creepSrc: {fileID: -5938341677282724075, guid: 6359a2a1e75018b42a98df80c4402cd2, type: 3}
     cameraPivot: {fileID: 1360611165}

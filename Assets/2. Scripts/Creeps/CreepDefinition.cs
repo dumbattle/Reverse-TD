@@ -5,31 +5,37 @@ namespace Core {
     public class CreepDefinition {
         public string name;
         public Sprite sprite;
+        public Color glowColor;
 
         public float hp;
         public float speed;
         public float radius;
         public float moneyReward;
 
-        // group data
         public float count;
         public float spacing;
-        public Color glowColor;
+
+        public float hpRegenRate;
 
 
-        public CreepDefinition Copy() {
+        public CreepDefinition CreateCopy() {
             var result = new CreepDefinition();
-            result.name = name;
-            result.speed = speed;
-            result.radius = radius;
-            result.sprite = sprite;
-            result.hp = hp;
-            result.moneyReward = moneyReward;
-            result.count = count;
-            result.spacing = spacing;
-            result.glowColor = glowColor;
-
+            result.CopyFrom(this);
             return result;
+        }
+        public void CopyFrom(CreepDefinition d) {
+
+            name = d.name;
+            speed = d.speed;
+            radius = d.radius;
+            sprite = d.sprite;
+            hp = d.hp;
+            moneyReward = d.moneyReward;
+            count = d.count;
+            spacing = d.spacing;
+            glowColor = d.glowColor;
+            hpRegenRate = d.hpRegenRate;
+
         }
     }
 }

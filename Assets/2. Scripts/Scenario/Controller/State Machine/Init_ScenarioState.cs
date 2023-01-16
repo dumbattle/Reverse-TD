@@ -23,7 +23,7 @@ namespace Core {
             // initial towers
             var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
 
-            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.circleAOE_slow_1, center);
+            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.gun_1, center);
             s.towerFunctions.AddStartingGroups(TowerDefinitionCatalog.wall1);
             BuildMap(s);
 

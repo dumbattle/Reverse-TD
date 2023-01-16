@@ -24,6 +24,10 @@ namespace Core {
         public override string GetDescription() {
             return "Increases the grouping of creeps by 30%";
         }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L2;
+        }
     }
 
 }
