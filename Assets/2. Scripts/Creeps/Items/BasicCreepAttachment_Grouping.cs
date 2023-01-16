@@ -5,12 +5,8 @@ namespace Core {
     public class BasicCreepAttachment_Grouping : CreepAttatchment {
         const float SCALE = 0.3f;
 
-        public override void ApplyModification(CreepDefinition baseDef, CreepDefinition result) {
-            var baseSpawnRate = 1f / baseDef.spacing;
-            var resultSpawnRate = 1f / result.spacing;
-            var additional = baseSpawnRate * SCALE;
-            resultSpawnRate += additional;
-            result.spacing = 1f / resultSpawnRate;
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddSpawnRateScale(SCALE);
         }
 
         public override Sprite GetIcon() {

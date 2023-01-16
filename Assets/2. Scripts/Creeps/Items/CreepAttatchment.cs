@@ -6,15 +6,12 @@ namespace Core {
         public abstract string GetDescription();
         public abstract string GetName();
         public abstract Sprite GetIcon();
-        public abstract void ApplyModification(CreepDefinition baseDef, CreepDefinition result);
+        public abstract void ApplyModification(CreepStatModification results);
         public abstract CreepModificationLevel GetLevel();
 
 
         public static float InverseScale(float baseStat, float currentStat, float scale) {
-            float a = 1 / baseStat;
-            float b = 1 / currentStat;
-            float c = a * scale;
-            return 1 / (b + c);
+            return 1 / (1 / currentStat + 1 / baseStat * scale);
         }
 
     }

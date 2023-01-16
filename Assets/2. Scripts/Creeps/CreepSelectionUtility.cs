@@ -47,6 +47,11 @@ namespace Core {
                 CreepResourceCache.squareSpriteBlue,
                 CreepResourceCache.squareSpriteRed,
                 CreepResourceCache.squareSpriteYellow,
+
+                CreepResourceCache.triangleSpriteGreen,
+                CreepResourceCache.triangleSpriteBlue,
+                CreepResourceCache.triangleSpriteRed,
+                CreepResourceCache.triangleSpriteYellow,
             };
             public override CreepDefinition GetDefinition() {
                 var result = new CreepDefinition();
@@ -55,7 +60,7 @@ namespace Core {
                 weights.hp = 1;
                 weights.speed = 1;
                 weights.count = 1;
-                weights.spacing = 1;
+                weights.spawnRate = 1;
 
                 result.name = GetName();
                 result.hp = weights.hp * 100;
@@ -64,7 +69,7 @@ namespace Core {
                 result.speed = weights.speed *2 ;
 
                 result.count = 20 * weights.count;
-                result.spacing = 5f / weights.spacing / result.count;
+                result.spawnRate = weights.spawnRate * result.count/ 5f;
                 result.sprite = GetSprite();
                 result.moneyReward = 100 / result.count;
                 result.glowColor = Random.ColorHSV(0,1,.5f,1,1,1);
@@ -88,7 +93,7 @@ namespace Core {
                 result.hp = 1;
                 result.speed = 1;
                 result.count = 1;
-                result.spacing = 1;
+                result.spawnRate = 1;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -104,7 +109,7 @@ namespace Core {
                 result.hp = 0.6f;
                 result.speed = 1f;
                 result.count = 1.5f;
-                result.spacing = 1.15f;
+                result.spawnRate = 1.15f;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -120,7 +125,7 @@ namespace Core {
                 result.hp = .7f;
                 result.speed = 1.5f;
                 result.count = .8f;
-                result.spacing = 1;
+                result.spawnRate = 1;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -136,7 +141,7 @@ namespace Core {
                 result.hp = 1.3f;
                 result.speed = .75f;
                 result.count = .7f;
-                result.spacing = 1.3f;
+                result.spawnRate = 1.3f;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -154,7 +159,7 @@ namespace Core {
                 result.hp = 2;
                 result.speed = .65f;
                 result.count = .6f;
-                result.spacing = .8f;
+                result.spawnRate = .8f;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -171,7 +176,7 @@ namespace Core {
                 result.hp = 1.3f;
                 result.speed = .6f;
                 result.count = .9f;
-                result.spacing = 1.2f;
+                result.spawnRate = 1.2f;
                 return result;  
             }
             public override Sprite GetSprite() {
@@ -188,7 +193,7 @@ namespace Core {
                 result.hp = 1.7f;
                 result.speed = .9f;
                 result.count = .6f;
-                result.spacing = .7f;
+                result.spawnRate = .7f;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -204,7 +209,7 @@ namespace Core {
                 result.hp = 3;
                 result.speed = .5f;
                 result.count = .5f;
-                result.spacing = .6f;
+                result.spawnRate = .6f;
                 return result;
             }
             public override Sprite GetSprite() {
@@ -220,13 +225,13 @@ namespace Core {
             public float hp;
             public float speed;
             public float count;
-            public float spacing;
+            public float spawnRate;
 
             public void Randomize() {
                 hp = 100;
                 speed = 100;
                 count = 100;
-                spacing = 100;
+                spawnRate = 100;
 
                 int total = 400;
 
@@ -238,7 +243,7 @@ namespace Core {
                 hp = hp / total * 4;
                 speed = speed / total * 4;
                 count = count / total * 4;
-                spacing = spacing / total * 4;
+                spawnRate = spawnRate / total * 4;
             }
 
             public float GetStat(int index) {
@@ -250,7 +255,7 @@ namespace Core {
                     case 2:
                         return count;
                     case 3:
-                        return spacing;
+                        return spawnRate;
                 }
                 return -1;
             }
@@ -268,7 +273,7 @@ namespace Core {
                         count = val;
                         break;
                     case 3:
-                        spacing = val;
+                        spawnRate = val;
                         break;
                 }
             }

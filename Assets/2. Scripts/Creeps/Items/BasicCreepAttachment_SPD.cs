@@ -5,10 +5,8 @@ namespace Core {
     public class BasicCreepAttachment_SPD : CreepAttatchment {
         const float SCALE = 0.3f;
 
-        public override void ApplyModification(CreepDefinition baseDef, CreepDefinition result) {
-            var baseState = baseDef.speed;
-            var additional = baseState * SCALE;
-            result.speed += additional;
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddSpdScale(SCALE);
         }
 
         public override Sprite GetIcon() {
@@ -24,7 +22,7 @@ namespace Core {
         }
 
         public override CreepModificationLevel GetLevel() {
-            return CreepModificationLevel.L2;
+        return CreepModificationLevel.L2;
         }
     }
 

@@ -13,7 +13,8 @@ namespace Core {
         public float moneyReward;
 
         public float count;
-        public float spacing;
+        public float spawnRate;
+        public float spacing => 1 / spawnRate;
 
         public float hpRegenRate;
 
@@ -23,6 +24,7 @@ namespace Core {
             result.CopyFrom(this);
             return result;
         }
+
         public void CopyFrom(CreepDefinition d) {
 
             name = d.name;
@@ -32,7 +34,7 @@ namespace Core {
             hp = d.hp;
             moneyReward = d.moneyReward;
             count = d.count;
-            spacing = d.spacing;
+            spawnRate = d.spawnRate;
             glowColor = d.glowColor;
             hpRegenRate = d.hpRegenRate;
 

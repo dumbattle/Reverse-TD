@@ -5,10 +5,8 @@ namespace Core {
     public class BasicCreepAttachment_Money : CreepAttatchment {
         const float SCALE = 0.3f;
 
-        public override void ApplyModification(CreepDefinition baseDef, CreepDefinition result) {
-            var baseState = baseDef.moneyReward;
-            var additional = baseState * SCALE;
-            result.moneyReward += additional;
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddMoneyScale(SCALE);
         }
 
         public override Sprite GetIcon() {

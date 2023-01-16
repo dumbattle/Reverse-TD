@@ -5,10 +5,8 @@ namespace Core {
     public class BasicCreepAttachment_Count : CreepAttatchment {
         const float SCALE = 0.3f;
 
-        public override void ApplyModification(CreepDefinition baseDef, CreepDefinition result) {
-            var baseState = baseDef.count;
-            var additional = baseState * SCALE;
-            result.count += additional;
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddCountScale(SCALE);
         }
 
         public override Sprite GetIcon() {

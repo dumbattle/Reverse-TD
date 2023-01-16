@@ -5,10 +5,8 @@ namespace Core {
     public class BasicCreepAttachment_HP : CreepAttatchment {
         const float SCALE = 0.3f;
 
-        public override void ApplyModification(CreepDefinition baseDef, CreepDefinition result) {
-            var baseHP = baseDef.hp;
-            var additional = baseHP * SCALE;
-            result.hp += additional;
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddHpScale(SCALE);
         }
 
         public override Sprite GetIcon() {
