@@ -141,7 +141,7 @@ namespace Core {
             creepDetailsReferences.moneyText.text = ((int)c.moneyReward).ToString();
             creepDetailsReferences.speedText.text = c.speed.ToString("f2");
             creepDetailsReferences.countText.text = ((int)c.count).ToString();
-            creepDetailsReferences.spacingText.text = c.spacing.ToString("f2");
+            creepDetailsReferences.spacingText.text = c.spawnRate.ToString("f2");
             creepDetailsReferences.diameterText.text = (c.radius * 2).ToString("f2");
         }
 

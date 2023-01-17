@@ -60,7 +60,7 @@ namespace Core {
         }
 
         void Explode() {
-            traveled += 1f / 60f;
+            traveled += 2f / 60f;
 
             var c = xplodeColor;
             c.a = 1 - traveled;

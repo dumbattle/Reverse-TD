@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -370809371
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 1341854236672496375, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -370809371
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: -8760288009359856575, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -205,6 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8608640812858310006}
   - component: {fileID: 8608640812858310005}
+  - component: {fileID: 914920077845482145}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -264,7 +265,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -370809371
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 1281890600674870062, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -277,6 +278,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &914920077845482145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8608640812858310007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecbcf173cd68224283aab1789b3bebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1281890600674870062, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
+  - {fileID: 3920039315935209100, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
+  - {fileID: 1628593483751695657, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
+  - {fileID: 9181213876643157182, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
+  - {fileID: -3562724673036553761, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
+  - {fileID: -7805974314214195127, guid: 0b8b8fd00569ee7408af869f42f58d08, type: 3}
+  durations: 200000000400000004000000040000000400000004000000
+  sr: {fileID: 8608640812858310005}
+  randomizeStartFrame: 1
 --- !u!1 &8608640813090152028
 GameObject:
   m_ObjectHideFlags: 0

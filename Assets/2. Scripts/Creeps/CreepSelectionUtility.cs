@@ -221,7 +221,6 @@ namespace Core {
         }
 
         struct RandomWeights {
-
             public float hp;
             public float speed;
             public float count;

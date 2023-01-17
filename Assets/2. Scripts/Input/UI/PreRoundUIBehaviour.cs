@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using LPE;
+using TMPro;
 
 
 namespace Core {
@@ -7,9 +8,11 @@ namespace Core {
         public LPEButtonBehaviour creepButton;
         public LPEButtonBehaviour shopButton;
 
+        [SerializeField] TextMeshProUGUI creepButtonText;
+        [SerializeField] TextMeshProUGUI shopButtonText;
+
         public PreRound_CreepMenu_Behaviour creepMenu;
         public PreRound_ShopMenu_Behaviour shopMenu;
-
 
         public void Close() {
             creepButton.gameObject.SetActive(false);
@@ -21,6 +24,27 @@ namespace Core {
         public void Open() {
             creepButton.gameObject.SetActive(true);
             shopButton.gameObject.SetActive(true);
+            CloseAllMenus();
+        }
+
+        public void OpenCreepMenu(ScenarioInstance s) {
+            CloseAllMenus();
+
+            creepMenu.Open(s);
+            creepButtonText.color = Color.white;
+        }
+
+        public void OpenShopMenu(ScenarioInstance s) {
+            CloseAllMenus();
+            shopMenu.Open(s);
+            shopButtonText.color = Color.white;
+        }
+
+        public void CloseAllMenus() {
+            creepMenu.Close();
+            shopMenu.Close();
+            creepButtonText.color = Color.black;
+            shopButtonText.color = Color.black;
         }
     }
 }

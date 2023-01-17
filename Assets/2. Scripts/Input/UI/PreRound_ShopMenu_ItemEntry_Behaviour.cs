@@ -6,6 +6,7 @@ using TMPro;
 
 namespace Core {
     public class PreRound_ShopMenu_ItemEntry_Behaviour : MonoBehaviour {
+        [SerializeField] Image backgroundImage;
         [SerializeField] Image icon;
         [SerializeField] TextMeshProUGUI costText;
         [SerializeField] TextMeshProUGUI nameText;
@@ -45,16 +46,20 @@ namespace Core {
             this.shopItem = shopItem;
 
             if (shopItem.cost == -1) {
-                buttonImage.color = Color.grey;
-                costText.color = Color.grey; ;
+                buttonImage.color = buttonTooPoorColor;
+                costText.text = "";
+                backgroundImage.color = buttonTooPoorColor;
             }
+
             else if (CanAfford()) {
                 buttonImage.color = buttonAffordColor;
                 costText.color = costAffordColor;
+                backgroundImage.color = Color.white;
             }
             else {
                 buttonImage.color = buttonTooPoorColor;
                 costText.color = costTooPoorColor;
+                backgroundImage.color = buttonTooPoorColor;
             }
         }
 
