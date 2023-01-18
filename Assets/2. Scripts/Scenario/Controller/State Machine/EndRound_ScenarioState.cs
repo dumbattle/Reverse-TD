@@ -67,6 +67,7 @@
                 s.parameters.towerController.OnRoundEnd(s);
 
                 s.roundManager.NextRound();
+                s.references.roundText.text = $"Round {s.roundManager.current}";
 
                 // go to pre round
                 return PreRoundIdle_ScenarioState.Get(s);

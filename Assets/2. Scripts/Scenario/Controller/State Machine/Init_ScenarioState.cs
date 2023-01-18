@@ -23,7 +23,6 @@ namespace Core {
             // initial towers
             s.parameters.towerController.Init(s);
 
-
             BuildMap(s);
 
             s.playerFunctions.GetCreepArmy().Init(s.playerFunctions.GetGlobalCreeepUpgrades(), s.parameters.creepModifiers);
@@ -37,6 +36,9 @@ namespace Core {
 
 
             s.playerFunctions.GetShop().Refresh(s);
+
+            s.parameters.creepPathfinder.DrawBehaviours(s);
+            s.references.roundText.text = "Round 1";
             return PreRoundIdle_ScenarioState.Get(s);
         }
 

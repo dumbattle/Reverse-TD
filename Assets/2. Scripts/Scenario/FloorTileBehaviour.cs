@@ -21,5 +21,9 @@ namespace Core {
         public void Ping() {
             pingTime = 1;
         }
+
+        public void SetSprite(Sprite s) {
+            sr.sprite = s;
+        }
     }
 }

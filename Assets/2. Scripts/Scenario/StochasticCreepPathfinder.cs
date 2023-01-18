@@ -93,5 +93,7 @@ namespace Core {
 
             return result;
         }
+
+        public void DrawBehaviours(ScenarioInstance s) { }
     }
 }

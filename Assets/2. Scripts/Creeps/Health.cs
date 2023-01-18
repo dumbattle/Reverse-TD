@@ -17,5 +17,13 @@
                 current = max;
             }
         }
+        public void Reset(int max = -1) {
+            if (max <= 0) {
+                max = this.max;
+            }
+
+            this.max = max;
+            current = max;
+        }
     }
 }

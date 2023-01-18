@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using TMPro;
 
 
 namespace Core {
@@ -12,5 +13,7 @@ namespace Core {
         public Camera mainCamera;
 
         public GameUI ui;
+
+        public TextMeshProUGUI roundText;
     }
 }

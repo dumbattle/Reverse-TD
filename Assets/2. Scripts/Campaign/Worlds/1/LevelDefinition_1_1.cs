@@ -37,7 +37,6 @@ namespace Core.Campaign {
             result.startingTowers.Add((new Vector2Int(4, 3), TowerDefinitionCatalog.gun_1));
             result.startingTowers.Add((new Vector2Int(6, 7), TowerDefinitionCatalog.gun_1));
             result.startingTowers.Add((new Vector2Int(8, 2), TowerDefinitionCatalog.gun_1));
-            result.towerController = new BasicTowerController();
 
             result.creepModifiers.AddCountScale(-1);
             result.creepModifiers.AddSpawnRateScale(-1);
@@ -65,6 +64,11 @@ namespace Core.Campaign {
                     new Vector2Int(10, 4),
                 }
             );
+            var tc = new CampaignTowerController();
+            tc.SetAvailableUpgrades();
+            tc.SetMoneyStats(0, 85, 15);
+            tc.SetMaxHealth(10_000);
+            result.towerController = tc;
             return result;
         }
     }

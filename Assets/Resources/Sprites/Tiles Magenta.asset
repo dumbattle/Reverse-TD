@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7498711091ab0c4409d8c6bdd411b5f5, type: 3}
+  m_Name: Tiles Magenta
+  m_EditorClassIdentifier: 
+  data:
+    m_keys:
+    - Path DL
+    - Path DR
+    - Path LR
+    - Path UD
+    - Path UL
+    - Path UR
+    - Spawn 1
+    - Spawn 2
+    - Spawn 3
+    - Spawn 4
+    m_values:
+    - {fileID: -537749870668139058, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: 4099902767569298868, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: -8377130690987618698, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: -4684333735789482159, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: -6833445872158455971, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: -5062486230716756072, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: 1561205615984820651, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: 857779327251732012, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: 3825752689756085014, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
+    - {fileID: 7477827516038983822, guid: abe55b3f7cf80574a9d94d7d00ab3b62, type: 3}
