@@ -1,5 +1,5 @@
 ﻿namespace Core {
-    public class SpawnCreeps_ScenarioState : IFSM_State {
+    public class SpawnCreeps_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
         //******************************************************************************
@@ -11,7 +11,7 @@
             instance.timer = 0;
             instance.currentSquad = 0;
             instance.currentSquadCount = 0;
-            s.parameters.ui.BeginRound();
+            s.references.ui.BeginRound();
             return instance;
         }
 
@@ -26,7 +26,7 @@
         // IFSM_State
         //******************************************************************************
 
-        public IFSM_State Update(ScenarioInstance s) {
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             s.GamplayUpdate();
 
             if (timer > 0) {

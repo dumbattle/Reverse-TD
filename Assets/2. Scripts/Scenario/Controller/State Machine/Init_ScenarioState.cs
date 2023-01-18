@@ -2,7 +2,7 @@
 
 
 namespace Core {
-    public class Init_ScenarioState : IFSM_State {
+    public class Init_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
         //******************************************************************************
@@ -18,23 +18,22 @@ namespace Core {
         // IFSM_State
         //******************************************************************************
 
-        public IFSM_State Update(ScenarioInstance s) {
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             s.playerFunctions.AddMoney(500);
             // initial towers
-            var center = new Vector2Int((s.mapQuery.width - 1) / 2, (s.mapQuery.height - 1) / 2);
 
-            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.gun_1, center);
+            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.gun_1);
             s.towerFunctions.AddStartingGroups(TowerDefinitionCatalog.wall1);
             BuildMap(s);
 
             s.playerFunctions.GetCreepArmy().Init(s.playerFunctions.GetGlobalCreeepUpgrades());
 
             // TODO refactor out
-            s.parameters.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
-            s.parameters.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
-            s.parameters.ui.startButton.SetClickListener(InputManager.Set.Start);
-            s.parameters.ui.preRoundBehaviour.creepButton.SetClickListener(InputManager.Set.PreRoundUI.CreepMenuOpen);
-            s.parameters.ui.preRoundBehaviour.shopButton.SetClickListener(InputManager.Set.PreRoundUI.ShopMenuOpen);
+            s.references.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
+            s.references.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
+            s.references.ui.startButton.SetClickListener(InputManager.Set.Start);
+            s.references.ui.preRoundBehaviour.creepButton.SetClickListener(InputManager.Set.PreRoundUI.CreepMenuOpen);
+            s.references.ui.preRoundBehaviour.shopButton.SetClickListener(InputManager.Set.PreRoundUI.ShopMenuOpen);
 
 
             s.playerFunctions.GetShop().Refresh(s);
@@ -48,7 +47,7 @@ namespace Core {
         private static void BuildMap(ScenarioInstance s) {
             for (int x = 0; x < s.mapQuery.width; x++) {
                 for (int y = 0; y < s.mapQuery.height; y++) {
-                    var t = GameObject.Instantiate(s.parameters.tileSrc);
+                    var t = GameObject.Instantiate(s.references.tileSrc);
                     t.gameObject.SetActive(true);
                     t.transform.position = s.mapQuery.TileToWorld(x, y);
                     var tile = s.mapQuery.GetTile(x, y);

@@ -14,12 +14,12 @@ namespace Core {
 
         public static void HandleMoveZoomInput(this ScenarioInstance s) {
             if (InputManager.MoveCamera.yes) {
-                var c = s.parameters.cameraPivot;
+                var c = s.references.cameraPivot;
                 c.transform.position += (Vector3)InputManager.MoveCamera.dir;
             }
 
             if (InputManager.ZoomCamera.yes) {
-                var cam = s.parameters.mainCamera;
+                var cam = s.references.mainCamera;
                 cam.orthographicSize += InputManager.ZoomCamera.val;
                 cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 3, 10);
             }

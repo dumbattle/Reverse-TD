@@ -20,6 +20,9 @@ TextureImporter:
   - first:
       213: 8160775752198118580
     second: TR Corner Cut Grey Dark
+  - first:
+      213: 7448113381798972013
+    second: Background Peach
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -242,6 +245,27 @@ TextureImporter:
       bones: []
       spriteID: 4bcd3691f46e04170800000000000000
       internalID: 8160775752198118580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Background Peach
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 4, y: 8, z: 7, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a06f0b8a30d5760800000000000000
+      internalID: 7448113381798972013
       vertices: []
       indices: 
       edges: []

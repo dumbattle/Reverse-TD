@@ -14,7 +14,7 @@ namespace Core {
         public CreepManager(ScenarioInstance s,int w, int h) {
             this.s =s;
             grid = new Grid2D<CreepInstance>(new Vector2(-2, -2), new Vector2(w + 2, h + 2), new Vector2Int(w + 4, h + 4));
-            behaviourPool = new ObjectPool<CreepBehaviour>(() => GameObject.Instantiate(s.parameters.creepSrc), 100);
+            behaviourPool = new ObjectPool<CreepBehaviour>(() => GameObject.Instantiate(s.references.creepSrc), 100);
         }
 
         public void AddCreep(CreepInstance c) {

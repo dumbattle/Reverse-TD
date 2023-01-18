@@ -51,8 +51,8 @@ namespace Core {
 
             // mouse drag
             if (Input.GetMouseButton(0) && !buttonPressed) {
-                Vector2 downPosWorld = s.parameters.mainCamera.ScreenToWorldPoint(lastDragPosition);
-                Vector2 currentPosWorld = s.parameters.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 downPosWorld = s.references.mainCamera.ScreenToWorldPoint(lastDragPosition);
+                Vector2 currentPosWorld = s.references.mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
                 Vector2 drag = currentPosWorld - downPosWorld;
 

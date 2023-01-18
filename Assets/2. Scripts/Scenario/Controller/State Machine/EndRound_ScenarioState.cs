@@ -1,5 +1,5 @@
 ﻿namespace Core {
-    public class EndRound_ScenarioState : IFSM_State {
+    public class EndRound_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
         //******************************************************************************
@@ -18,7 +18,7 @@
         // IFSM_State
         //******************************************************************************
 
-        public IFSM_State Update(ScenarioInstance s) {
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             if (mode == 0) {
                 s.playerFunctions.GetShop().Refresh(s);
 
@@ -29,22 +29,22 @@
                 for (int i = 0; i < 2; i++) {
                     var newItem = PlayerItemUtility.GetRandomItem(s.roundManager.current);
                     s.playerFunctions.AddItem(newItem);
-                    s.parameters.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
+                    s.references.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
                 }
 
                 // money reward
                 var m = s.roundManager.GetCurrentRoundMoneyReward();
                 s.playerFunctions.AddMoney(m);
-                s.parameters.ui.endRoundUnlockBehaviour.AddEntry(IconResourceCache.moneyReward, m.ToString());
+                s.references.ui.endRoundUnlockBehaviour.AddEntry(IconResourceCache.moneyReward, m.ToString());
 
                 // next state
-                s.parameters.ui.endRoundUnlockBehaviour.StartUnlockAnimation();
+                s.references.ui.endRoundUnlockBehaviour.StartUnlockAnimation();
                 mode++;
                 return null;
             }
             else if (mode == 1) {
                 // wait for animation
-                if (!s.parameters.ui.endRoundUnlockBehaviour.AnimationDone()) {
+                if (!s.references.ui.endRoundUnlockBehaviour.AnimationDone()) {
                     return null;
                 }
 
@@ -53,13 +53,13 @@
             else if (mode == 2) {
                 // get close input
                 if (InputManager.Continue.requested) {
-                    s.parameters.ui.endRoundUnlockBehaviour.StartCloseAnimation();
+                    s.references.ui.endRoundUnlockBehaviour.StartCloseAnimation();
                     mode++;
                 }
             }
             else if (mode == 3) {
                 // wait for animation
-                if (!s.parameters.ui.endRoundUnlockBehaviour.AnimationDone()) {
+                if (!s.references.ui.endRoundUnlockBehaviour.AnimationDone()) {
                     return null;
                 }
 

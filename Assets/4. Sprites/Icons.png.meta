@@ -158,6 +158,12 @@ TextureImporter:
   - first:
       213: 2594068508085724225
     second: Creep Group Shift
+  - first:
+      213: 3929133199111790865
+    second: Map Small
+  - first:
+      213: 7196004467878751866
+    second: Map Placement Center
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1346,6 +1352,27 @@ TextureImporter:
       bones: []
       spriteID: 1442a7b609bfff320800000000000000
       internalID: 2594068508085724225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map Placement Center
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 168
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e690effe75dd360800000000000000
+      internalID: 7196004467878751866
       vertices: []
       indices: 
       edges: []

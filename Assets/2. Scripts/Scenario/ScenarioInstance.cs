@@ -16,9 +16,10 @@ namespace Core {
 
         ScenarioInstance() { }
 
-        public static ScenarioInstance Get(ScenarioParameters p) {
+        public static ScenarioInstance Get(ScenarioParameters p, ScenarioUnityReferences references) {
             var result = new ScenarioInstance();
             result.parameters = p;
+            result.references = references;
             result.map = new ScenarioMap(p.width, p.height);
             result.towerManager = new TowerManager(p.width, p.height);
             result.creepManager = new CreepManager(result, p.width, p.height);
@@ -28,7 +29,7 @@ namespace Core {
             result.mapQuery = new MapQuery(result.map, result.towerManager);
             result.towerFunctions = new TowerFunctions(result, result.towerManager, result.placementManager);
             result.creepFunctions = new CreepFunctions(result, result.creepManager, result.towerController);
-            result.playerFunctions = new PlayerFunctions(result.parameters, result.player);
+            result.playerFunctions = new PlayerFunctions(references, result.player);
             result.player.Init(result);
             return result;
         }
@@ -38,6 +39,7 @@ namespace Core {
         //******************************************************************************
         
         public ScenarioParameters parameters { get; private set; }
+        public ScenarioUnityReferences references { get; private set; }
         PlayerData player;
 
         TowerManager towerManager;

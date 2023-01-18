@@ -37,13 +37,18 @@ namespace Core {
                 return;
             }
 
-            // scan for creeps
+            // scan for in attack range
             var range = GetRange();
             creepsInRange.Clear();
-            s.creepFunctions.QueryCreeps(position, range + GetExtraRange(), creepsInRange);
+            s.creepFunctions.QueryCreeps(position, range, creepsInRange);
             if (creepsInRange.Count == 0) {
                 return;
             }
+
+            // scan for creeps in damage range
+            creepsInRange.Clear();
+            s.creepFunctions.QueryCreeps(position, range + GetExtraRange(), creepsInRange);
+
             // damage creeps
             foreach (var c in creepsInRange) {
                 DamageCreep(s, c);

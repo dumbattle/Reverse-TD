@@ -6065,6 +6065,8 @@ MonoBehaviour:
   parameters:
     width: 35
     height: 35
+    mainTowerBl: {x: 17, y: 17}
+  unityReferences:
     tileSrc: {fileID: 940043590}
     creepSrc: {fileID: -5938341677282724075, guid: 6359a2a1e75018b42a98df80c4402cd2, type: 3}
     cameraPivot: {fileID: 1360611165}

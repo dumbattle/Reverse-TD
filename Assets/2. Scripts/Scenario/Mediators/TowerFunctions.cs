@@ -58,7 +58,8 @@ namespace Core {
             s.mapQuery.CalculateTileDistances();
         }
 
-        public void AddMainTower(TowerDefinition main, TowerDefinition startingSupport, Vector2Int bl) {
+        public void AddMainTower(TowerDefinition main, TowerDefinition startingSupport) {
+            var bl = s.parameters.mainTowerBl;
             var mainTower = main.GetNewInstance(s, bl);
           
             var size = main.size;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 namespace Core {
-    public class PreRoundIdle_ScenarioState : IFSM_State {
+    public class PreRoundIdle_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
         //******************************************************************************
@@ -12,7 +12,7 @@ namespace Core {
         static PreRoundIdle_ScenarioState instance = new PreRoundIdle_ScenarioState();
 
         public static PreRoundIdle_ScenarioState Get(ScenarioInstance s) {
-            s.parameters.ui.BeginPreRound();
+            s.references.ui.BeginPreRound();
             instance.pathSpawnTiwmer = 0;
 
             foreach (var p in instance.paths) {
@@ -27,7 +27,7 @@ namespace Core {
         List<CreepPathHighlighter> paths = new List<CreepPathHighlighter>();
 
         
-        public IFSM_State Update(ScenarioInstance s) {
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             //for (int i = paths.Count - 1; i >= 0; i--) {
             //    var h = paths[i];
             //    h.t--;

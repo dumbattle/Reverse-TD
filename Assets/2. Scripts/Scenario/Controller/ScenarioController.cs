@@ -3,7 +3,6 @@
 
 namespace Core {
     public class ScenarioController {
-
         //******************************************************************************
         // Pooling
         //******************************************************************************
@@ -27,7 +26,7 @@ namespace Core {
         // Dynamic
         //------------------------------------------------------------------------------
 
-        IFSM_State currentState;
+        IFSM_State<ScenarioInstance> currentState;
         IInputSystem inputSystem = new MainGameplay_PC_InputSystem();
 
         //******************************************************************************

@@ -1,5 +1,5 @@
 ﻿namespace Core {
-    public class PlayRound_ScenarioState : IFSM_State {
+    public class PlayRound_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
         //******************************************************************************
@@ -22,7 +22,7 @@
         // IFSM_State
         //******************************************************************************
 
-        public IFSM_State Update(ScenarioInstance s) {
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             s.GamplayUpdate();
 
             if (s.creepFunctions.CreepCount() <= 0) {

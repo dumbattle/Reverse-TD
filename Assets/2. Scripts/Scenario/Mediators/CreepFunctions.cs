@@ -37,7 +37,7 @@ namespace Core {
                     s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward* hpScale));
 
                     towerController.health.DealDamage(c.health.current);
-                    s.parameters.ui.healthBarPivot.transform.localScale = new Vector3((float)towerController.health.current / towerController.health.max, 1, 1);
+                    s.references.ui.healthBarPivot.transform.localScale = new Vector3((float)towerController.health.current / towerController.health.max, 1, 1);
                     DestroyCreep(c);
                 }
             }

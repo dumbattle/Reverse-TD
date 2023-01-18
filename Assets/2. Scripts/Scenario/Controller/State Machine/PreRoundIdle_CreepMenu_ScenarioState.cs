@@ -1,5 +1,5 @@
 ﻿namespace Core {
-    public class PreRoundIdle_CreepMenu_ScenarioState : IFSM_State {
+    public class PreRoundIdle_CreepMenu_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
         //******************************************************************************
@@ -7,7 +7,7 @@
         static PreRoundIdle_CreepMenu_ScenarioState instance = new PreRoundIdle_CreepMenu_ScenarioState();
 
         public static PreRoundIdle_CreepMenu_ScenarioState Get(ScenarioInstance s) {
-            s.parameters.ui.preRoundBehaviour.OpenCreepMenu(s);
+            s.references.ui.preRoundBehaviour.OpenCreepMenu(s);
             return instance;
         }
 
@@ -15,10 +15,10 @@
         // Implementation
         //******************************************************************************
 
-        public IFSM_State Update(ScenarioInstance s) {
-            IFSM_State nextState = null;
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
+            IFSM_State<ScenarioInstance> nextState = null;
             if (InputManager.PreRoundUI.creepMenuOpen || InputManager.Cancel.requested) {
-                s.parameters.ui.preRoundBehaviour.CloseAllMenus();
+                s.references.ui.preRoundBehaviour.CloseAllMenus();
                 nextState = PreRoundIdle_ScenarioState.Get(s);
             }
 
@@ -27,7 +27,7 @@
             }
 
             if (nextState != null) {
-                s.parameters.ui.preRoundBehaviour.creepMenu.Close();
+                s.references.ui.preRoundBehaviour.creepMenu.Close();
             }
 
             return nextState;

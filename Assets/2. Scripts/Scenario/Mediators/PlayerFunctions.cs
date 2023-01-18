@@ -3,11 +3,11 @@
 
 namespace Core {
     public class PlayerFunctions {
-        ScenarioParameters parameters;
+        ScenarioUnityReferences references;
         PlayerData player;
 
-        public PlayerFunctions(ScenarioParameters parameters, PlayerData player) {
-            this.parameters = parameters;
+        public PlayerFunctions(ScenarioUnityReferences references, PlayerData player) {
+            this.references = references;
             this.player = player;
         }
         public int CurrentMoney() {
@@ -15,7 +15,7 @@ namespace Core {
         }
         public void AddMoney(int amnt) {
             player.money += amnt;
-            parameters.ui.moneyText.text = player.money.ToString();
+            references.ui.moneyText.text = player.money.ToString();
         }
         public ShopInstance GetShop() {
             return player.shop;

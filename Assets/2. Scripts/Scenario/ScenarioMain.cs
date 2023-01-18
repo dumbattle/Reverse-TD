@@ -3,14 +3,16 @@ using UnityEngine;
 using Core;
 using UnityEditor;
 
-public class Main : MonoBehaviour {
+public class ScenarioMain : MonoBehaviour {
     public ScenarioParameters parameters;
-
+    public ScenarioUnityReferences unityReferences;
     ScenarioInstance s;
     ScenarioController controller;
+
     void Start() {
         Application.targetFrameRate = 60;
-        s = ScenarioInstance.Get(parameters);
+      
+        s = ScenarioInstance.Get(InterSceneCommunicator.scenarioParameters ?? parameters, unityReferences);
         controller = ScenarioController.Get(s);
     }
 
@@ -18,6 +20,7 @@ public class Main : MonoBehaviour {
     void Update() {
         controller.Update();
     }
+
     private void OnDrawGizmos() {
         if (s == null) {
             return;
@@ -34,4 +37,8 @@ public class Main : MonoBehaviour {
             }
         }
     }
+}
+
+public static class InterSceneCommunicator {
+    public static ScenarioParameters scenarioParameters;
 }
