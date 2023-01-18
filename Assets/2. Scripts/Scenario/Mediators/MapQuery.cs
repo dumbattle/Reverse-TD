@@ -36,6 +36,7 @@ namespace Core {
                 x < width &&
                 y < height;
         }
+       
         public Vector2Int GetRandomCreepSpawn() {
             Vector2Int corner; ;
             Vector2Int delta;
@@ -226,7 +227,5 @@ namespace Core {
                 }
             }
         }
-   
-    
     }
 }

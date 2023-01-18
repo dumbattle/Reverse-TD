@@ -8,6 +8,11 @@
         Entry spawnRate = new Entry();
         Entry count = new Entry();
         Entry spd = new Entry();
+        
+        
+        public CreepStatModification() {
+            Reset();
+        }
 
         public void Apply(CreepDefinition def) {
             def.radius *= size.GetRatio();
@@ -16,7 +21,6 @@
             def.spawnRate *= spawnRate.GetRatio();
             def.count *= count.GetRatio();
             def.speed *= spd.GetRatio();
-
             def.radius = UnityEngine.Mathf.Min(def.radius, 0.45f);
             def.hpRegenRate += regenRate;
         }

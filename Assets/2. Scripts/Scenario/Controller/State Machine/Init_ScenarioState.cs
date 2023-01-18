@@ -26,7 +26,7 @@ namespace Core {
 
             BuildMap(s);
 
-            s.playerFunctions.GetCreepArmy().Init(s.playerFunctions.GetGlobalCreeepUpgrades());
+            s.playerFunctions.GetCreepArmy().Init(s.playerFunctions.GetGlobalCreeepUpgrades(), s.parameters.creepModifiers);
 
             // TODO refactor out
             s.references.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);

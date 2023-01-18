@@ -6,13 +6,16 @@ namespace Core {
         List<CreepSquad> squads = new List<CreepSquad>();
         public int count => squads.Count;
         GlobalCreeepUpgrades globalUpgrades;
-        public void Init(GlobalCreeepUpgrades globalUpgrades) {
+        CreepStatModification levelModifiers;
+
+        public void Init(GlobalCreeepUpgrades globalUpgrades, CreepStatModification levelModifiers) {
             this.globalUpgrades = globalUpgrades;
+            this.levelModifiers = levelModifiers;
             AddNewSquad(CreepSelectionUtility.GetInitialCreep());
         }
 
         public void AddNewSquad(CreepDefinition cdef) {
-            squads.Add(new CreepSquad(cdef, globalUpgrades));
+            squads.Add(new CreepSquad(cdef, globalUpgrades, levelModifiers));
         }
 
         public CreepSquad GetSquad(int index) {

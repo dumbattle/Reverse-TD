@@ -27,7 +27,6 @@ namespace LPE {
             this.msg = msg;
             mode = LOG;
         }
-
         public bool Inc() {
             i++;
 

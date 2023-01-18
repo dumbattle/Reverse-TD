@@ -12,13 +12,17 @@ namespace Core {
         List<CreepAttatchment> level3Modifier = new List<CreepAttatchment>();
 
         GlobalCreeepUpgrades globalUpgrades;
+        CreepStatModification levelModifiers;
         CreepStatModification stage1 = new CreepStatModification();
         CreepStatModification stage2 = new CreepStatModification();
 
-        public CreepSquad(CreepDefinition def, GlobalCreeepUpgrades globalUpgrades) {
+        public CreepSquad(CreepDefinition def, GlobalCreeepUpgrades globalUpgrades, CreepStatModification levelModifiers) {
+            this.levelModifiers = levelModifiers;
             baseDefinition = def;
             actualDefinition = def.CreateCopy();
             this.globalUpgrades = globalUpgrades;
+
+            RecalculateActual();
         }
 
         public void AddModifier(CreepAttatchment mod) {
@@ -52,6 +56,7 @@ namespace Core {
                 l.ApplyModification(stage2);
             }
 
+            levelModifiers.Apply(actualDefinition);
             stage1.Apply(actualDefinition);
             stage2.Apply(actualDefinition);
         }

@@ -164,6 +164,9 @@ TextureImporter:
   - first:
       213: 7196004467878751866
     second: Map Placement Center
+  - first:
+      213: -7057806690012809336
+    second: Star Black
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1373,6 +1376,27 @@ TextureImporter:
       bones: []
       spriteID: a7e690effe75dd360800000000000000
       internalID: 7196004467878751866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Star Black
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88739649532ad0e90800000000000000
+      internalID: -7057806690012809336
       vertices: []
       indices: 
       edges: []
