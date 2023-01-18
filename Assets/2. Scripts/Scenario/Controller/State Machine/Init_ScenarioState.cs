@@ -21,9 +21,9 @@ namespace Core {
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             s.playerFunctions.AddMoney(500);
             // initial towers
+            s.parameters.towerController.Init(s);
 
-            s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, TowerDefinitionCatalog.gun_1);
-            s.towerFunctions.AddStartingGroups(TowerDefinitionCatalog.wall1);
+
             BuildMap(s);
 
             s.playerFunctions.GetCreepArmy().Init(s.playerFunctions.GetGlobalCreeepUpgrades());

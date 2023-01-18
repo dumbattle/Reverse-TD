@@ -22,8 +22,6 @@
             if (mode == 0) {
                 s.playerFunctions.GetShop().Refresh(s);
 
-                s.towerController.money += 100 +150 * s.roundManager.current;
-                s.towerFunctions.UpgradeTowers();
        
                 // unlock new item
                 for (int i = 0; i < 2; i++) {
@@ -66,11 +64,7 @@
                 mode++;
             }
             else if (mode == 4) {
-                // more towers
-                for (int i = 0; i < s.mapQuery.width * s.mapQuery.height / 40f; i++) {
-                    s.towerFunctions.AddTowerRandomPlacement(TowerDefinitionCatalog.wall1);
-
-                }
+                s.parameters.towerController.OnRoundEnd(s);
 
                 s.roundManager.NextRound();
 

@@ -8,16 +8,14 @@ namespace Core {
     public class CreepFunctions {
         ScenarioInstance s;
         CreepManager creepManager;
-        TowerController towerController;
 
 
         CircleShape cachedCircleShape = new CircleShape(1);
         List<CreepInstance> creepResults = new List<CreepInstance>();
 
-        public CreepFunctions(ScenarioInstance s, CreepManager creepManager, TowerController towerController) {
+        public CreepFunctions(ScenarioInstance s, CreepManager creepManager) {
             this.s = s;
             this.creepManager = creepManager ?? throw new ArgumentNullException(nameof(creepManager));
-            this.towerController = towerController;
         }
 
         public void AddCreep(CreepInstance c) {
@@ -30,14 +28,14 @@ namespace Core {
                 CreepInstance c = creepManager.allCreeps[i];
                 c.Update(s);
                 creepManager.grid.UpdateItem(c, LPE.Math.Geometry.CircleAABB(c.position, c.radius));
-                
-                
-                if (s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius)) {
-                    float hpScale = (float)c.health.current / c.health.max;
-                    s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward* hpScale));
 
-                    towerController.health.DealDamage(c.health.current);
-                    s.references.ui.healthBarPivot.transform.localScale = new Vector3((float)towerController.health.current / towerController.health.max, 1, 1);
+                var t = s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius);
+                if (t != null) {
+                    float hpScale = (float)c.health.current / c.health.max;
+                    s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward * hpScale));
+
+                    s.parameters.towerController.OnCreepReachMainTower(s, c, t);
+
                     DestroyCreep(c);
                 }
             }

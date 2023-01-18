@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace Core {
     public class TowerPlacementManager {
-        TowerManager towerManager;
+        //TowerManager towerManager;
         List<Group> _groups = new List<Group>();
         ScenarioInstance s;
 
 
-        public TowerPlacementManager (ScenarioInstance s, TowerManager towerManager) {
-            this.towerManager = towerManager;
+        public TowerPlacementManager (ScenarioInstance s) {
             this.s = s;
         }
 
@@ -39,7 +38,7 @@ namespace Core {
             _groups.Add(newGroup);
         }
 
-        public ITower SpawnTowerRandom(TowerDefinition d) {
+        public ITower SpawnTowerRandom(TowerDefinition d, TowerFunctions tf) {
             if (d.size > 1) {
                 throw new System.NotImplementedException("Cannot spawn tower with size greater than 1");
             }
@@ -80,14 +79,13 @@ namespace Core {
             }
 
             if (location == new Vector2Int(-1, -1)) {
-                return SpawnTowerRandom(d);
+                return SpawnTowerRandom(d, tf);
             }
             // create tower
-            var t = d.GetNewInstance(s, location);
+            var t = tf.AddTower(d, location);
 
             // add to group
             AddTowerToGroup(t, g);
-
             return t;
         }
         public ITower SpawnTowerDisconected(TowerDefinition d) {
@@ -160,7 +158,7 @@ namespace Core {
             }
 
             // Check tower
-            var existing = towerManager.towers[tile.x, tile.y];
+            var existing = s.towerFunctions.GetTower(tile);
 
             if (existing != null && existing != ignoreTower) {
                 return false;
@@ -177,8 +175,8 @@ namespace Core {
             }
             return true;
         }
-        
-        void AddTowerToGroup (ITower tower, Group g) {
+
+        void AddTowerToGroup(ITower tower, Group g) {
             g.members.Add(tower);
 
             // add reserved tiles

@@ -56,7 +56,7 @@ namespace Core {
         }
 
         protected override int GetTotalUpgradeLevel() {
-            return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel;
+            return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel + splashUpgrade.currentLevel;
         }
         
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {
