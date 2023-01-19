@@ -3,9 +3,29 @@
 
 
 namespace Core {
-    public class Main_Tower_1 : ProjectileTower<TestProjectileBehaviour> {
+    public interface IMainTower : ITower {
+        bool IsDefeated();
+        void SetAsDefeated();
+    }
+    public class Main_Tower_1 : ProjectileTower<TestProjectileBehaviour>, IMainTower {
+        bool defeated = false;
+
         public override void GetGeneralUpgradeOptions(List<UpgradeOption> results) {
         }
+
+        public override void GameUpdate(ScenarioInstance s) {
+            if (defeated) {
+                return;
+            }
+
+            base.GameUpdate(s);
+        }
+
+        public void SetAsDefeated() {
+            defeated = true;
+            print("A");
+        }
+        public bool IsDefeated() => defeated;
 
         protected override float GetAtkDelay() {
             return 1;

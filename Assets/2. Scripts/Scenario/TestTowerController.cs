@@ -13,7 +13,8 @@ namespace Core {
         List<ITower> activeTowers = new List<ITower>();
         List<ITower> walls = new List<ITower>();
 
-        ITower mainTower;
+        List<IMainTower> mainTowers = new List<IMainTower>();
+        IMainTower mainTower;
 
         List<UpgradeOption> upgradeOptionsCache = new List<UpgradeOption>();
         List<SpecializationUpgradeOptions> specializationUpgradeOptionsCache = new List<SpecializationUpgradeOptions>();
@@ -21,9 +22,9 @@ namespace Core {
         public void Init(ScenarioInstance s) {
             placementManager = new TowerPlacementManager(s);
             // main tower
-            mainTower = s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, s.parameters.mainTowerBl);
+            mainTower = (IMainTower)s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, s.parameters.mainTowerBl);
             placementManager.StartNewGroup(mainTower, true);
-
+            mainTowers.Add(mainTower);
             // starting support towers
             var t1 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, s.parameters.mainTowerBl + new Vector2Int(-2, -2));
             var t2 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, s.parameters.mainTowerBl + new Vector2Int(3, 3));
@@ -75,9 +76,13 @@ namespace Core {
             UpgradeTowers2(s);
         }
 
-        public void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, ITower mainTower) {
+        public void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
             health.DealDamage(c.health.current);
             s.references.ui.healthBarPivot.transform.localScale = new Vector3((float)health.current / health.max, 1, 1);
+        }
+
+        public List<IMainTower> GetAllMainTowers() {
+            return mainTowers;
         }
 
         void UpgradeTowers(ScenarioInstance s) {

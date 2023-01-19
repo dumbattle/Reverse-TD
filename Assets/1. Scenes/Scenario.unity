@@ -6208,6 +6208,7 @@ MonoBehaviour:
     cameraPivot: {fileID: 1360611165}
     mainCamera: {fileID: 519420031}
     ui: {fileID: 794395212}
+    roundText: {fileID: 823206873}
 --- !u!4 &937772067
 Transform:
   m_ObjectHideFlags: 0

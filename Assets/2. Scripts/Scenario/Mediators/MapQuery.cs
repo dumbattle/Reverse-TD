@@ -101,7 +101,7 @@ namespace Core {
             var t = GetTile(v.x, v.y);
             t.behaviour.Ping();
         }
-        public void CalculateTileDistances() {
+        public void CalculateTileDistances(ITowerController tc) {
             CalcFromTarget();
             //SetGroupedPaths();
 
@@ -114,16 +114,18 @@ namespace Core {
                 }
                 queue.Clear();
                 // seed
-                var bl = towerManager.target.GetBottomLeft();
-                var s = towerManager.target.Size;
+                foreach (var mt in tc.GetAllMainTowers()) {
+                    var bl = mt.GetBottomLeft();
+                    var s = mt.Size;
 
-                for (int x = 0; x < s; x++) {
-                    for (int y = 0; y < s; y++) {
-                        var index = bl + new Vector2Int(x, y);
+                    for (int x = 0; x < s; x++) {
+                        for (int y = 0; y < s; y++) {
+                            var index = bl + new Vector2Int(x, y);
 
-                        var tile = map.tiles[index.x, index.y];
-                        tile.distFromTarget = 0;
-                        queue.Enqueue(index);
+                            var tile = map.tiles[index.x, index.y];
+                            tile.distFromTarget = 0;
+                            queue.Enqueue(index);
+                        }
                     }
                 }
 

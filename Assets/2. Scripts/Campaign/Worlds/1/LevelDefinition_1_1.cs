@@ -64,10 +64,11 @@ namespace Core.Campaign {
                     new Vector2Int(10, 4),
                 }
             );
+
             var tc = new CampaignTowerController();
             tc.SetAvailableUpgrades();
             tc.SetMoneyStats(0, 85, 15);
-            tc.SetMaxHealth(10_000);
+            tc.SetMaxHealth(1_000);
             result.towerController = tc;
             return result;
         }

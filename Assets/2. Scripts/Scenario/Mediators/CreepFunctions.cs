@@ -29,15 +29,30 @@ namespace Core {
                 c.Update(s);
                 creepManager.grid.UpdateItem(c, LPE.Math.Geometry.CircleAABB(c.position, c.radius));
 
-                var t = s.towerFunctions.IsCollidingWithMainTower(c.position, c.radius);
-                if (t != null) {
-                    float hpScale = (float)c.health.current / c.health.max;
-                    s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward * hpScale));
+                // check collision with main towers
+                foreach (var mt in s.parameters.towerController.GetAllMainTowers()) {
+                    // collision check
+                    cachedCircleShape.radius = c.radius;
+                    cachedCircleShape.SetPosition(c.position);
 
-                    s.parameters.towerController.OnCreepReachMainTower(s, c, t);
+                    var mainShape = mt.GetShape();
+                    bool collision =  mainShape.CheckCollision(cachedCircleShape);
 
-                    DestroyCreep(c);
+                    if (collision) {
+                        // money
+                        float hpScale = (float)c.health.current / c.health.max;
+                        s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward * hpScale));
+
+                        // notify tower controller
+                        s.parameters.towerController.OnCreepReachMainTower(s, c, mt);
+
+                        // creep done
+                        DestroyCreep(c);
+                        
+                        break;
+                    }
                 }
+
             }
         }
         
