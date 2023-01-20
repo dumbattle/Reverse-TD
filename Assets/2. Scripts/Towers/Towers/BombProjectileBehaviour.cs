@@ -60,7 +60,7 @@ namespace Core {
         }
 
         void Explode() {
-            traveled += 2f / 60f;
+            traveled += 2f * FrameUtility.DeltaTime(true);
 
             var c = xplodeColor;
             c.a = 1 - traveled;
@@ -73,7 +73,7 @@ namespace Core {
 
         void InFlight(ScenarioInstance s) {
             // move
-            traveled += speed / 60f;
+            traveled += speed * FrameUtility.DeltaTime(true);
 
             var position = start + direction * traveled;
             transform.position = s.mapQuery.TileToWorld(position);

@@ -32,7 +32,7 @@ namespace Core {
                 // check collision with main towers
                 foreach (var mt in s.parameters.towerController.GetAllMainTowers()) {
                     // collision check
-                    cachedCircleShape.radius = c.radius;
+                    cachedCircleShape.SetScale(c.radius);
                     cachedCircleShape.SetPosition(c.position);
 
                     var mainShape = mt.GetShape();
@@ -64,7 +64,6 @@ namespace Core {
 
             CreepInstance closet = null;
             float dist = Mathf.Infinity;
-
             foreach (var c in creepResults) {
                 var d = (c.position - location).sqrMagnitude;
                 if (d < dist) {

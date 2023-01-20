@@ -23,6 +23,7 @@ namespace Core {
         }
 
         public override void GameUpdate(ScenarioInstance s) {
+            // update projectiles
             for (int i = activeProjectiles.Count - 1; i >= 0; i--) {
                 T proj = activeProjectiles[i];
                 proj.GameUpdate(s);
@@ -32,9 +33,15 @@ namespace Core {
                     projectilePool.Return(proj);
                 }
             }
+
+            //check active
+            if (!active) {
+                return;
+            }
+
             // update timer
             if (atkTimer > 0) {
-                atkTimer -= 1f / 60f;
+                atkTimer -= FrameUtility.DeltaTime(true);
             }
 
             //check timer
@@ -48,12 +55,14 @@ namespace Core {
             if (target == null) {
                 return;
             }
+
             // make sure is in range
             var dist2 = (target.position - position).sqrMagnitude;
             if (dist2 > (range + target.radius) * (range + target.radius)) {
                 return;
             }
 
+            // execute attack
             atkTimer += GetAtkDelay();
 
             var dir = target.position - position;

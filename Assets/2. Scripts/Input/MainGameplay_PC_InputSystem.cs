@@ -35,7 +35,7 @@ namespace Core {
             }
 
             if (dir != Vector2.zero) {
-                InputManager.Set.MoveCamera(dir.normalized / 60f);
+                InputManager.Set.MoveCamera(dir.normalized * FrameUtility.DeltaTime(false));
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using LPE;
 using TMPro;
 
@@ -14,6 +15,8 @@ namespace Core {
         public PreRoundUIBehaviour preRoundBehaviour;
         [Header("Other")]
         public EndRoundUnlockBehaviour endRoundUnlockBehaviour;
+        public Image fadeOverlay;
+
 
         private void Awake() {
             startButton.gameObject.SetActive(false);

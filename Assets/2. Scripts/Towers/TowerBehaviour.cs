@@ -14,7 +14,10 @@ namespace Core {
         public Vector2 position => shape.position;
         public int Size => size;
 
-        List<TowerUpgradeDetails> upgrades; 
+        List<TowerUpgradeDetails> upgrades;
+
+        protected bool active = true;
+
         public void Init(ScenarioInstance s, Vector2Int bl) {
             this.bl = bl;
             tr = bl + new Vector2Int(size - 1, size - 1);
@@ -56,9 +59,11 @@ namespace Core {
         public void Destroy() {
             GameObject.Destroy(this.gameObject);
         }
+      
         List<TowerUpgradeDetails> ITower.GetGeneralUpgrades() {
             return upgrades;
         }
+        
         public void TransferGeneralUpgrade(TowerUpgradeDetails d) {
             foreach (var u in upgrades) {
                 if (u.ID != d.ID) {

@@ -131,6 +131,10 @@ namespace Core {
             }
         }
 
+        public bool IsDefeated() {
+            return health.current <= 0;
+        }
+
         public void UpgradeTowers2(ScenarioInstance s) {
             while (true) {
                 var up = GetUpgrade();

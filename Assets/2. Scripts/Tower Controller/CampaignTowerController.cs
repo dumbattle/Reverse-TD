@@ -80,6 +80,7 @@ namespace Core {
             // main tower
             mainTower = (IMainTower)s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, s.parameters.mainTowerBl);
             mainTowers.Add(mainTower);
+
             // walls
             foreach (var wallIndex in s.parameters.walls) {
                 var w = s.towerFunctions.AddTower(s.parameters.wallTower, wallIndex);
@@ -115,6 +116,9 @@ namespace Core {
         }
         public List<IMainTower> GetAllMainTowers() {
             return mainTowers;
+        }
+        public bool IsDefeated() {
+            return health.current <= 0;
         }
 
         //*********************************************************************************************************************************

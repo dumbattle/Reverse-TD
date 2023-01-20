@@ -10,8 +10,6 @@ public class ScenarioMain : MonoBehaviour {
     ScenarioController controller;
 
     void Start() {
-        Application.targetFrameRate = 60;
-      
         s = ScenarioInstance.Get(InterSceneCommunicator.scenarioParameters ?? parameters, unityReferences);
         controller = ScenarioController.Get(s);
     }

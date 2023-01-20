@@ -13,17 +13,9 @@ namespace Core {
         public override void GetGeneralUpgradeOptions(List<UpgradeOption> results) {
         }
 
-        public override void GameUpdate(ScenarioInstance s) {
-            if (defeated) {
-                return;
-            }
-
-            base.GameUpdate(s);
-        }
-
         public void SetAsDefeated() {
             defeated = true;
-            print("A");
+            active = false;
         }
         public bool IsDefeated() => defeated;
 

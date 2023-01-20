@@ -59,7 +59,7 @@ namespace Core {
 
             s.HandleMoveZoomInput();
             if (InputManager.Start.requested) {
-                return SpawnCreeps_ScenarioState.Get(s);
+                return PlayRound_ScenarioState.Get(s);
             }
 
             if (InputManager.PreRoundUI.creepMenuOpen) {

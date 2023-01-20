@@ -29,7 +29,7 @@ namespace Core {
 
             // update timer
             if (atkTimer > 0) {
-                atkTimer -= 1f / 60f;
+                atkTimer -= FrameUtility.DeltaTime(true);
             }
 
             //check timer

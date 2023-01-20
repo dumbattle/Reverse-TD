@@ -68,19 +68,21 @@ namespace Core {
         //**********************************************************************************************************
 
         public void Update(ScenarioInstance s) {
+            float deltaTime = FrameUtility.DeltaTime(true);
+
             // hp regen
-            hpRegen += health.max * definition.hpRegenRate / 60f;
+            hpRegen += health.max * definition.hpRegenRate * deltaTime;
             var healAmnt = (int)hpRegen;
             health.AddHealth(healAmnt);
             hpRegen -= healAmnt;
             // update slow
-            slowTimer -= 1f / 60f;
+            slowTimer -= deltaTime;
             if (slowTimer < 0) {
                 slowLevel = 0;
             }
 
             // move 
-            distTraveled += GetCurrentSpeed() / 60f;
+            distTraveled += GetCurrentSpeed() * deltaTime;
             var tileA = path[(int)distTraveled];
             var tileB = path[(int)distTraveled + 1];
 

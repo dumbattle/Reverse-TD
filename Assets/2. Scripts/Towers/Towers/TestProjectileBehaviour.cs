@@ -47,7 +47,7 @@ namespace Core {
         }
 
         void Explode() {
-            traveled += 2f / 60f;
+            traveled += 2f * FrameUtility.DeltaTime(true);
             transform.localScale = new Vector3(radius * (1 + traveled), radius * (1 + traveled), .5f) * 2;
 
             var c = sr.color;
@@ -60,7 +60,7 @@ namespace Core {
 
         private void InFlight(ScenarioInstance s) {
             // move
-            traveled += speed / 60f;
+            traveled += speed * FrameUtility.DeltaTime(true);
 
             var position = start + direction * traveled;
             transform.position = s.mapQuery.TileToWorld(position);

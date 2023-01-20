@@ -8,7 +8,7 @@ namespace Core {
         public bool randomizeStartFrame;
 
         int currentFrame;
-        int timer;
+        float timer;
 
 
         void Awake() {
@@ -19,10 +19,10 @@ namespace Core {
         }
 
         void Update() {
-            timer -= 1;
+            timer -= FrameUtility.GetFrameMultiplier(true);
 
             if (timer <= 0) {
-                currentFrame++;
+                currentFrame += 1;
                 if (currentFrame >= sprites.Length) {
                     currentFrame = 0;
                 }

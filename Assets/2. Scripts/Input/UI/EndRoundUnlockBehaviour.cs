@@ -22,7 +22,7 @@ namespace Core {
         int activeCount = 0;
         List<EndRoundUnlock_Entry> _entries = new List<EndRoundUnlock_Entry>();
         AnimType animType = AnimType.none;
-        int animationFrame;
+        float animationFrame;
 
         void Awake() {
             entrySrc.gameObject.SetActive(false);
@@ -48,7 +48,7 @@ namespace Core {
                 case AnimType.unhide:
                     break;
             }
-            animationFrame++;
+            animationFrame += FrameUtility.GetFrameMultiplier(false);
         }
 
         //----------------------------------------------------------------------------------------------------

@@ -2,6 +2,40 @@
 
 
 namespace Core {
+    public class FadeIn_ScenarioState : IFSM_State<ScenarioInstance> {
+        //******************************************************************************
+        // Singleton
+        //******************************************************************************
+
+        FadeIn_ScenarioState() { }
+        static FadeIn_ScenarioState instance = new FadeIn_ScenarioState();
+
+        public static FadeIn_ScenarioState Get(int duration) {
+            instance.timer = 0;
+            instance.duration = duration;
+            return instance;
+        }
+        //******************************************************************************
+        // State
+        //******************************************************************************
+        float timer;
+        int duration;
+
+
+        //******************************************************************************
+        // IFSM_State
+        //******************************************************************************
+
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
+            timer += FrameUtility.GetFrameMultiplier(false);
+
+            s.references.ui.fadeOverlay.color = new Color(0, 0, 0, 1 - (float)timer / duration);
+            if (timer > duration) {
+                return PreRoundIdle_ScenarioState.Get(s);
+            }
+            return null;
+        }
+    }
     public class Init_ScenarioState : IFSM_State<ScenarioInstance> {
         //******************************************************************************
         // Singleton
@@ -19,6 +53,7 @@ namespace Core {
         //******************************************************************************
 
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
+            s.references.ui.fadeOverlay.color = new Color(0, 0, 0, 1);
             s.playerFunctions.AddMoney(500);
             // initial towers
             s.parameters.towerController.Init(s);
@@ -39,7 +74,7 @@ namespace Core {
 
             s.parameters.creepPathfinder.DrawBehaviours(s);
             s.references.roundText.text = "Round 1";
-            return PreRoundIdle_ScenarioState.Get(s);
+            return FadeIn_ScenarioState.Get(24);
         }
 
         //******************************************************************************
