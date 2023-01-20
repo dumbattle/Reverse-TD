@@ -32,6 +32,7 @@ namespace Core {
         
         public ScenarioParameters parameters { get; private set; }
         public ScenarioUnityReferences references { get; private set; }
+        public RoundManager roundManager = new RoundManager();
         PlayerData player;
 
         TowerManager towerManager;
@@ -47,7 +48,6 @@ namespace Core {
         public TowerFunctions towerFunctions;
         public CreepFunctions creepFunctions;
         public PlayerFunctions playerFunctions;
-        public RoundManager roundManager = new RoundManager();
 
         //******************************************************************************
         // Helpers

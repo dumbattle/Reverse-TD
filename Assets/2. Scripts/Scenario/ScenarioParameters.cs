@@ -18,5 +18,54 @@ namespace Core {
         public TowerDefinition wallTower = TowerDefinitionCatalog.wall1;
         public ITowerController towerController = new TestTowerController();
         public CreepStatModification creepModifiers = new CreepStatModification();
+
+        public List<IScenarioEndDefinition> endDefinitions = new List<IScenarioEndDefinition>();
+    }
+
+    public interface IScenarioEndDefinition {
+        bool Check(ScenarioInstance s);
+        public IFSM_State<ScenarioInstance> GetEndSequence(ScenarioInstance s);
+    }
+
+    public class CampaignWin_ScenarioEndDefinition : IScenarioEndDefinition, IFSM_State<ScenarioInstance> {
+        CampaignTowerController tc;
+
+        public CampaignWin_ScenarioEndDefinition(CampaignTowerController tc) {
+            this.tc = tc;
+        }
+
+        //**************************************************************************************************
+        // IScenarioEndDefinition
+        //**************************************************************************************************
+
+        public bool Check(ScenarioInstance s) {
+            return tc.IsDefeated();
+        }
+
+        public IFSM_State<ScenarioInstance> GetEndSequence(ScenarioInstance s) {
+            FrameUtility.gpSpeed = GameplaySpeed.x0_5;
+            return this;
+        }
+
+
+        //**************************************************************************************************
+        // IFSM_State
+        //**************************************************************************************************
+        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
+            // update entities
+            using (FrameUtility.GetGameLoopContex()) {
+                for (int i = 0; i < FrameUtility.gpSpeed.SimulationLoopIterationCount(); i++) {
+                    s.creepFunctions.UpdateAllCreeps(s);
+                    s.towerFunctions.UpdateAllTowers();
+                }
+            }
+
+            // pan camera to lastdestroy main tower
+            var lastMain = tc.lastDestroyedTower;
+            var targetCamPosition = s.mapQuery.TileToWorld(lastMain.GetShape().position);
+            var delta = FrameUtility.DeltaTime(false) * 3;
+            s.references.cameraPivot.transform.position = (targetCamPosition * delta + (Vector2)s.references.cameraPivot.transform.position) /(1 + delta);
+            return null;
+        }
     }
 }

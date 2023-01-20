@@ -70,6 +70,8 @@ namespace Core.Campaign {
             tc.SetMoneyStats(0, 85, 15);
             tc.SetMaxHealth(1_000);
             result.towerController = tc;
+
+            result.endDefinitions.Add(new CampaignWin_ScenarioEndDefinition(tc));
             return result;
         }
     }

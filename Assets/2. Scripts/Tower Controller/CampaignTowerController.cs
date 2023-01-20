@@ -36,6 +36,12 @@ namespace Core {
         List<SpecializationUpgradeOptions> specializationUpgradeOptionsCache = new List<SpecializationUpgradeOptions>();
 
 
+        //--------------------------------------------------------------------------------------------------
+        // Query
+        //--------------------------------------------------------------------------------------------------
+
+        public IMainTower lastDestroyedTower { get; private set; }
+
         //*********************************************************************************************************************************
         // Builds
         //*********************************************************************************************************************************
@@ -72,6 +78,7 @@ namespace Core {
         public void SetMaxHealth(int amnt) {
             health.Reset(amnt);
         }
+        
         //*********************************************************************************************************************************
         // ITowerController
         //*********************************************************************************************************************************
@@ -112,11 +119,14 @@ namespace Core {
 
             if (health.current < 0 && !mainTower.IsDefeated()) {
                 mainTower.SetAsDefeated();
+                lastDestroyedTower = mainTower;
             }
         }
+       
         public List<IMainTower> GetAllMainTowers() {
             return mainTowers;
         }
+        
         public bool IsDefeated() {
             return health.current <= 0;
         }

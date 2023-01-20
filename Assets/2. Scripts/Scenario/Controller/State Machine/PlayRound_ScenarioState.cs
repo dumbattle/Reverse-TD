@@ -33,6 +33,7 @@
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             using (FrameUtility.GetGameLoopContex()) {
                 for (int i = 0; i < FrameUtility.gpSpeed.SimulationLoopIterationCount(); i++) {
+                    // update entities
                     s.creepFunctions.UpdateAllCreeps(s);
                     s.towerFunctions.UpdateAllTowers();
 
@@ -50,9 +51,18 @@
                         }
                     }
 
-                    // check for tower defeat
-                    if (s.parameters.towerController.IsDefeated()) {
+                    // check for end
+                    foreach (var end in s.parameters.endDefinitions) {
+                        if (!end.Check(s)) {
+                            continue;
+                        }
+
+                        return end.GetEndSequence(s);
                     }
+                    // check for tower defeat
+                    //if (s.parameters.towerController.IsDefeated()) {
+                    //    FrameUtility.gpSpeed = GameplaySpeed.x0_5;
+                    //}
                 }
             }
            

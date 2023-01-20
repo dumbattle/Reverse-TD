@@ -7,7 +7,5 @@ namespace Core {
         void OnRoundEnd(ScenarioInstance s);
         void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower);
         List<IMainTower> GetAllMainTowers();
-
-        bool IsDefeated();
     }
 }
