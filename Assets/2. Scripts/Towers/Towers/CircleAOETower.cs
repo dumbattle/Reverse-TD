@@ -20,7 +20,7 @@ namespace Core {
         public override void GameUpdate(ScenarioInstance s) {
             float radius = GetRange();
 
-            animTimer -= 1f / 15f;
+            animTimer -= 4f * FrameUtility.DeltaTime(true);
             var scale = (radius + GetExtraRange()) * 2 * Mathf.Clamp01(1 - animTimer);
             atkRenderer.transform.localScale = new Vector3(scale, scale, 1);
             var col = atkRenderer.color;

@@ -3,10 +3,7 @@
 
 
 namespace Core {
-    public interface IMainTower : ITower {
-        bool IsDefeated();
-        void SetAsDefeated();
-    }
+
     public class Main_Tower_1 : ProjectileTower<TestProjectileBehaviour>, IMainTower {
         bool defeated = false;
 

@@ -36,7 +36,3 @@ public class ScenarioMain : MonoBehaviour {
         }
     }
 }
-
-public static class InterSceneCommunicator {
-    public static ScenarioParameters scenarioParameters;
-}

@@ -18,7 +18,9 @@ namespace Core {
                     break;
             }
         }
-
+        public static float GetSimulationScale() {
+            return (float)gpSpeed.SimulationLoopIterationCount() / GameplaySpeed.x1.SimulationLoopIterationCount();
+        }
         public static float DeltaTime(bool scaleWithGameplaySpeed) {
             float result = 1f / 60f;
             result *= GetFrameMultiplier(scaleWithGameplaySpeed);

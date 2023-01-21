@@ -1,31 +1,28 @@
 ﻿using UnityEngine;
 using Core;
-using UnityEngine.SceneManagement;
 
 
 namespace MainMenu {
-
-    class MainMenuState_SceneTransition : IFSM_State<MainMenu_Main> {
+    class MainMenuState_FadeIn : IFSM_State<MainMenu_Main> {
         //**********************************************************************************************
         // Singleton
         //**********************************************************************************************
 
-        static MainMenuState_SceneTransition instance = new MainMenuState_SceneTransition();
-        public static MainMenuState_SceneTransition Get(int sceneIndex, int fadeTime) {
-            instance.sceneIndex = sceneIndex;
-            instance.fadeTime = fadeTime;
+        static MainMenuState_FadeIn instance = new MainMenuState_FadeIn();
+        public static MainMenuState_FadeIn Get(IFSM_State<MainMenu_Main> nextState) {
             instance.time = 0;
+            instance.nextState = nextState;
             return instance;
         }
 
-        MainMenuState_SceneTransition() { }
+        MainMenuState_FadeIn() { }
         //**********************************************************************************************
         // State
         //**********************************************************************************************
 
-        int sceneIndex;
+        IFSM_State<MainMenu_Main> nextState;
         float time;
-        int fadeTime;
+        const float fadeTime = 30;
 
         //**********************************************************************************************
         // Implementation
@@ -34,10 +31,10 @@ namespace MainMenu {
         public IFSM_State<MainMenu_Main> Update(MainMenu_Main m) {
             time += FrameUtility.GetFrameMultiplier(false);
 
-            m.fadeImage.color = new Color(0, 0, 0, time / fadeTime);
+            m.fadeImage.color = new Color(0, 0, 0, 1 - time / fadeTime);
 
             if (time > fadeTime) {
-                SceneManager.LoadScene(sceneIndex);
+                return nextState;
             }
             return null;
         }

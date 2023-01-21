@@ -33,6 +33,14 @@ namespace Core {
                     parentPool.Return(this);
                     gameObject.SetActive(false);
                 }
+                else {
+                    // set simulation speed
+                    var speedScale = FrameUtility.GetSimulationScale();
+                    var main = deathParticles.main;
+                    if (main.simulationSpeed != speedScale) {
+                        main.simulationSpeed = speedScale;
+                    }
+                }
                 return;
             }
             sr.transform.up = c.direction;

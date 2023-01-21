@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Core {
     public static class TowerDefinitionCatalog {
         public static TowerDefinition main_Basic = new TowerDefinition("Prefabs/Main Tower");
+        public static TowerDefinition main_basic_diamond_blue = new TowerDefinition("Prefabs/Main Tower Diamond");
         public static TowerDefinition gun_1 = new TowerDefinition("Prefabs/Gun Tower 1");
         public static TowerDefinition gun_2 = new TowerDefinition("Prefabs/Gun Tower 2");
         public static TowerDefinition bomb_1 = new TowerDefinition("Prefabs/Bomb Tower 1");

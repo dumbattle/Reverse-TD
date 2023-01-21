@@ -85,7 +85,7 @@ namespace Core {
 
         public void Init(ScenarioInstance s) {
             // main tower
-            mainTower = (IMainTower)s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, s.parameters.mainTowerBl);
+            mainTower = (IMainTower)s.towerFunctions.AddMainTower(s.parameters.mainTowerDef, s.parameters.mainTowerBl);
             mainTowers.Add(mainTower);
 
             // walls
@@ -117,7 +117,7 @@ namespace Core {
             scale = Mathf.Clamp01(scale);
             s.references.ui.healthBarPivot.transform.localScale = new Vector3(scale, 1, 1);
 
-            if (health.current < 0 && !mainTower.IsDefeated()) {
+            if (health.current <= 0 && !mainTower.IsDefeated()) {
                 mainTower.SetAsDefeated();
                 lastDestroyedTower = mainTower;
             }

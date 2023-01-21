@@ -6,8 +6,19 @@ namespace MainMenu {
     public static class MainMenuStateController {
         static IFSM_State<MainMenu_Main> currentState;
 
-        public static void Init() {
-            currentState = MainMenuState_MainMenu.Get();
+        public static void Init(MainMenu_Main m) {
+
+            if (InterSceneCommunicator.MainMenu.MissionSelect.yes) {
+                InterSceneCommunicator.MainMenu.MissionSelect.yes = false;
+                // do stuff
+                currentState = MainMenuState_FadeIn.Get(MainMenuState_Campaign.Get(m));
+
+                m.campaignMenu.OpenWorld(InterSceneCommunicator.MainMenu.MissionSelect.world);
+                m.campaignMenu.SelectLevel(InterSceneCommunicator.MainMenu.MissionSelect.level);
+            }
+            else {
+                currentState = MainMenuState_FadeIn.Get(MainMenuState_MainMenu.Get());
+            }
         }
 
         public static void Update(MainMenu_Main m) {

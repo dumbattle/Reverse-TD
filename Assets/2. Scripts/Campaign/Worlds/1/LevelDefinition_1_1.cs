@@ -9,8 +9,8 @@ namespace Core.Campaign {
             var result = new ScenarioParameters();
             result.width = 15;
             result.height = 8;
-            result.mainTowerBl = new Vector2Int(10, 3);
-
+            result.mainTowerBl = new Vector2Int(10, 4);
+            result.mainTowerDef = TowerDefinitionCatalog.main_basic_diamond_blue;
             result.walls.Add(new Vector2Int(3, 0));
             result.walls.Add(new Vector2Int(4, 0));
             result.walls.Add(new Vector2Int(5, 0));

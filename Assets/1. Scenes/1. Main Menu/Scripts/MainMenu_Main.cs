@@ -19,7 +19,7 @@ namespace MainMenu {
             campaignMenu.rootObject.SetActive(false);
             Core.FrameUtility.SetFrameRate(Core.FPSMode._60);
             Application.targetFrameRate = 60;
-            MainMenuStateController.Init();
+            MainMenuStateController.Init(this);
         }
 
         void Update() {
@@ -58,7 +58,7 @@ namespace MainMenu {
                 OpenWorld(currentWorldIndex);
             }
 
-            void OpenWorld(int worldIndex) {
+            public void OpenWorld(int worldIndex) {
                 // open menu
                 rootObject.SetActive(true);
 
@@ -77,7 +77,7 @@ namespace MainMenu {
                         // create new entry
                         int index = i;
                         var newEntry = Instantiate(levelEntrySrc, levelEntrySrc.transform.parent);
-                        newEntry.button.SetClickListener(() => OnLevelSelected(index));
+                        newEntry.button.SetClickListener(() => SelectLevel(index));
                         levelEntries.Add(newEntry);
                     }
 
@@ -91,9 +91,9 @@ namespace MainMenu {
                 }
 
                 // select first level
-                OnLevelSelected(0);
+                SelectLevel(0);
             }
-            void OnLevelSelected(int level) {
+            public void SelectLevel(int level) {
                 if (currentSelectedLevelIndex >= 0) {
                     levelEntries[currentSelectedLevelIndex].bakground.sprite = levelEntryBackground_unselected;
                 }

@@ -37,6 +37,9 @@ namespace MainMenu {
             }
             // start
             if (m.campaignMenu.startButton.Clicked) {
+                InterSceneCommunicator.MainMenu.MissionSelect.yes = true;
+                InterSceneCommunicator.MainMenu.MissionSelect.world = m.campaignMenu.currentWorldIndex;
+                InterSceneCommunicator.MainMenu.MissionSelect.level = m.campaignMenu.currentSelectedLevelIndex;
                 var level = WorldCollection.GetWorld(m.campaignMenu.currentWorldIndex).GetLevelDefinition(m.campaignMenu.currentSelectedLevelIndex);
                 InterSceneCommunicator.scenarioParameters = level.GetScenarioParameters();
                 return MainMenuState_SceneTransition.Get(1, 23);

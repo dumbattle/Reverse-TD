@@ -10,6 +10,7 @@ namespace Core {
         public int height;
 
         public Vector2Int mainTowerBl;
+        public TowerDefinition mainTowerDef;
 
         public List<Vector2Int> walls = new List<Vector2Int>();
         public List<(Vector2Int, TowerDefinition)> startingTowers = new List<(Vector2Int, TowerDefinition)>();
@@ -49,6 +50,11 @@ namespace Core {
 
 
         //**************************************************************************************************
+        // State
+        //**************************************************************************************************
+
+        float time = 0;
+        //**************************************************************************************************
         // IFSM_State
         //**************************************************************************************************
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
@@ -65,6 +71,13 @@ namespace Core {
             var targetCamPosition = s.mapQuery.TileToWorld(lastMain.GetShape().position);
             var delta = FrameUtility.DeltaTime(false) * 3;
             s.references.cameraPivot.transform.position = (targetCamPosition * delta + (Vector2)s.references.cameraPivot.transform.position) /(1 + delta);
+
+
+            time += FrameUtility.DeltaTime(false);
+            if (time > 6) {
+                FrameUtility.gpSpeed = GameplaySpeed.x1;
+                return FadeOut_ToMainMenu_ScenarioState.Get(35);
+            }
             return null;
         }
     }
