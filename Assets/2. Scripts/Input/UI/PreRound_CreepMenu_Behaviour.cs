@@ -5,6 +5,7 @@ using TMPro;
 
 
 namespace Core {
+
     public class PreRound_CreepMenu_Behaviour : MonoBehaviour {
         [SerializeField] PreRoundCreepMenu_CreepEntry_Behaviour creepEntrySrc;
         [SerializeField] PreRoundCreepMenu_InventoryItemEntry_Behaviour itemEntrySrc;
@@ -17,6 +18,8 @@ namespace Core {
         CreepArmy creepArmy;
         ScenarioInstance s;
         CreepSquad currentSquad;
+
+        CreepDefinition defaultCreep;
        
         private void Awake() {
             creepEntrySrc.gameObject.SetActive(false);
@@ -28,6 +31,7 @@ namespace Core {
         }
 
         public void Open(ScenarioInstance s) {
+            defaultCreep ??= CreepSelectionUtility.GetInitialCreep();
             creepSelectionRoot.SetActive(true);
             itemSelectionRoot.SetActive(false);
             creepArmy = s.playerFunctions.GetCreepArmy();
@@ -137,12 +141,20 @@ namespace Core {
         void UpdateCreepStatsDisplay() {
             var c = currentSquad.actualDefinition;
 
-            creepDetailsReferences.hpText.text = ((int)c.hp).ToString();
-            creepDetailsReferences.moneyText.text = ((int)c.moneyReward).ToString();
-            creepDetailsReferences.speedText.text = c.speed.ToString("f2");
-            creepDetailsReferences.countText.text = ((int)c.count).ToString();
-            creepDetailsReferences.spacingText.text = c.spawnRate.ToString("f2");
-            creepDetailsReferences.diameterText.text = (c.radius * 2).ToString("f2");
+            creepDetailsReferences.hp.valueText.text = ((int)c.hp).ToString();
+            creepDetailsReferences.money.valueText.text = ((int)c.moneyReward).ToString();
+            creepDetailsReferences.speed.valueText.text = c.speed.ToString("f2");
+            creepDetailsReferences.count.valueText.text = ((int)c.count).ToString();
+            creepDetailsReferences.spawnRate.valueText.text = c.spawnRate.ToString("f2");
+            creepDetailsReferences.size.valueText.text = (c.radius * 2).ToString("f2");
+
+            creepDetailsReferences.hp.SetBars(c.hp, defaultCreep.hp);
+            creepDetailsReferences.money.SetBars(c.moneyReward, defaultCreep.moneyReward);
+            creepDetailsReferences.speed.SetBars(c.speed, defaultCreep.speed);
+            creepDetailsReferences.count.SetBars(c.count, defaultCreep.count);
+            creepDetailsReferences.spawnRate.SetBars(c.spawnRate, defaultCreep.spawnRate);
+            creepDetailsReferences.size.SetBars(c.radius, defaultCreep.radius);
+
         }
 
         void UpdateItemSelectionMenu() {
@@ -214,12 +226,12 @@ namespace Core {
             public Image creepImage;
             public List<PreRoundCreepMenu_Details_AttachmentEntry_Behaviour> attatchments;
 
-            public TextMeshProUGUI hpText;
-            public TextMeshProUGUI moneyText;
-            public TextMeshProUGUI speedText;
-            public TextMeshProUGUI countText;
-            public TextMeshProUGUI spacingText;
-            public TextMeshProUGUI diameterText;
+            public PreRound_CreepMenu_Details_StatEntry_Behaviour hp;
+            public PreRound_CreepMenu_Details_StatEntry_Behaviour money;
+            public PreRound_CreepMenu_Details_StatEntry_Behaviour speed;
+            public PreRound_CreepMenu_Details_StatEntry_Behaviour count;
+            public PreRound_CreepMenu_Details_StatEntry_Behaviour spawnRate;
+            public PreRound_CreepMenu_Details_StatEntry_Behaviour size;
         }
     }
 }

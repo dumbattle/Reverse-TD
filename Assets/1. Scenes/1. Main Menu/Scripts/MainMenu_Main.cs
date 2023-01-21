@@ -101,6 +101,7 @@ namespace MainMenu {
                 levelEntries[currentSelectedLevelIndex].bakground.sprite = levelEntryBackground_selected;
             }
         }
+
         [Serializable]
         public struct EndlessMenu {
             public GameObject rootObject;
