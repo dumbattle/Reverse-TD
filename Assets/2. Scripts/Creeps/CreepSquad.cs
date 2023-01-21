@@ -36,6 +36,9 @@ namespace Core {
         }
 
         public CreepAttatchment GetAttachment(int index) {
+            if (index >= allModifiers.Count) {
+                return null;
+            }
             return allModifiers[index];
         }
 

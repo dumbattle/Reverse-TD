@@ -18,20 +18,32 @@ namespace Core {
         CreepArmy creepArmy;
         ScenarioInstance s;
         CreepSquad currentSquad;
+        
+        public int creepSelected { get; private set; }
+        public int attachmentSelected { get; private set; }
+        public CreepAttatchment itemSelected { get; private set; }
 
-        CreepDefinition defaultCreep;
-       
-        private void Awake() {
+        void Awake() {
             creepEntrySrc.gameObject.SetActive(false);
             itemEntrySrc.gameObject.SetActive(false);
 
             for (int i = 0; i < creepDetailsReferences.attatchments.Count; i++) {
-                creepDetailsReferences.attatchments[i].button.SetClickListener(() => SelectAttachmentSlot(i));
+                int ind = i;
+                creepDetailsReferences.attatchments[i].button.SetClickListener(() => SelectAttachmentSlot(ind));
             }
         }
 
+        void LateUpdate() {
+            itemSelected = null;
+            creepSelected = -1;
+            attachmentSelected = -1;
+        }
+
+        //***********************************************************************************************************
+        // Control
+        //***********************************************************************************************************
+
         public void Open(ScenarioInstance s) {
-            defaultCreep ??= CreepSelectionUtility.GetInitialCreep();
             creepSelectionRoot.SetActive(true);
             itemSelectionRoot.SetActive(false);
             creepArmy = s.playerFunctions.GetCreepArmy();
@@ -92,7 +104,7 @@ namespace Core {
             }
 
             // select first
-            SelectCreepEntry(0);
+            SetCreepDetails(0);
         }
 
         public void Close() {
@@ -102,12 +114,8 @@ namespace Core {
             }
         }
         
-        //***********************************************************************************************************
-        // Button Callbacks
-        //***********************************************************************************************************
-
-        void SelectCreepEntry(int i) {
-            currentSquad = creepArmy.GetSquad(i);
+        public void SetCreepDetails(int index) {
+            currentSquad = creepArmy.GetSquad(index);
             var c = currentSquad.actualDefinition;
 
             // set image
@@ -120,57 +128,23 @@ namespace Core {
             UpdateAttachmentDisplay();
         }
 
-
-        void SelectAttachmentSlot(int slot) {
-            // Show available attachments in inventory
-            UpdateItemSelectionMenu();
+        public void CloseItemSelect() {
+            // open proper menu
+            creepSelectionRoot.SetActive(true);
+            itemSelectionRoot.SetActive(false);
         }
-
-        void ItemSelected(CreepAttatchment item) {
-            s.playerFunctions.RemoveItem(item);
-            currentSquad.AddModifier(item);
-            UpdateCreepStatsDisplay();
-            UpdateItemSelectionMenu();
-            UpdateAttachmentDisplay();
-        }
-
-        //***********************************************************************************************************
-        // Helpers
-        //***********************************************************************************************************
-
-        void UpdateCreepStatsDisplay() {
-            var c = currentSquad.actualDefinition;
-
-            creepDetailsReferences.hp.valueText.text = ((int)c.hp).ToString();
-            creepDetailsReferences.money.valueText.text = ((int)c.moneyReward).ToString();
-            creepDetailsReferences.speed.valueText.text = c.speed.ToString("f2");
-            creepDetailsReferences.count.valueText.text = ((int)c.count).ToString();
-            creepDetailsReferences.spawnRate.valueText.text = c.spawnRate.ToString("f2");
-            creepDetailsReferences.size.valueText.text = (c.radius * 2).ToString("f2");
-
-            creepDetailsReferences.hp.SetBars(c.hp, defaultCreep.hp);
-            creepDetailsReferences.money.SetBars(c.moneyReward, defaultCreep.moneyReward);
-            creepDetailsReferences.speed.SetBars(c.speed, defaultCreep.speed);
-            creepDetailsReferences.count.SetBars(c.count, defaultCreep.count);
-            creepDetailsReferences.spawnRate.SetBars(c.spawnRate, defaultCreep.spawnRate);
-            creepDetailsReferences.size.SetBars(c.radius, defaultCreep.radius);
-
-        }
-
-        void UpdateItemSelectionMenu() {
-            int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSquad);
-
-            if (numAttachInventory <= 0 || currentSquad.NumModifications() >= 10) {
-                creepSelectionRoot.SetActive(true);
-                itemSelectionRoot.SetActive(false);
-                return;
-            }
-
+      
+        public void OpenItemSelect() {
+            // close existing entries
             foreach (var e in itemEntries) {
                 e.gameObject.SetActive(false);
             }
+
+            // open proper menu
             creepSelectionRoot.SetActive(false);
             itemSelectionRoot.SetActive(true);
+
+            // set entries
             int entryIndex = 0;
 
             for (int i = 0; i < s.playerFunctions.GetPlayerInventoryCount(); i++) {
@@ -194,6 +168,63 @@ namespace Core {
                 e.atch = atch;
                 entryIndex++;
             }
+        }
+
+        public void HighlightAttachmentSlot(int slot) {
+            DehighlightAllAttachmentSlots();
+            creepDetailsReferences.attatchments[slot].SetSelected(true);
+        }
+
+        public void DehighlightAllAttachmentSlots() {
+            foreach (var a in creepDetailsReferences.attatchments) {
+                a.SetSelected(false);
+            }
+        }
+
+        //***********************************************************************************************************
+        // Button Callbacks
+        //***********************************************************************************************************
+
+        void SelectCreepEntry(int i) {
+            creepSelected = i;
+        }
+
+        void SelectAttachmentSlot(int slot) {
+            attachmentSelected = slot;
+        }
+
+        void ItemSelected(CreepAttatchment item) {
+            itemSelected = item;
+        }
+
+        //***********************************************************************************************************
+        // Helpers
+        //***********************************************************************************************************
+
+        public void DeselectAllAttachmentSlots() {
+            foreach (var a in creepDetailsReferences.attatchments) {
+                a.SetSelected(false);
+            }
+        }
+      
+        void UpdateCreepStatsDisplay() {
+            var c = currentSquad.actualDefinition;
+
+            creepDetailsReferences.hp.valueText.text = ((int)c.hp).ToString();
+            creepDetailsReferences.money.valueText.text = ((int)c.moneyReward).ToString();
+            creepDetailsReferences.speed.valueText.text = c.speed.ToString("f2");
+            creepDetailsReferences.count.valueText.text = ((int)c.count).ToString();
+            creepDetailsReferences.spawnRate.valueText.text = c.spawnRate.ToString("f2");
+            creepDetailsReferences.size.valueText.text = (c.radius * 2).ToString("f2");
+
+            var defaultCreep = s.playerFunctions.GetCreepArmy().defaultSquad.actualDefinition;
+            creepDetailsReferences.hp.SetBars(c.hp, defaultCreep.hp);
+            creepDetailsReferences.money.SetBars(c.moneyReward, defaultCreep.moneyReward);
+            creepDetailsReferences.speed.SetBars(c.speed, defaultCreep.speed);
+            creepDetailsReferences.count.SetBars(c.count, defaultCreep.count);
+            creepDetailsReferences.spawnRate.SetBars(c.spawnRate, defaultCreep.spawnRate);
+            creepDetailsReferences.size.SetBars(c.radius, defaultCreep.radius);
+
         }
 
         void UpdateAttachmentDisplay() {

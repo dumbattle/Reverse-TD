@@ -1,12 +1,11 @@
 ﻿namespace Core {
     public class ShopInstance {
         public int rerollCount { get; private set; }
+        public int hpBuffCount { get; private set; } = 0;
 
         public ShopItem globalHPItem { get; private set; }
         public ShopItem rerollItem { get; private set; }
         public ShopItem buyCreepItem => buyCreepCallback.shopItem;
-        public int hpBuffCount { get; private set; } = 0;
-
         public ShopItem item1 => attachmentSlot_1.shopItem;
         public ShopItem item2 => attachmentSlot_2.shopItem;
         public ShopItem item3 => attachmentSlot_3.shopItem;
