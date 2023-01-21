@@ -2,7 +2,7 @@
 
 
 namespace Core {
-    public class BasicCreepAttachment_Grouping : CreepAttatchment {
+    public class BasicCreepAttachment_SpawnRate : CreepAttatchment {
         const float SCALE = 0.3f;
 
         public override void ApplyModification(CreepStatModification results) {
@@ -14,11 +14,11 @@ namespace Core {
         }
 
         public override string GetName() {
-            return "Grouping Module";
+            return "Efficiency Module";
         }
 
         public override string GetDescription() {
-            return "Increases the grouping of creeps by 30%";
+            return "Increases the spawn rate of creeps by 30%";
         }
 
         public override CreepModificationLevel GetLevel() {

@@ -16,8 +16,8 @@
 
         //******************************************************************************
         // State
-
         //******************************************************************************
+        
         IFSM_State<ScenarioInstance> subState;
 
         //******************************************************************************
@@ -64,7 +64,7 @@
             //******************************************************************************
 
             int currentSelectCreep;
-
+            int selectedAttachment;
             //******************************************************************************
             // Implementation
             //******************************************************************************
@@ -83,6 +83,8 @@
                 // select attachment slot
                 var atchSelected = creepMenu.attachmentSelected;
                 if (atchSelected >= 0) {
+                    selectedAttachment = atchSelected;
+
                     var atch = s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).GetAttachment(atchSelected);
                     if (atch == null) {
                         creepMenu.DehighlightAllAttachmentSlots();
@@ -93,6 +95,18 @@
                     }
                 }
 
+                // remove attachment
+                if (creepMenu.removeAttachmentButton.Clicked) {
+                    // apply modification
+                    s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).RemoveModifier(selectedAttachment);
+
+                    // deselect
+                    creepMenu.DehighlightAllAttachmentSlots();
+                    selectedAttachment = -1;
+
+                    // update display
+                    creepMenu.SetCreepDetails(currentSelectCreep);
+                }
 
                 return null;
             }
@@ -124,6 +138,7 @@
             //******************************************************************************
 
             int currentSelectCreep;
+            CreepAttatchment selectedAttachment;
 
             //******************************************************************************
             // Implementation
@@ -132,18 +147,41 @@
             public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
                 PreRound_CreepMenu_Behaviour creepMenu = s.references.ui.preRoundBehaviour.creepMenu;
 
+                // select item
                 if (creepMenu.itemSelected != null) {
-                    s.playerFunctions.RemoveItem(creepMenu.itemSelected);
-                    s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).AddModifier(creepMenu.itemSelected);
+                    creepMenu.ActivateAttachmentApplyButton(true);
+                    creepMenu.SetDescriptionText(creepMenu.itemSelected.GetDescription());
+                    selectedAttachment = creepMenu.itemSelected;
+                }
+
+                // apply item
+                if (creepMenu.applyAttachmentButton.Clicked && selectedAttachment != null) {
+                    // close description
+                    creepMenu.SetDescriptionText("");
+                    // hide button
+                    creepMenu.ActivateAttachmentApplyButton(false);
+
+                    // apply modification
+                    s.playerFunctions.RemoveItem(selectedAttachment);
+                    s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).AddModifier(selectedAttachment);
+
                     creepMenu.SetCreepDetails(currentSelectCreep);
-                    creepMenu.OpenItemSelect();
+
+                    // clear cache
+                    selectedAttachment = null;
+
+                    // close if inventory empty
                     int numAttachInventory = s.playerFunctions.NumAttachableInInventory(s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep));
 
                     if (numAttachInventory <= 0) {
                         creepMenu.CloseItemSelect();
                         return SubState_Idle.Get(currentSelectCreep);
                     }
+
+                    // update item menu
+                    creepMenu.OpenItemSelect();
                 }
+
                 return null;
             }
         }

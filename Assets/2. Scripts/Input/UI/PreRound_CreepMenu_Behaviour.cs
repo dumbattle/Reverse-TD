@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
-
+using LPE;
 
 namespace Core {
 
@@ -12,18 +12,24 @@ namespace Core {
         [SerializeField] CreepDetailsReferences creepDetailsReferences;
         [SerializeField] GameObject creepSelectionRoot;
         [SerializeField] GameObject itemSelectionRoot;
-
+        [SerializeField] TextMeshProUGUI descriptionText;
+            
         List<PreRoundCreepMenu_CreepEntry_Behaviour> creepEntries = new List<PreRoundCreepMenu_CreepEntry_Behaviour>();
         List<PreRoundCreepMenu_InventoryItemEntry_Behaviour> itemEntries = new List<PreRoundCreepMenu_InventoryItemEntry_Behaviour>();
         CreepArmy creepArmy;
         ScenarioInstance s;
         CreepSquad currentSquad;
-        
+
+        public LPEButtonBehaviour applyAttachmentButton;
+        public LPEButtonBehaviour removeAttachmentButton;
+
         public int creepSelected { get; private set; }
         public int attachmentSelected { get; private set; }
         public CreepAttatchment itemSelected { get; private set; }
 
         void Awake() {
+            applyAttachmentButton.gameObject.SetActive(false);
+            removeAttachmentButton.gameObject.SetActive(false);
             creepEntrySrc.gameObject.SetActive(false);
             itemEntrySrc.gameObject.SetActive(false);
 
@@ -44,6 +50,9 @@ namespace Core {
         //***********************************************************************************************************
 
         public void Open(ScenarioInstance s) {
+            descriptionText.text = "";
+            applyAttachmentButton.gameObject.SetActive(false);
+            removeAttachmentButton.gameObject.SetActive(false);
             creepSelectionRoot.SetActive(true);
             itemSelectionRoot.SetActive(false);
             creepArmy = s.playerFunctions.GetCreepArmy();
@@ -173,12 +182,24 @@ namespace Core {
         public void HighlightAttachmentSlot(int slot) {
             DehighlightAllAttachmentSlots();
             creepDetailsReferences.attatchments[slot].SetSelected(true);
+            SetDescriptionText(currentSquad.GetAttachment(slot).GetDescription());
+            removeAttachmentButton.gameObject.SetActive(true);
         }
 
         public void DehighlightAllAttachmentSlots() {
+            removeAttachmentButton.gameObject.SetActive(false);
             foreach (var a in creepDetailsReferences.attatchments) {
                 a.SetSelected(false);
             }
+            SetDescriptionText("");
+        }
+
+        public void SetDescriptionText(string txt) {
+            descriptionText.text = txt;
+        }
+        
+        public void ActivateAttachmentApplyButton(bool value) {
+            applyAttachmentButton.gameObject.SetActive(value);
         }
 
         //***********************************************************************************************************
@@ -201,11 +222,7 @@ namespace Core {
         // Helpers
         //***********************************************************************************************************
 
-        public void DeselectAllAttachmentSlots() {
-            foreach (var a in creepDetailsReferences.attatchments) {
-                a.SetSelected(false);
-            }
-        }
+    
       
         void UpdateCreepStatsDisplay() {
             var c = currentSquad.actualDefinition;
@@ -217,7 +234,9 @@ namespace Core {
             creepDetailsReferences.spawnRate.valueText.text = c.spawnRate.ToString("f2");
             creepDetailsReferences.size.valueText.text = (c.radius * 2).ToString("f2");
 
-            var defaultCreep = s.playerFunctions.GetCreepArmy().defaultSquad.actualDefinition;
+            var defaultSquad = s.playerFunctions.GetCreepArmy().defaultSquad;
+            defaultSquad.RecalculateActual();
+            var defaultCreep = defaultSquad.actualDefinition;
             creepDetailsReferences.hp.SetBars(c.hp, defaultCreep.hp);
             creepDetailsReferences.money.SetBars(c.moneyReward, defaultCreep.moneyReward);
             creepDetailsReferences.speed.SetBars(c.speed, defaultCreep.speed);

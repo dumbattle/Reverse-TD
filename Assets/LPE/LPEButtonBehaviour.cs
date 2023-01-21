@@ -32,5 +32,10 @@ namespace LPE {
             Clicked = false;
             Down = false;
         }
+
+        private void OnDisable() {
+            Clicked = false;
+            Down = false;
+        }
     }
 }

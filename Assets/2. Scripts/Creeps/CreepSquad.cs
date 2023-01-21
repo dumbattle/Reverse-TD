@@ -30,6 +30,12 @@ namespace Core {
             GetLevelList(mod.GetLevel()).Add(mod);
             RecalculateActual();
         }
+        public void RemoveModifier(int index) {
+            var m = allModifiers[index];
+            allModifiers.RemoveAt(index);
+            GetLevelList(m.GetLevel()).Remove(m);
+            RecalculateActual();
+        }
 
         public int NumModifications() {
             return allModifiers.Count;
