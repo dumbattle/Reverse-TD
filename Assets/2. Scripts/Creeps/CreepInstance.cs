@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 namespace Core {
-    public class CreepInstance : ISteerAgent {
+    public class CreepInstance {
         static ObjectPool<CreepInstance> _pool = new ObjectPool<CreepInstance>(() => new CreepInstance());
         CreepInstance() { }
 
@@ -29,10 +29,28 @@ namespace Core {
 
         public Vector2 position { get; set; }
         public Vector2 direction { get; set; }
-        public float radius => definition.radius;
 
-        public CreepDefinition definition;
         public Health health;
+        public float radius => GetCurrentRadius();
+        CreepDefinition definition;
+
+        //--------------------------------------------------------------------------------------
+        // Accessors
+        //--------------------------------------------------------------------------------------
+
+     
+
+        public Sprite GetSprite() {
+            return definition.sprite;
+        }
+        
+        public Color GetGlowColor() {
+            return definition.glowColor;
+        }
+
+        public float GetMaxMoneyReward() {
+            return definition.moneyReward;
+        }
 
         //--------------------------------------------------------------------------------------
         // State
@@ -75,7 +93,8 @@ namespace Core {
             var healAmnt = (int)hpRegen;
             health.AddHealth(healAmnt);
             hpRegen -= healAmnt;
-            // update slow
+            
+            // update slow status
             slowTimer -= deltaTime;
             if (slowTimer < 0) {
                 slowLevel = 0;
@@ -85,7 +104,6 @@ namespace Core {
             distTraveled += GetCurrentSpeed() * deltaTime;
             var tileA = path[(int)distTraveled];
             var tileB = path[(int)distTraveled + 1];
-
 
             // set position + direction
             position = Vector2.Lerp(tileA, tileB, distTraveled % 1) + offset;
@@ -97,14 +115,18 @@ namespace Core {
         }
 
         //**********************************************************************************************************
-        // Helpers
+        // Query
         //**********************************************************************************************************
 
-        float GetCurrentSpeed() {
-            return definition.speed / (slowLevel + 1f);
+        public float GetCurrentSpeed() {
+            var hpScale = Mathf.Lerp(definition.speedMinHpScale, 1, health.Ratio());
+            return definition.speed / (slowLevel + 1f) * hpScale;
         }
+        
+        public float GetCurrentRadius() {
+            var scale = Mathf.Lerp(definition.shrinkMinHp, 1, health.Ratio());
+            return definition.radius * scale;
 
-
-
+        }
     }
 }

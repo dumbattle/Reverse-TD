@@ -10,11 +10,12 @@ namespace Core {
             new Entry(new BasicCreepAttachment_SPD(), 100, 0),
             new Entry(new BasicCreepAttachment_Money(), 50, 0),
             new Entry(new BasicCreepAttachment_SpawnRate(), 100, 0),
+            new Entry(new CreepAttachment_SpeedGreedy(), 10000, 0),
 
-            //new Entry(new BasicCreepAttachment_Regen(), 100, 0),
-            //new Entry(new StatShiftCreepAttachment_Tank(), 100, 0),
-            //new Entry(new StatShiftCreepAttachment_Speed(), 100, 0),
-            //new Entry(new StatShiftCreepAttachment_Swarm(), 100, 0),
+            new Entry(new BasicCreepAttachment_Regen(), 100, 0),
+            new Entry(new StatShiftCreepAttachment_Tank(), 10, 0),
+            new Entry(new StatShiftCreepAttachment_Speed(), 10, 0),
+            new Entry(new StatShiftCreepAttachment_Swarm(), 10, 0),
         };
 
         public static IPlayerItem GetRandomItem(int round) {

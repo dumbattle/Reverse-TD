@@ -13,14 +13,16 @@ namespace Core {
         ScenarioInstance s;
 
         ObjectPool<CreepBehaviour> parentPool;
+       
+        
         public void AssignCreep(ScenarioInstance s, CreepInstance c, ObjectPool<CreepBehaviour> parentPool) {
             this.c = c;
             this.s = s;
             gameObject.SetActive(true);
-            sr.sprite = c.definition.sprite;
+            sr.sprite = c.GetSprite();
             sr.transform.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
             transform.position = s.mapQuery.TileToWorld(c.position);
-            glowSr.color = c.definition.glowColor;
+            glowSr.color = c.GetGlowColor();
             this.parentPool = parentPool;
             sr.enabled = true;
             glowSr.enabled = true;
@@ -43,9 +45,14 @@ namespace Core {
                 }
                 return;
             }
+          
+            // update transform
             sr.transform.up = c.direction;
             transform.position = s.mapQuery.TileToWorld(c.position);
+            sr.transform.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
 
+
+            // update HP bar scale
             var hpRatio = (float)c.health.current / c.health.max;
             hpRatio = Mathf.Clamp01(hpRatio);
 
@@ -53,7 +60,7 @@ namespace Core {
             scale.x = hpRatio;
             hpBar.transform.localScale = scale;
 
-
+            // update HP bar color
             Color col;
             if (hpRatio < 0.5f) {
                 col = Color.Lerp(Color.red, Color.yellow, hpRatio * 2);
@@ -71,7 +78,7 @@ namespace Core {
             }
             var m = deathParticles.main;
             var sc = m.startColor;
-            sc.color = c.definition.glowColor;
+            sc.color = c.GetGlowColor();
             m.startColor = sc;
             deathParticles.Play();
             c = null;

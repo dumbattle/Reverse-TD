@@ -9,7 +9,6 @@ namespace Core {
         ScenarioInstance s;
         CreepManager creepManager;
 
-
         CircleShape cachedCircleShape = new CircleShape(1);
         List<CreepInstance> creepResults = new List<CreepInstance>();
 
@@ -41,7 +40,7 @@ namespace Core {
                     if (collision) {
                         // money
                         float hpScale = (float)c.health.current / c.health.max;
-                        s.playerFunctions.AddMoney(Mathf.CeilToInt(c.definition.moneyReward * hpScale));
+                        s.playerFunctions.AddMoney(Mathf.CeilToInt(c.GetMaxMoneyReward() * hpScale));
 
                         // notify tower controller
                         s.parameters.towerController.OnCreepReachMainTower(s, c, mt);

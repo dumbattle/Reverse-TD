@@ -17,6 +17,9 @@
                 current = max;
             }
         }
+        public float Ratio() {
+            return (float)current / max;
+        }
         public void Reset(int max = -1) {
             if (max <= 0) {
                 max = this.max;

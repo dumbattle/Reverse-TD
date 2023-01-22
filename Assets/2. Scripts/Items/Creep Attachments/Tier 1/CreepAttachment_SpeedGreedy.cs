@@ -2,26 +2,25 @@
 
 
 namespace Core {
-
-    public class BasicCreepAttachment_Regen : CreepAttatchment {
+    public class CreepAttachment_SpeedGreedy : CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
-            results.regenRate += 0.01f;
+            results.AddSpdScale(0.3f);
+            results.AddSpeedMinHpScale(1);
         }
 
         public override Sprite GetIcon() {
-            return IconResourceCache.creepAttachmentRegen;
+            return IconResourceCache.creepAttachmentSpeed;
         }
 
         public override string GetName() {
-            return "Regeneration Module";
+            return "Rush Module";
         }
 
         public override string GetDescription() {
-            return "Increases the HP renegeration of creeps by 1% hp/s";
+            return "Increases the speed of creeps, but will slow down when hurt";
         }
-
         public override CreepModificationLevel GetLevel() {
-            return CreepModificationLevel.L2;
+            return CreepModificationLevel.L1;
         }
     }
 }

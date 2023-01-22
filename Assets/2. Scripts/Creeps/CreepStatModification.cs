@@ -8,6 +8,8 @@
         Entry spawnRate = new Entry();
         Entry count = new Entry();
         Entry spd = new Entry();
+        Entry shrinkMinHp = new Entry();
+        Entry speedMinHpScale = new Entry();
         
         
         public CreepStatModification() {
@@ -23,7 +25,24 @@
             def.speed *= spd.GetRatio();
             def.radius = UnityEngine.Mathf.Min(def.radius, 0.45f);
             def.hpRegenRate += regenRate;
+            def.shrinkMinHp *= shrinkMinHp.GetRatio();
+            def.speedMinHpScale *= speedMinHpScale.GetRatio();
         }
+
+        public void Reset() {
+            size.Reset();
+            hp.Reset();
+            money.Reset();
+            spawnRate.Reset();
+            count.Reset();
+            spd.Reset();
+            shrinkMinHp.Reset();
+            speedMinHpScale.Reset();
+        }
+
+        //***************************************************************************************************
+        // Set Modifications
+        //***************************************************************************************************
 
         /// <summary>
         /// Negative to indicate decrease
@@ -67,18 +86,23 @@
             spd.AddScale(scale);
         }
 
-        public void Reset() {
-            size.Reset();
-            hp.Reset();
-            money.Reset();
-            spawnRate.Reset();
-            count.Reset();
-            spd.Reset();
+        /// <summary>
+        /// Always Positive
+        /// </summary>
+        public void AddShrinkMinHp(float scale) {
+            shrinkMinHp.AddScale(-scale);
         }
-        
+
+        /// <summary>
+        /// Always Positive
+        /// </summary>
+        public void AddSpeedMinHpScale(float scale) {
+            speedMinHpScale.AddScale(-scale);
+        }
+
         class Entry {
-            float numer;
-            float denom;
+            float numer = 1;
+            float denom = 1;
 
             public void Reset() {
                 numer = 1;

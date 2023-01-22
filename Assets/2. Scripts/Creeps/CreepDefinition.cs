@@ -7,6 +7,10 @@ namespace Core {
         public Sprite sprite;
         public Color glowColor;
 
+        //----------------------------------
+        // Common
+        //----------------------------------
+        
         public float hp;
         public float speed;
         public float radius;
@@ -16,8 +20,13 @@ namespace Core {
         public float spawnRate;
         public float spacing => 1 / spawnRate;
 
+        //----------------------------------
+        // Special
+        //----------------------------------
+        
         public float hpRegenRate;
-
+        public float shrinkMinHp = 1;
+        public float speedMinHpScale = 1;
 
         public CreepDefinition CreateCopy() {
             var result = new CreepDefinition();
@@ -26,7 +35,6 @@ namespace Core {
         }
 
         public void CopyFrom(CreepDefinition d) {
-
             name = d.name;
             speed = d.speed;
             radius = d.radius;
@@ -37,7 +45,8 @@ namespace Core {
             spawnRate = d.spawnRate;
             glowColor = d.glowColor;
             hpRegenRate = d.hpRegenRate;
-
+            shrinkMinHp = d.shrinkMinHp;
+            speedMinHpScale = d.speedMinHpScale;
         }
     }
 }

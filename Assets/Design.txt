@@ -4,6 +4,30 @@
 
 
 
+Creep Attachments
+
+ - Tier 1 - Common Stats increase + Provides scaling
+   *1.  + HP
+   *2.	+ SPD
+   *3.	+ Money
+   *4.	+ Count
+   *5.	+ Spawn Rate
+   *6.  + HP Regen, shrink when damaged
+    7.  + SPD, -Slow when damaged
+    8.  + Resistance (Tier 2 status towers unlikely at early levels)
+	
+ - Tier 2 - 
+    1-6. {HP/SPD/Count + Spawn Rate} -> {HP/SPD/Count + Spawn Rate}
+    Too boring? need more variety?
+
+ - Tier 3 - Unique effects
+    1.  Carrier (Spawn children while alive)
+    2.  On Death - Spawn Children
+    3.  On Death - Heal + Cleanse surrounding
+    4.  Heal Pulse (periodically, allies only?)
+    5.  Clense Pulse (periodically, allies only?)
+    6.  Respawn on reach end (Go back to start, clear status, keep current HP (maybe set to half?), once per stack, No Money?)
+
 
 
 
