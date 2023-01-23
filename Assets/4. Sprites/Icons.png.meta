@@ -151,22 +151,31 @@ TextureImporter:
     second: Creep +Regen
   - first:
       213: 6510515419312912815
-    second: Creep Tank Shift
+    second: Creep Speed Greedy
   - first:
       213: -505306787334139433
-    second: Creep Speed Shift
+    second: Creep Shift Spd to HP
   - first:
       213: 2594068508085724225
-    second: Creep Group Shift
+    second: Creep Shift Count to HP
   - first:
       213: 3929133199111790865
-    second: Map Small
+    second: Creep Shift Count to Spd
   - first:
       213: 7196004467878751866
     second: Map Placement Center
   - first:
       213: -7057806690012809336
     second: Star Black
+  - first:
+      213: 4321908322816216039
+    second: Creep Shift Hp to Spd
+  - first:
+      213: 1470462077960011716
+    second: Creep Shift Spd to Count
+  - first:
+      213: 5658616018816720155
+    second: Creep Shift Hp to Count
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1279,8 +1288,8 @@ TextureImporter:
       name: Creep +Regen
       rect:
         serializedVersion: 2
-        x: 101
-        y: 165
+        x: 293
+        y: 197
         width: 22
         height: 22
       alignment: 0
@@ -1297,11 +1306,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Creep Tank Shift
+      name: Creep Speed Greedy
       rect:
         serializedVersion: 2
-        x: 133
-        y: 165
+        x: 261
+        y: 197
         width: 22
         height: 22
       alignment: 0
@@ -1318,10 +1327,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Creep Speed Shift
+      name: Creep Shift Spd to HP
       rect:
         serializedVersion: 2
-        x: 165
+        x: 101
         y: 165
         width: 22
         height: 22
@@ -1339,10 +1348,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Creep Group Shift
+      name: Creep Shift Count to HP
       rect:
         serializedVersion: 2
-        x: 197
+        x: 133
         y: 165
         width: 22
         height: 22
@@ -1389,7 +1398,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1397,6 +1406,90 @@ TextureImporter:
       bones: []
       spriteID: 88739649532ad0e90800000000000000
       internalID: -7057806690012809336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Shift Count to Spd
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 165
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 111a040c3d5178630800000000000000
+      internalID: 3929133199111790865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Shift Hp to Spd
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 165
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ebc34d98b08afb30800000000000000
+      internalID: 4321908322816216039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Shift Spd to Count
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 165
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cf3d741871286410800000000000000
+      internalID: 1470462077960011716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creep Shift Hp to Count
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 165
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1dd7e9d941778e40800000000000000
+      internalID: 5658616018816720155
       vertices: []
       indices: 
       edges: []

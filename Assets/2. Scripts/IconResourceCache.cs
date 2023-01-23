@@ -3,6 +3,25 @@ using LPE;
 
 
 namespace Core {
+    public class CreepItemIconResourceCache {
+        static LazyLoadResource<SpriteReferenceDictionary> iconDict = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Creep Items Icons");
+
+
+        public static Sprite creepAttachmentHP => iconDict.obj["Creep +HP"];
+        public static Sprite creepAttachmentSpeed => iconDict.obj["Creep +Speed"];
+        public static Sprite creepAttachmentMoney => iconDict.obj["Creep +Money"];
+        public static Sprite creepAttachmentCount => iconDict.obj["Creep +Count"];
+        public static Sprite creepAttachmentGroup => iconDict.obj["Creep +Grouping"];
+        public static Sprite creepAttachmentRegen => iconDict.obj["Creep +Regen"];
+
+        public static Sprite creepAttachment_SpeedGreedy => iconDict.obj["Creep Speed Greedy"];
+        public static Sprite creepAttachment_Speed2HpShift => iconDict.obj["Creep Shift spd hp"];
+        public static Sprite creepAttachment_Count2HpShift => iconDict.obj["Creep Shift count hp"];
+        public static Sprite creepAttachment_Count2SpdShift => iconDict.obj["Creep Shift count spd"];
+        public static Sprite creepAttachment_Hp2SpeedShift => iconDict.obj["Creep Shift hp spd"];
+        public static Sprite creepAttachment_Hp2CountShift => iconDict.obj["Creep Shift hp count"];
+        public static Sprite creepAttachment_Speed2CountShift => iconDict.obj["Creep Shift spd count"];
+    }
     public class IconResourceCache {
         static LazyLoadResource<SpriteReferenceDictionary> iconDict = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Icons");
         static LazyLoadResource<SpriteReferenceDictionary> rankIconDict = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Rank Icons");
@@ -48,16 +67,6 @@ namespace Core {
         public static Sprite lockedDark => iconDict.obj["Lock Dark"];
         public static Sprite newCreep => iconDict.obj["New Creep"];
 
-
-        public static Sprite creepAttachmentHP => iconDict.obj["Creep +HP"];
-        public static Sprite creepAttachmentSpeed => iconDict.obj["Creep +Speed"];
-        public static Sprite creepAttachmentMoney => iconDict.obj["Creep +Money"];
-        public static Sprite creepAttachmentCount => iconDict.obj["Creep +Count"];
-        public static Sprite creepAttachmentGroup => iconDict.obj["Creep +Grouping"];
-        public static Sprite creepAttachmentRegen => iconDict.obj["Creep +Regen"];
-
-        public static Sprite creepAttachment_TankShift => iconDict.obj["Creep Tank Shift"];
-        public static Sprite creepAttachment_SpeedShift => iconDict.obj["Creep Speed Shift"];
 
         public static Sprite Rank(int rank) {
             if (rank <= 0) {

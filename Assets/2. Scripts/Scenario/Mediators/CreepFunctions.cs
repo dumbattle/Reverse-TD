@@ -54,7 +54,7 @@ namespace Core {
 
             }
         }
-        
+
         public CreepInstance GetNearestCreep(Vector2 location, float maxRange) {
             creepResults.Clear();
             cachedCircleShape.SetPosition(location);
@@ -65,9 +65,37 @@ namespace Core {
             float dist = Mathf.Infinity;
             foreach (var c in creepResults) {
                 var d = (c.position - location).sqrMagnitude;
+                // check in range
+                if (d > (c.radius + maxRange) * (c.radius + maxRange)) {
+                    continue;
+                }
                 if (d < dist) {
                     closet = c;
                     dist = d;
+                }
+            }
+            return closet;
+        }
+
+        public CreepInstance GetFurthestCreep(Vector2 location, float maxRange) {
+            creepResults.Clear();
+            cachedCircleShape.SetPosition(location);
+            cachedCircleShape.SetScale(maxRange);
+            creepManager.grid.QueryItems(cachedCircleShape.AABB(), creepResults);
+
+            CreepInstance closet = null;
+            float distFromEnd = Mathf.Infinity;
+            foreach (var c in creepResults) {
+                var d = (c.position - location).sqrMagnitude;
+
+                // check in range
+                if (d > (c.radius + maxRange) * (c.radius + maxRange)) {
+                    continue;
+                }
+                d = c.EstimatedDistanceFromTarget();
+                if (d < distFromEnd) {
+                    closet = c;
+                    distFromEnd = d;
                 }
             }
             return closet;

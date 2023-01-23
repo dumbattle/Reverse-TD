@@ -51,7 +51,7 @@ namespace Core {
 
             // scan for creeps
             var range = GetRange();
-            var target = s.creepFunctions.GetNearestCreep(position, range);
+            var target = s.creepFunctions.GetFurthestCreep(position, range);
             if (target == null) {
                 return;
             }

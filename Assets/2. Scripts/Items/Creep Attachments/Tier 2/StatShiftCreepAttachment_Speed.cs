@@ -2,24 +2,147 @@
 
 
 namespace Core {
-    public class StatShiftCreepAttachment_Speed : CreepAttatchment {
+    public class StatShiftCreepAttachment_Speed2HP : CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
-            results.AddSpdScale(.7f);
-            results.AddHpScale(-.6f);
-            results.AddCountScale(-.6f);
-            results.AddMoneyScale(.6f);
+            results.AddSpdScale(-.3f);
+            results.AddHpScale(.3f);
+            results.AddSizeScale(0.2f);
         }
 
         public override Sprite GetIcon() {
-            return IconResourceCache.creepAttachment_SpeedShift;
+            return CreepItemIconResourceCache.creepAttachment_Speed2HpShift;
         }
 
         public override string GetName() {
-            return "Swift Module";
+            return "Tank Module";
         }
 
         public override string GetDescription() {
-            return "Makes a creep more speedy";
+            return "Gives a creep more HP, but lowers speed";
+        }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L1;
+        }
+    }
+    public class StatShiftCreepAttachment_Count2HP : CreepAttatchment {
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddCountScale(-.3f);
+            results.AddSpawnRateScale(-.3f);
+
+            results.AddHpScale(.3f);
+            results.AddSizeScale(0.2f);
+        }
+
+        public override Sprite GetIcon() {
+            return CreepItemIconResourceCache.creepAttachment_Count2HpShift;
+        }
+
+        public override string GetName() {
+            return "Merge Module";
+        }
+
+        public override string GetDescription() {
+            return "Gives a creep more HP, but fewer creeps";
+        }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L1;
+        }
+    }
+    public class StatShiftCreepAttachment_Count2Speed : CreepAttatchment {
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddCountScale(-.3f);
+            results.AddSpawnRateScale(-.3f);
+
+            results.AddSpdScale(.3f);
+        }
+
+        public override Sprite GetIcon() {
+            return CreepItemIconResourceCache.creepAttachment_Count2SpdShift;
+        }
+
+        public override string GetName() {
+            return "Sneak Module";
+        }
+
+        public override string GetDescription() {
+            return "Less creeps, but faster";
+        }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L1;
+        }
+    }
+    public class StatShiftCreepAttachment_Hp2Speed : CreepAttatchment {
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddHpScale(-.3f);
+            results.AddSizeScale(-0.2f);
+
+            results.AddSpdScale(.3f);
+        }
+
+        public override Sprite GetIcon() {
+            return CreepItemIconResourceCache.creepAttachment_Hp2SpeedShift;
+        }
+
+        public override string GetName() {
+            return "Haste Module";
+        }
+
+        public override string GetDescription() {
+            return "Faster, weaker creeps";
+        }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L1;
+        }
+    }
+    public class StatShiftCreepAttachment_Hp2Count : CreepAttatchment {
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddHpScale(-.3f);
+            results.AddSizeScale(-0.2f);
+
+            results.AddCountScale(.3f);
+            results.AddSpawnRateScale(.3f);
+
+        }
+
+        public override Sprite GetIcon() {
+            return CreepItemIconResourceCache.creepAttachment_Hp2CountShift;
+        }
+
+        public override string GetName() {
+            return "Swarm Module";
+        }
+
+        public override string GetDescription() {
+            return "Lots of weaker creeps";
+        }
+
+        public override CreepModificationLevel GetLevel() {
+            return CreepModificationLevel.L1;
+        }
+    }
+    public class StatShiftCreepAttachment_Speed2Count : CreepAttatchment {
+        public override void ApplyModification(CreepStatModification results) {
+            results.AddSpdScale(-.3f);
+
+            results.AddCountScale(.3f);
+            results.AddSpawnRateScale(.3f);
+
+        }
+
+        public override Sprite GetIcon() {
+            return CreepItemIconResourceCache.creepAttachment_Speed2CountShift;
+        }
+
+        public override string GetName() {
+            return "Horde Module";
+        }
+
+        public override string GetDescription() {
+            return "Lots of slower creeps";
         }
 
         public override CreepModificationLevel GetLevel() {

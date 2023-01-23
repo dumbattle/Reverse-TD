@@ -38,8 +38,6 @@ namespace Core {
         // Accessors
         //--------------------------------------------------------------------------------------
 
-     
-
         public Sprite GetSprite() {
             return definition.sprite;
         }
@@ -127,6 +125,11 @@ namespace Core {
             var scale = Mathf.Lerp(definition.shrinkMinHp, 1, health.Ratio());
             return definition.radius * scale;
 
+        }
+
+        public float EstimatedDistanceFromTarget() {
+            float total = path.Count - 1;
+            return total - distTraveled;
         }
     }
 }
