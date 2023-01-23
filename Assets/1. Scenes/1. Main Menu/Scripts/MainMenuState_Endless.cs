@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Core;
 using UnityEngine.SceneManagement;
-
+using System.Collections.Generic;
 
 namespace MainMenu {
     class MainMenuState_Endless : IFSM_State<MainMenu_Main> {
@@ -26,20 +26,25 @@ namespace MainMenu {
             // map selected
             if (m.endlessMenu.smallMapButton.Clicked) {
                 var p = new ScenarioParameters() { width = 15, height = 15 };
-                p.mainTowerBl = new Vector2Int(p.width / 2, p.height / 2);
+                p.mainTowers = new List<MainTowerParameters> {
+                    new MainTowerParameters(TowerDefinitionCatalog.main_basic_diamond_blue, 100_000,new Vector2Int(p.width / 2, p.height / 2))
+                };
                 InterSceneCommunicator.scenarioParameters = p;
                 return MainMenuState_SceneTransition.Get(1, 23);
             }
             if (m.endlessMenu.mediumMapButton.Clicked) {
                 var p = new ScenarioParameters() { width = 25, height = 25 };
-                p.mainTowerBl = new Vector2Int(p.width / 2, p.height / 2);
+                p.mainTowers = new List<MainTowerParameters> {
+                    new MainTowerParameters(TowerDefinitionCatalog.main_basic_diamond_blue, 100_000,new Vector2Int(p.width / 2, p.height / 2))
+                };
                 InterSceneCommunicator.scenarioParameters = p;
                 return MainMenuState_SceneTransition.Get(1, 23);
             }
             if (m.endlessMenu.largeMapButton.Clicked) {
                 var p = new ScenarioParameters() { width = 35, height = 35 };
-                p.mainTowerBl = new Vector2Int(p.width / 2, p.height / 2);
-                InterSceneCommunicator.scenarioParameters = p;
+                p.mainTowers = new List<MainTowerParameters> {
+                    new MainTowerParameters(TowerDefinitionCatalog.main_basic_diamond_blue, 100_000,new Vector2Int(p.width / 2, p.height / 2))
+                };
                 return MainMenuState_SceneTransition.Get(1, 23);
             }
 

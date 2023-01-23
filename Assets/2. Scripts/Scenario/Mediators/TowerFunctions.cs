@@ -14,8 +14,8 @@ namespace Core {
 
         public int numTowers => towerManager.allTowers.Count;
       
-        public ITower AddMainTower(TowerDefinition tower, Vector2Int loc) {
-            var t = tower.GetNewInstance(s, loc);
+        public IMainTower AddMainTower(TowerDefinition tower, Vector2Int loc) {
+            var t = (IMainTower)tower.GetNewInstance(s, loc);
 
             AddTower(t);
 

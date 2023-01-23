@@ -10,7 +10,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachmentGroup;
+            return CreepItemIconResourceCache.basicSpawnRate;
         }
 
         public override string GetName() {

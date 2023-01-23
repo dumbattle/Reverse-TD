@@ -22,14 +22,15 @@ namespace Core {
         public void Init(ScenarioInstance s) {
             placementManager = new TowerPlacementManager(s);
             // main tower
-            mainTower = (IMainTower)s.towerFunctions.AddMainTower(TowerDefinitionCatalog.main_Basic, s.parameters.mainTowerBl);
+            var m1 = s.parameters.mainTowers[0];
+            mainTower = s.towerFunctions.AddMainTower(m1.definition, m1.position);
             placementManager.StartNewGroup(mainTower, true);
             mainTowers.Add(mainTower);
             // starting support towers
-            var t1 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, s.parameters.mainTowerBl + new Vector2Int(-2, -2));
-            var t2 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, s.parameters.mainTowerBl + new Vector2Int(3, 3));
-            var t3 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, s.parameters.mainTowerBl + new Vector2Int(-2, 3));
-            var t4 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, s.parameters.mainTowerBl + new Vector2Int(3, -2));
+            var t1 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, m1.position + new Vector2Int(-2, -2));
+            var t2 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, m1.position + new Vector2Int(3, 3));
+            var t3 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, m1.position + new Vector2Int(-2, 3));
+            var t4 = s.towerFunctions.AddTower(TowerDefinitionCatalog.gun_1, m1.position + new Vector2Int(3, -2));
 
             placementManager.StartNewGroup(t1, false);
             placementManager.StartNewGroup(t2, false);

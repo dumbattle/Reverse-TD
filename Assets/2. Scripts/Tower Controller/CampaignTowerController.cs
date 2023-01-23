@@ -8,8 +8,9 @@ namespace Core {
         //--------------------------------------------------------------------------------------------------
         // Fixed
         //--------------------------------------------------------------------------------------------------
+
+        Dictionary<IMainTower, Health> main2Health = new Dictionary<IMainTower, Health>();
         List<IMainTower> mainTowers = new List<IMainTower>();
-        IMainTower mainTower;
         HashSet<TowerDefinition> availableUpgrades;
 
         int initialMoney = 100;
@@ -19,8 +20,9 @@ namespace Core {
         //--------------------------------------------------------------------------------------------------
         // Dynamic
         //--------------------------------------------------------------------------------------------------
+        //List<Health> mainHealths = new List<Health>();
 
-        Health health = new Health(100_000);
+        Health totalHealth;
         int money = 0;
         int towerPurchases = 0;
 
@@ -75,18 +77,27 @@ namespace Core {
             moneyPerRoundScale = perRoundScale;
         }
 
-        public void SetMaxHealth(int amnt) {
-            health.Reset(amnt);
-        }
         
         //*********************************************************************************************************************************
         // ITowerController
         //*********************************************************************************************************************************
 
         public void Init(ScenarioInstance s) {
-            // main tower
-            mainTower = (IMainTower)s.towerFunctions.AddMainTower(s.parameters.mainTowerDef, s.parameters.mainTowerBl);
-            mainTowers.Add(mainTower);
+            // main towers
+            int totalHp = 0;
+            
+            foreach (var tp in s.parameters.mainTowers) {
+                var t = s.towerFunctions.AddMainTower(tp.definition, tp.position);
+                var h = new Health(tp.maxHealth);
+
+                main2Health.Add(t, h);
+                mainTowers.Add(t);
+                totalHp += h.max;
+            }
+            
+            // total health
+            totalHealth = new Health(totalHp);
+            SetTotalHpScale(s);
 
             // walls
             foreach (var wallIndex in s.parameters.walls) {
@@ -112,12 +123,11 @@ namespace Core {
         }
 
         public void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
-            health.DealDamage(c.health.current);
-            var scale = (float)health.current / health.max;
-            scale = Mathf.Clamp01(scale);
-            s.references.ui.healthBarPivot.transform.localScale = new Vector3(scale, 1, 1);
+            var h = main2Health[mainTower];
+            h.DealDamage(c.health.current);
+            SetTotalHpScale(s);
 
-            if (health.current <= 0 && !mainTower.IsDefeated()) {
+            if (h.current <= 0 && !mainTower.IsDefeated()) {
                 mainTower.SetAsDefeated();
                 lastDestroyedTower = mainTower;
             }
@@ -128,12 +138,26 @@ namespace Core {
         }
         
         public bool IsDefeated() {
-            return health.current <= 0;
+            return totalHealth.current <= 0;
         }
 
         //*********************************************************************************************************************************
         // Helpers
         //*********************************************************************************************************************************
+
+        void SetTotalHpScale(ScenarioInstance s) {
+            int currentTotal = 0;
+            foreach (var mh in main2Health) {
+                var h = mh.Value;
+                currentTotal += h.current;
+            }
+            totalHealth.SetCurrent(currentTotal);
+
+            var scale = (float)currentTotal / totalHealth.max;
+            scale = Mathf.Clamp01(scale);
+            s.references.ui.healthBarPivot.transform.localScale = new Vector3(scale, 1, 1);
+
+        }
 
         void UpgradeTowers(ScenarioInstance s) {
             while (true) {

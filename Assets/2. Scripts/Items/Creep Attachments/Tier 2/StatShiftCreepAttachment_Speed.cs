@@ -10,7 +10,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachment_Speed2HpShift;
+            return CreepItemIconResourceCache.shiftSpeed2Hp;
         }
 
         public override string GetName() {
@@ -35,7 +35,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachment_Count2HpShift;
+            return CreepItemIconResourceCache.shiftCount2Hp;
         }
 
         public override string GetName() {
@@ -59,7 +59,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachment_Count2SpdShift;
+            return CreepItemIconResourceCache.shiftCount2Spd;
         }
 
         public override string GetName() {
@@ -83,7 +83,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachment_Hp2SpeedShift;
+            return CreepItemIconResourceCache.shiftHp2Speed;
         }
 
         public override string GetName() {
@@ -109,7 +109,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachment_Hp2CountShift;
+            return CreepItemIconResourceCache.shiftHp2Count;
         }
 
         public override string GetName() {
@@ -134,7 +134,7 @@ namespace Core {
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.creepAttachment_Speed2CountShift;
+            return CreepItemIconResourceCache.shiftSpeed2Count;
         }
 
         public override string GetName() {

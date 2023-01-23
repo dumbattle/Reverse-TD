@@ -7,8 +7,16 @@
             max = current = amnt;
         }
 
+        public void SetCurrent(int value) {
+            current = value;
+        }
+
         public void DealDamage(int amnt) {
             current -= amnt;
+
+            if (current  < 0) {
+                current = 0;
+            }
         }
 
         public void AddHealth(int amnt) {
