@@ -9,7 +9,7 @@ namespace Core {
         public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
             results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.gun_1, 25, 0.1f));
         }
-        protected override int GetTotalUpgradeLevel() {
+        public override int GetTotalUpgradeLevel() {
             return 0;
         }
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {

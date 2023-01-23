@@ -30,7 +30,7 @@ namespace Core {
             result.Add(slowUpgrade);
             return result;
         }
-        protected override int GetTotalUpgradeLevel() {
+        public override int GetTotalUpgradeLevel() {
             return base.GetTotalUpgradeLevel() + slowUpgrade.currentLevel;
         }
 

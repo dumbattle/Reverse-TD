@@ -40,17 +40,15 @@ namespace Core {
         }
 
         public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
-            if (GetTotalUpgradeLevel() >= 11) {
-                results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_slow_1, 275, 4));
-                results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_2, 275, 4));
-            }
+            results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_slow_1, 275, 4));
+            results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_2, 275, 4));
         }
 
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {
             return new List<TowerUpgradeDetails>() { dmgUpgrade, spdUpgrade, rangeUpgrade, splashUpgrade };
         }
 
-        protected override int GetTotalUpgradeLevel() {
+        public override int GetTotalUpgradeLevel() {
             return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel + splashUpgrade.currentLevel;
         }
 

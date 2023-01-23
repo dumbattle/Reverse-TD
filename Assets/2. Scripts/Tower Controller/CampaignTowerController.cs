@@ -11,7 +11,7 @@ namespace Core {
 
         Dictionary<IMainTower, Health> main2Health = new Dictionary<IMainTower, Health>();
         List<IMainTower> mainTowers = new List<IMainTower>();
-        HashSet<TowerDefinition> availableUpgrades;
+        Dictionary<TowerDefinition, int> availableUpgrades = new Dictionary<TowerDefinition, int>();
 
         int initialMoney = 100;
         int moneyPerRoundFlat = 100;
@@ -48,27 +48,12 @@ namespace Core {
         // Builds
         //*********************************************************************************************************************************
 
+     
         /// <summary>
         /// Make sure to TowerDefinitionCatalogue to get the tower definitions
         /// </summary>
-        public void SetAvailableUpgrades(HashSet<TowerDefinition> availableUpgrades) {
-            this.availableUpgrades = availableUpgrades;
-
-        }
-
-        /// <summary>
-        /// Make sure to TowerDefinitionCatalogue to get the tower definitions
-        /// </summary>
-        public void SetAvailableUpgrades(params TowerDefinition[] availableUpgrades) {
-            this.availableUpgrades = this.availableUpgrades ?? new HashSet<TowerDefinition>();
-
-            foreach (var u in availableUpgrades) {
-                if (this.availableUpgrades.Contains(u)) {
-                    continue;
-                }
-                this.availableUpgrades.Add(u);
-            }
-
+        public void AddAvailableUpgrade(TowerDefinition upgrade, int minLevel) {
+            availableUpgrades.Add(upgrade, minLevel);
         }
 
         public void SetMoneyStats(int initial = 100, int perRoundFlat = 150, int perRoundScale = 10) {
@@ -241,10 +226,14 @@ namespace Core {
                     }
 
                     // upgrade is allowed
-                    if (availableUpgrades != null) {
-                        if (!availableUpgrades.Contains(opt.upgradeResult)) {
-                            continue;
-                        }
+                    if (!availableUpgrades.ContainsKey(opt.upgradeResult)) {
+                        continue;
+                    }
+
+                    var minLevel = availableUpgrades[opt.upgradeResult];
+
+                    if (opt.current.GetTotalUpgradeLevel() < minLevel) {
+                        continue;
                     }
 
                     // resovoiur sample

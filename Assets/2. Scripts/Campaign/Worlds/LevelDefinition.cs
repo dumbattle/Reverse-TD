@@ -18,7 +18,9 @@ namespace Core.Campaign {
 
             result.creepPathfinder = GetCreepPathfinder();
             var tc = new CampaignTowerController();
-            tc.SetAvailableUpgrades(); // TODO - Abstract
+            foreach (var (def, minLevel) in GetAvailableUpgrades()) {
+                tc.AddAvailableUpgrade(def, minLevel);
+            }
             var m = GetTowerMoneyParams();
             tc.SetMoneyStats(m.initial, m.perRoundFlat, m.perRoundScale);
             result.towerController = tc;
@@ -36,5 +38,6 @@ namespace Core.Campaign {
         protected abstract void SetCreepModifier(CreepStatModification s);
         protected abstract ICreepPathfinder GetCreepPathfinder();
         protected abstract (int initial, int perRoundFlat, int perRoundScale) GetTowerMoneyParams();
+        protected abstract List<(TowerDefinition def, int minLvel)> GetAvailableUpgrades();
     }
 }

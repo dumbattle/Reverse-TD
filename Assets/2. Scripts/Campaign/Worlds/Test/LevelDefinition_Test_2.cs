@@ -114,6 +114,12 @@ namespace Core.Campaign {
              );
         }
 
+        protected override List<(TowerDefinition def, int minLvel)> GetAvailableUpgrades() {
+            return new List<(TowerDefinition def, int minLvel)>() {
+                (TowerDefinitionCatalog.bomb_1, 3),
+                (TowerDefinitionCatalog.gun_2, 3),
+            };
+        }
     }
     public class LevelDefinition_1_3 : LevelDefinition {
         protected override (int w, int h) MapSize() {
@@ -230,5 +236,11 @@ namespace Core.Campaign {
              );
         }
 
+        protected override List<(TowerDefinition def, int minLvel)> GetAvailableUpgrades() {
+            return new List<(TowerDefinition def, int minLvel)>() {
+                (TowerDefinitionCatalog.bomb_1, 3),
+                (TowerDefinitionCatalog.gun_2, 3),
+            };
+        }
     }
 }

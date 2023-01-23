@@ -163,7 +163,8 @@
 
                     // apply modification
                     s.playerFunctions.RemoveItem(selectedAttachment);
-                    s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).AddModifier(selectedAttachment);
+                    CreepSquad currentSquad = s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep);
+                    currentSquad.AddModifier(selectedAttachment);
 
                     creepMenu.SetCreepDetails(currentSelectCreep);
 
@@ -171,9 +172,15 @@
                     selectedAttachment = null;
 
                     // close if inventory empty
-                    int numAttachInventory = s.playerFunctions.NumAttachableInInventory(s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep));
+                    int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSquad);
 
                     if (numAttachInventory <= 0) {
+                        creepMenu.CloseItemSelect();
+                        return SubState_Idle.Get(currentSelectCreep);
+                    }
+
+                    // close if all attachments full
+                    if (currentSquad.NumModifications() >= 10) {
                         creepMenu.CloseItemSelect();
                         return SubState_Idle.Get(currentSelectCreep);
                     }

@@ -19,5 +19,6 @@ namespace Core {
         List<TowerUpgradeDetails> GetGeneralUpgrades();
         void TransferGeneralUpgrade(TowerUpgradeDetails d);
         void OnBeforeUpgrade(ScenarioInstance s);
+        int GetTotalUpgradeLevel();
     }
 }

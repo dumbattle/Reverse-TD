@@ -55,7 +55,7 @@ namespace Core {
             return _range[rangeUpgrade.currentLevel];
         }
 
-        protected override int GetTotalUpgradeLevel() {
+        public override int GetTotalUpgradeLevel() {
             return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel + splashUpgrade.currentLevel;
         }
         
@@ -69,9 +69,7 @@ namespace Core {
         }
 
         public override void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results) {
-            if (GetTotalUpgradeLevel() >= 6) {
-                results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_1, 275, 4));
-            }
+            results.Add(new SpecializationUpgradeOptions(this, TowerDefinitionCatalog.circleAOE_1, 275, 4));
         }
 
     }

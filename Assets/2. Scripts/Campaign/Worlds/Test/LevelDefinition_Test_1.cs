@@ -81,5 +81,9 @@ namespace Core.Campaign {
                 new MainTowerParameters(TowerDefinitionCatalog.main_basic_diamond_blue, 10_000, new Vector2Int(10, 4))
             };
         }
+        protected override List<(TowerDefinition def, int minLvel)> GetAvailableUpgrades() {
+            return new List<(TowerDefinition def, int minLvel)>() {
+            };
+        }
     }
 }

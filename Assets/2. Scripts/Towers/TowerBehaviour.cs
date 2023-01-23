@@ -83,7 +83,7 @@ namespace Core {
         //************************************************************************************************************
         public virtual void OnBeforeUpgrade(ScenarioInstance s) { }
         public abstract void GameUpdate(ScenarioInstance s);
-        protected abstract int GetTotalUpgradeLevel();
+        public abstract int GetTotalUpgradeLevel();
         public abstract void GetGeneralUpgradeOptions(List<UpgradeOption> results);
         public virtual void EndRound() { }
         public abstract void GetSpecializationUpgradeOptions(ScenarioInstance s, List<SpecializationUpgradeOptions> results);

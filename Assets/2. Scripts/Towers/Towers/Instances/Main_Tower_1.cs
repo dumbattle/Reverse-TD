@@ -32,7 +32,7 @@ namespace Core {
             return 10;
         }
 
-        protected override int GetTotalUpgradeLevel() {
+        public override int GetTotalUpgradeLevel() {
             return 0;
         }
         protected override List<TowerUpgradeDetails> GetTowerUpgradeDetails() {

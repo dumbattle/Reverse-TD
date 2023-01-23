@@ -34,7 +34,7 @@ namespace Core {
             return _range[rangeUpgrade.currentLevel];
         }
 
-        protected override int GetTotalUpgradeLevel() {
+        public override int GetTotalUpgradeLevel() {
             return dmgUpgrade.currentLevel + spdUpgrade.currentLevel + rangeUpgrade.currentLevel;
         }
         
