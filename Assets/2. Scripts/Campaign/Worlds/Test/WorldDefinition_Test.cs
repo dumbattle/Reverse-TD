@@ -2,8 +2,8 @@
     public class WorldDefinition_1 : IWorldDefinition {
         ILevelDefinition[] levels = {
             new LevelDefinition_1_1(),
-            new LevelDefinition_1_1(),
             new LevelDefinition_1_2(),
+            new LevelDefinition_1_3(),
         };
 
 
