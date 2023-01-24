@@ -24,6 +24,7 @@ namespace Core {
             result.slowTimer = 0;
 
             result.hpRegen = 0;
+            result.carrierSpawnTimer = (def?.carrierDefinition.spawnInterval ?? 0) * (Random.value / 2 + 0.5f);
             return result;
         }
         public static CreepInstance GetChild(ScenarioInstance s, CreepDefinition def, CreepInstance parent) {
@@ -83,7 +84,13 @@ namespace Core {
         //.............................................................................
         float distTraveled;
         Vector2 offset;
+
         List<Vector2Int> path;
+        //.............................................................................
+        // Pathfinding
+        //.............................................................................
+
+        float carrierSpawnTimer = 0;
 
         //--------------------------------------------------------------------------------------
         // Status
@@ -123,6 +130,17 @@ namespace Core {
             // move 
             distTraveled += GetCurrentSpeed() * deltaTime;
             SetPosition();
+
+            // carrier spawn
+            if (definition.carrierDefinition != null) {
+                carrierSpawnTimer -= deltaTime;
+                if (carrierSpawnTimer < 0) {
+                    carrierSpawnTimer += definition.carrierDefinition.spawnInterval;
+
+                    var child = GetChild(s, definition.carrierDefinition, this);
+                    s.creepFunctions.AddCreep(child);
+                }
+            }
         }
 
         public void Return() {

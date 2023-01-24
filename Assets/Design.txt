@@ -22,7 +22,7 @@ Creep Attachments
 
  - Tier 3 - Unique effects
     1.  Carrier (Spawn children while alive)
-    2.  On Death - Spawn Children
+   *2.  On Death - Spawn Children
     3.  On Death - Heal + Cleanse surrounding
     4.  Heal Pulse (periodically, allies only?)
     5.  Clense Pulse (periodically, allies only?)

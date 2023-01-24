@@ -18,7 +18,7 @@ namespace Core {
 
         public float count;
         public float spawnRate;
-        public float spacing => 1 / spawnRate;
+        public float spawnInterval => 1 / spawnRate;
 
         //----------------------------------
         // Special
@@ -29,6 +29,7 @@ namespace Core {
         public float speedMinHpScale = 1;
 
         public CreepDefinition deathSplitDefinition;
+        public CreepDefinition carrierDefinition;
 
         //***********************************************************************
         // Helpers

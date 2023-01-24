@@ -68,8 +68,8 @@ namespace Core {
             float spdMax = c0.speed;
             float spdMin = c0.speed;
 
-            float spaceMin = c0.spacing;
-            float spaceMax = c0.spacing;
+            float spaceMin = c0.spawnInterval;
+            float spaceMax = c0.spawnInterval;
 
             for (int i = 1; i < creepArmy.count; i++) {
                 var c = creepArmy.GetSquad(i).actualDefinition;
@@ -77,8 +77,8 @@ namespace Core {
                 hpMin = Mathf.Min(c.hp, hpMin);
                 spdMax = Mathf.Max(c.speed, spdMax);
                 spdMin = Mathf.Min(c.speed, spdMin);
-                spaceMax = Mathf.Max(c.spacing, spaceMax);
-                spaceMin = Mathf.Min(c.spacing, spaceMin);
+                spaceMax = Mathf.Max(c.spawnInterval, spaceMax);
+                spaceMin = Mathf.Min(c.spawnInterval, spaceMin);
             }
             // add buffer
 
@@ -121,7 +121,7 @@ namespace Core {
                     e.gameObject.SetActive(true);
                     e.hpBarPivot.localScale = new Vector3(1, (c.hp - hpMin) / hpDif, 1);
                     e.spdBarPivot.localScale = new Vector3(1, (c.speed - spdMin) / spdDif, 1);
-                    e.countBarPivot.localScale = new Vector3(1, 1 - (c.spacing - spaceMin) / spaceDif, 1);
+                    e.countBarPivot.localScale = new Vector3(1, 1 - (c.spawnInterval - spaceMin) / spaceDif, 1);
                     e.squad = sqd;
                     entryIndex++;
                 }

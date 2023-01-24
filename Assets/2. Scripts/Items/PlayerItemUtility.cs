@@ -21,6 +21,7 @@ namespace Core {
 
 
             new Entry(new CreepAttachment_DeathSplit(), 100, 0),
+            new Entry(new CreepAttachment_Carrier(), 100, 0),
         };
 
         public static IPlayerItem GetRandomItem(int round) {

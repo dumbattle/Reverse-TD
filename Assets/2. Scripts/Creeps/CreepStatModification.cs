@@ -2,6 +2,7 @@
     public class CreepStatModification {
         public float regenRate;
         public int deathSpawnLevel;
+        public int carrierSpawnLevel;
 
 
         StatEntry size = new StatEntry();

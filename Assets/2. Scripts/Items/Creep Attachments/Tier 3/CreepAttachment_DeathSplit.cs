@@ -2,10 +2,10 @@
 
 
 namespace Core {
-    public class CreepAttachment_DeathSplit: CreepAttatchment {
+    public class CreepAttachment_DeathSplit : CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
             results.deathSpawnLevel++;
-           
+
         }
 
         public override Sprite GetIcon() {

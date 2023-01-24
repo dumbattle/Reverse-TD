@@ -24,6 +24,10 @@ namespace Core {
         public override CreepModificationLevel GetLevel() {
             return CreepModificationLevel.L2;
         }
+
+        public override bool Attachable(CreepSquad s) {
+            return !s.isDeathSpawn;
+        }
     }
 
 }

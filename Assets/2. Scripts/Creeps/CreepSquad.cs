@@ -6,10 +6,24 @@ namespace Core {
         CreepDefinition baseDefinition;
         public CreepDefinition actualDefinition { get; private set; }
 
+        CreepSquad deathSplitSquad;
+        CreepSquad carrierSquad;
+        public bool isChild => isDeathSpawn || isCarrierSpawn;
+        public bool isDeathSpawn { get; private set; }
+        public bool isCarrierSpawn { get; private set; }
+
+        //**********************************************************************************************
+        // Collections
+        //**********************************************************************************************
+
         List<IPlayerItem> allAttachments = new List<IPlayerItem>();
         List<ICreepDefinitionModifier> level1Modifier = new List<ICreepDefinitionModifier>();
         List<ICreepDefinitionModifier> level2Modifier = new List<ICreepDefinitionModifier>();
         List<ICreepDefinitionModifier> level3Modifier = new List<ICreepDefinitionModifier>();
+
+        //**********************************************************************************************
+        // Upgrades
+        //**********************************************************************************************
 
         GlobalCreeepUpgrades globalUpgrades;
         CreepStatModification levelModifiers;
@@ -17,8 +31,6 @@ namespace Core {
         CreepStatModification stage1 = new CreepStatModification();
         CreepStatModification stage2 = new CreepStatModification();
 
-        CreepSquad deathSplitSquad;
-        public bool isChild { get; private set; }
 
         public CreepSquad(CreepDefinition def, GlobalCreeepUpgrades globalUpgrades, CreepStatModification levelModifiers) {
             this.levelModifiers = levelModifiers;
@@ -78,7 +90,6 @@ namespace Core {
 
             // death split child
             actualDefinition.deathSplitDefinition = null;
-
             int deathSplitCount = stage1.deathSpawnLevel + stage2.deathSpawnLevel;
 
             if (!isChild && deathSplitCount > 0) {
@@ -86,7 +97,7 @@ namespace Core {
                     deathSplitSquad = new CreepSquad(CreepSelectionUtility.GetRandomNewCreep(), globalUpgrades, null);
                     deathSplitSquad.baseDefinition.speed *= .8f;
                     deathSplitSquad.baseDefinition.radius /= 2f;
-                    deathSplitSquad.isChild = true;
+                    deathSplitSquad.isDeathSpawn = true;
                 }
 
                 deathSplitSquad.baseDefinition.hp = baseDefinition.hp / (1f + deathSplitCount);
@@ -95,6 +106,26 @@ namespace Core {
 
                 deathSplitSquad.Recalculate();
                 actualDefinition.deathSplitDefinition = deathSplitSquad.actualDefinition;
+            }
+
+            // carrier child
+            actualDefinition.carrierDefinition = null;
+            int carrierLevel = stage1.carrierSpawnLevel + stage2.carrierSpawnLevel;
+            if (!isChild && carrierLevel > 0) {
+                if (carrierSquad == null) {
+                    carrierSquad = new CreepSquad(CreepSelectionUtility.GetRandomNewCreep(), globalUpgrades, null);
+                    carrierSquad.baseDefinition.radius /= 2f;
+                    carrierSquad.isCarrierSpawn = true;
+                }
+                carrierSquad.baseDefinition.speed = baseDefinition.speed * 1.5f;
+
+                carrierSquad.baseDefinition.hp = baseDefinition.hp / 2;
+                carrierSquad.baseDefinition.moneyReward = baseDefinition.moneyReward / 2;
+                carrierSquad.baseDefinition.count = 1;
+                carrierSquad.baseDefinition.spawnRate = 0.1f + 0.01f * carrierLevel;
+
+                carrierSquad.Recalculate();
+                actualDefinition.carrierDefinition = carrierSquad.actualDefinition;
             }
         }
 

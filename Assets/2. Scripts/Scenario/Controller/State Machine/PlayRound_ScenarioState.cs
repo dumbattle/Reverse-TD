@@ -114,7 +114,7 @@
                 squad = army.GetSquad(currentSquad);
             }
             
-            timer += squad.actualDefinition.spacing;
+            timer += squad.actualDefinition.spawnInterval;
             return false;
         }
     }

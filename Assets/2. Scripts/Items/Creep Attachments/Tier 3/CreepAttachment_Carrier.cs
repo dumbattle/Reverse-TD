@@ -2,31 +2,30 @@
 
 
 namespace Core {
-    public class BasicCreepAttachment_Count : CreepAttatchment {
-        const float SCALE = 0.3f;
-
+    public class CreepAttachment_Carrier: CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
-            results.AddCountScale(SCALE);
+            results.carrierSpawnLevel++;
+
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.basicCount;
+            return CreepItemIconResourceCache.shiftCount2Hp;
         }
 
         public override string GetName() {
-            return "Number Module";
+            return "Carrier Module";
         }
 
         public override string GetDescription() {
-            return "Increases the number of creeps by 30%";
+            return "Periodically spawns creeps";
         }
 
         public override CreepModificationLevel GetLevel() {
-            return CreepModificationLevel.L2;
+            return CreepModificationLevel.L1;
         }
 
         public override bool Attachable(CreepSquad s) {
-            return !s.isCarrierSpawn;
+            return !s.isChild;
         }
     }
 }
