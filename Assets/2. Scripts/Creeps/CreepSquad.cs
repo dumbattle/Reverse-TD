@@ -8,10 +8,14 @@ namespace Core {
 
         CreepSquad deathSplitSquad;
         CreepSquad carrierSquad;
+
         public bool isChild => isDeathSpawn || isCarrierSpawn;
         public bool isDeathSpawn { get; private set; }
         public bool isCarrierSpawn { get; private set; }
 
+
+        bool deathSplitActive;
+        bool carrierActive;
         //**********************************************************************************************
         // Collections
         //**********************************************************************************************
@@ -91,7 +95,7 @@ namespace Core {
             // death split child
             actualDefinition.deathSplitDefinition = null;
             int deathSplitCount = stage1.deathSpawnLevel + stage2.deathSpawnLevel;
-
+            deathSplitActive = false;
             if (!isChild && deathSplitCount > 0) {
                 if (deathSplitSquad == null) {
                     deathSplitSquad = new CreepSquad(CreepSelectionUtility.GetRandomNewCreep(), globalUpgrades, null);
@@ -106,11 +110,13 @@ namespace Core {
 
                 deathSplitSquad.Recalculate();
                 actualDefinition.deathSplitDefinition = deathSplitSquad.actualDefinition;
+                deathSplitActive = true;
             }
 
             // carrier child
             actualDefinition.carrierDefinition = null;
             int carrierLevel = stage1.carrierSpawnLevel + stage2.carrierSpawnLevel;
+            carrierActive = false;
             if (!isChild && carrierLevel > 0) {
                 if (carrierSquad == null) {
                     carrierSquad = new CreepSquad(CreepSelectionUtility.GetRandomNewCreep(), globalUpgrades, null);
@@ -126,11 +132,15 @@ namespace Core {
 
                 carrierSquad.Recalculate();
                 actualDefinition.carrierDefinition = carrierSquad.actualDefinition;
+                carrierActive = true;
             }
         }
 
         public CreepSquad GetDeathSplitSquad() {
-            return deathSplitSquad;
+            return deathSplitActive ? deathSplitSquad : null;
+        }
+        public CreepSquad GetCarrierSquad() {
+            return carrierActive ? carrierSquad : null;
         }
         List<ICreepDefinitionModifier> GetLevelList(CreepModificationLevel level) {
             switch (level) {

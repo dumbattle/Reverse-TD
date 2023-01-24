@@ -61,7 +61,6 @@ namespace Core {
                     walls.Add(t);
                 }
             }
-
         }
 
         public void OnRoundEnd(ScenarioInstance s) {

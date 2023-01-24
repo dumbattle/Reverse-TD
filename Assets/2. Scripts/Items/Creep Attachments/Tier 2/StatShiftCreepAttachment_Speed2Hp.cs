@@ -2,7 +2,7 @@
 
 
 namespace Core {
-    public class StatShiftCreepAttachment_Speed : CreepAttatchment {
+    public class StatShiftCreepAttachment_Speed2Hp : CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
             results.AddSpdScale(-.3f);
             results.AddHpScale(.3f);

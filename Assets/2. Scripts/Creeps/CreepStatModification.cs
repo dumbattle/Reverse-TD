@@ -45,6 +45,7 @@
             shrinkMinHp.Reset();
             speedMinHpScale.Reset();
             deathSpawnLevel = 0;
+            carrierSpawnLevel = 0;
         }
 
         //***************************************************************************************************

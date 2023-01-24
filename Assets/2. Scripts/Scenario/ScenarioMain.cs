@@ -10,7 +10,12 @@ public class ScenarioMain : MonoBehaviour {
     ScenarioController controller;
 
     void Start() {
-        s = ScenarioInstance.Get(InterSceneCommunicator.scenarioParameters ?? parameters, unityReferences);
+        var p = InterSceneCommunicator.scenarioParameters;
+        if (p == null) {
+            p = parameters;
+            p.mainTowers.Add(new MainTowerParameters(TowerDefinitionCatalog.main_basic_diamond_blue, 100_000, new Vector2Int(p.width / 2, p.height / 2)));
+        }
+        s = ScenarioInstance.Get(p, unityReferences);
         controller = ScenarioController.Get(s);
     }
 

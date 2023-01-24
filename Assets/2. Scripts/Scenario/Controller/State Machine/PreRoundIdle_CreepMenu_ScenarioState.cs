@@ -105,8 +105,8 @@
                     creepMenu.DehighlightAllAttachmentSlots();
                     selectedAttachment = -1;
 
-                    // update display
-                    creepMenu.SetCreepDetails(currentSelectCreep);
+                    // redraw creep menu
+                    creepMenu.Open(s, currentSelectCreep);
                 }
 
                 return null;

@@ -13,7 +13,9 @@ namespace Core {
         [SerializeField] GameObject creepSelectionRoot;
         [SerializeField] GameObject itemSelectionRoot;
         [SerializeField] TextMeshProUGUI descriptionText;
-            
+        [SerializeField] Sprite deathChildSprite;
+        [SerializeField] Sprite carrierChildSprite;
+
         List<PreRoundCreepMenu_CreepEntry_Behaviour> creepEntries = new List<PreRoundCreepMenu_CreepEntry_Behaviour>();
         List<PreRoundCreepMenu_InventoryItemEntry_Behaviour> itemEntries = new List<PreRoundCreepMenu_InventoryItemEntry_Behaviour>();
         CreepArmy creepArmy;
@@ -59,49 +61,17 @@ namespace Core {
             this.s = s;
             gameObject.SetActive(true);
 
-            // get bounds for HP, speed, spacing
-            var c0 = creepArmy.GetSquad(0).actualDefinition;
-
-            float hpMax = c0.hp;
-            float hpMin = c0.hp;
-
-            float spdMax = c0.speed;
-            float spdMin = c0.speed;
-
-            float spaceMin = c0.spawnInterval;
-            float spaceMax = c0.spawnInterval;
-
-            for (int i = 1; i < creepArmy.count; i++) {
-                var c = creepArmy.GetSquad(i).actualDefinition;
-                hpMax = Mathf.Max(c.hp, hpMax);
-                hpMin = Mathf.Min(c.hp, hpMin);
-                spdMax = Mathf.Max(c.speed, spdMax);
-                spdMin = Mathf.Min(c.speed, spdMin);
-                spaceMax = Mathf.Max(c.spawnInterval, spaceMax);
-                spaceMin = Mathf.Min(c.spawnInterval, spaceMin);
-            }
-            // add buffer
-
-            hpMax += 100;
-            hpMin -= 100;
-            spdMax += 1;
-            spdMin -= 1;
-            spaceMax += .5f;
-            spaceMin -= .5f;
-
-            var hpDif = hpMax - hpMin;
-            var spdDif = spdMax - spdMin;
-            var spaceDif = spaceMax - spaceMin;
 
             // set bars
             CreepSquad result = null;
             int entryIndex = 0;
             for (int i = 0; i < creepArmy.count; i++) {
                 var squad = creepArmy.GetSquad(i);
-                SetEntry(squad);
-                SetEntry(squad.GetDeathSplitSquad());
+                SetEntry(squad, null);
+                SetEntry(squad.GetDeathSplitSquad(), deathChildSprite);
+                SetEntry(squad.GetCarrierSquad(), carrierChildSprite);
 
-                void SetEntry(CreepSquad sqd) {
+                void SetEntry(CreepSquad sqd, Sprite indicator) {
                     if (sqd == null) {
                         return;
                     }
@@ -118,11 +88,17 @@ namespace Core {
                     var c = sqd.actualDefinition;
 
                     e.icon.sprite = c.sprite;
+                    e.glowIcon.color = c.glowColor;
+                    e.iconRoot.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
                     e.gameObject.SetActive(true);
-                    e.hpBarPivot.localScale = new Vector3(1, (c.hp - hpMin) / hpDif, 1);
-                    e.spdBarPivot.localScale = new Vector3(1, (c.speed - spdMin) / spdDif, 1);
-                    e.countBarPivot.localScale = new Vector3(1, 1 - (c.spawnInterval - spaceMin) / spaceDif, 1);
                     e.squad = sqd;
+                    if (indicator == null) {
+                        e.childIndicator.gameObject.SetActive(false);
+                    }
+                    else {
+                        e.childIndicator.gameObject.SetActive(true);
+                        e.childIndicator.sprite = indicator;
+                    }
                     entryIndex++;
                 }
             }
