@@ -9,8 +9,8 @@
         static PreRoundIdle_CreepMenu_ScenarioState instance = new PreRoundIdle_CreepMenu_ScenarioState();
 
         public static PreRoundIdle_CreepMenu_ScenarioState Get(ScenarioInstance s) {
-            s.references.ui.preRoundBehaviour.OpenCreepMenu(s);
-            instance.subState = SubState_Idle.Get(0);
+            var initialSquad = s.references.ui.preRoundBehaviour.OpenCreepMenu(s);
+            instance.subState = SubState_Idle.Get(initialSquad);
             return instance;
         }
 
@@ -54,7 +54,7 @@
             SubState_Idle() { }
             static SubState_Idle instance = new SubState_Idle();
 
-            public static SubState_Idle Get(int currentSelectCreep) {
+            public static SubState_Idle Get(CreepSquad currentSelectCreep) {
                 instance.currentSelectCreep = currentSelectCreep;
                 return instance;
             }
@@ -63,8 +63,9 @@
             // State
             //******************************************************************************
 
-            int currentSelectCreep;
+            CreepSquad currentSelectCreep;
             int selectedAttachment;
+
             //******************************************************************************
             // Implementation
             //******************************************************************************
@@ -74,7 +75,7 @@
 
                 // select creep
                 var creepSelected = creepMenu.creepSelected;
-                if (creepSelected >= 0) {
+                if (creepSelected != null) {
                     currentSelectCreep = creepSelected;
                     creepMenu.SetCreepDetails(creepSelected);
                     creepMenu.DehighlightAllAttachmentSlots();
@@ -85,7 +86,7 @@
                 if (atchSelected >= 0) {
                     selectedAttachment = atchSelected;
 
-                    var atch = s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).GetAttachment(atchSelected);
+                    var atch = currentSelectCreep.GetAttachment(atchSelected);
                     if (atch == null) {
                         creepMenu.DehighlightAllAttachmentSlots();
                         return SubState_SelectAtchForCreep.Get(s, currentSelectCreep);
@@ -98,7 +99,7 @@
                 // remove attachment
                 if (creepMenu.removeAttachmentButton.Clicked) {
                     // apply modification
-                    s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep).RemoveModifier(selectedAttachment);
+                    currentSelectCreep.RemoveItem(selectedAttachment);
 
                     // deselect
                     creepMenu.DehighlightAllAttachmentSlots();
@@ -121,8 +122,8 @@
             SubState_SelectAtchForCreep() { }
             static SubState_SelectAtchForCreep instance = new SubState_SelectAtchForCreep();
 
-            public static SubState_SelectAtchForCreep Get(ScenarioInstance s, int currentSelectCreep) {
-                int numAttachInventory = s.playerFunctions.NumAttachableInInventory(s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep));
+            public static SubState_SelectAtchForCreep Get(ScenarioInstance s, CreepSquad currentSelectCreep) {
+                int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSelectCreep);
                 if (numAttachInventory <=0) {
                     // invalid - don't enter
                     return null;
@@ -137,7 +138,7 @@
             // State
             //******************************************************************************
 
-            int currentSelectCreep;
+            CreepSquad currentSelectCreep;
             CreepAttatchment selectedAttachment;
 
             //******************************************************************************
@@ -163,8 +164,7 @@
 
                     // apply modification
                     s.playerFunctions.RemoveItem(selectedAttachment);
-                    CreepSquad currentSquad = s.playerFunctions.GetCreepArmy().GetSquad(currentSelectCreep);
-                    currentSquad.AddModifier(selectedAttachment);
+                    currentSelectCreep.AddModifier(selectedAttachment);
 
                     creepMenu.SetCreepDetails(currentSelectCreep);
 
@@ -172,7 +172,7 @@
                     selectedAttachment = null;
 
                     // close if inventory empty
-                    int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSquad);
+                    int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSelectCreep);
 
                     if (numAttachInventory <= 0) {
                         creepMenu.CloseItemSelect();
@@ -180,7 +180,7 @@
                     }
 
                     // close if all attachments full
-                    if (currentSquad.NumModifications() >= 10) {
+                    if (currentSelectCreep.NumAttachments() >= 10) {
                         creepMenu.CloseItemSelect();
                         return SubState_Idle.Get(currentSelectCreep);
                     }

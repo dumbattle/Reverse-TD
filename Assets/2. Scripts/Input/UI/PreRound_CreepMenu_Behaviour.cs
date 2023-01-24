@@ -23,7 +23,7 @@ namespace Core {
         public LPEButtonBehaviour applyAttachmentButton;
         public LPEButtonBehaviour removeAttachmentButton;
 
-        public int creepSelected { get; private set; }
+        public CreepSquad creepSelected { get; private set; }
         public int attachmentSelected { get; private set; }
         public CreepAttatchment itemSelected { get; private set; }
 
@@ -41,7 +41,7 @@ namespace Core {
 
         void LateUpdate() {
             itemSelected = null;
-            creepSelected = -1;
+            creepSelected = null;
             attachmentSelected = -1;
         }
 
@@ -49,7 +49,7 @@ namespace Core {
         // Control
         //***********************************************************************************************************
 
-        public void Open(ScenarioInstance s) {
+        public CreepSquad Open(ScenarioInstance s, CreepSquad openTo = null) {
             descriptionText.text = "";
             applyAttachmentButton.gameObject.SetActive(false);
             removeAttachmentButton.gameObject.SetActive(false);
@@ -94,26 +94,43 @@ namespace Core {
             var spaceDif = spaceMax - spaceMin;
 
             // set bars
+            CreepSquad result = null;
+            int entryIndex = 0;
             for (int i = 0; i < creepArmy.count; i++) {
-                if (creepEntries.Count <= i) {
-                    int tempI = i; // don't capture 'i'
-                    var newE = Instantiate(creepEntrySrc, creepEntrySrc.transform.parent);
-                    newE.button.SetClickListener(() => SelectCreepEntry(tempI));
-                    creepEntries.Add(newE);
+                var squad = creepArmy.GetSquad(i);
+                SetEntry(squad);
+                SetEntry(squad.GetDeathSplitSquad());
 
+                void SetEntry(CreepSquad sqd) {
+                    if (sqd == null) {
+                        return;
+                    }
+                    if (sqd == openTo) {
+                        result = sqd;
+                    }
+                    if (creepEntries.Count <= entryIndex) {
+                        var newE = Instantiate(creepEntrySrc, creepEntrySrc.transform.parent);
+                        newE.button.SetClickListener(() => SelectCreepEntry(newE.squad));
+                        creepEntries.Add(newE);
+
+                    }
+                    var e = creepEntries[entryIndex];
+                    var c = sqd.actualDefinition;
+
+                    e.icon.sprite = c.sprite;
+                    e.gameObject.SetActive(true);
+                    e.hpBarPivot.localScale = new Vector3(1, (c.hp - hpMin) / hpDif, 1);
+                    e.spdBarPivot.localScale = new Vector3(1, (c.speed - spdMin) / spdDif, 1);
+                    e.countBarPivot.localScale = new Vector3(1, 1 - (c.spacing - spaceMin) / spaceDif, 1);
+                    e.squad = sqd;
+                    entryIndex++;
                 }
-                var e = creepEntries[i];
-                var c = creepArmy.GetSquad(i).actualDefinition;
-
-                e.icon.sprite = c.sprite;
-                e.gameObject.SetActive(true);
-                e.hpBarPivot.localScale = new Vector3(1, (c.hp - hpMin)/ hpDif, 1);
-                e.spdBarPivot.localScale = new Vector3(1, (c.speed - spdMin) / spdDif, 1);
-                e.countBarPivot.localScale = new Vector3(1, 1 - (c.spacing - spaceMin) / spaceDif, 1);
             }
 
             // select first
-            SetCreepDetails(0);
+            result = result ?? creepEntries[0].squad;
+            SetCreepDetails(result);
+            return result;
         }
 
         public void Close() {
@@ -123,8 +140,8 @@ namespace Core {
             }
         }
         
-        public void SetCreepDetails(int index) {
-            currentSquad = creepArmy.GetSquad(index);
+        public void SetCreepDetails(CreepSquad squad) {
+            currentSquad = squad;
             var c = currentSquad.actualDefinition;
 
             // set image
@@ -141,6 +158,8 @@ namespace Core {
             // open proper menu
             creepSelectionRoot.SetActive(true);
             itemSelectionRoot.SetActive(false);
+
+            Open(s, currentSquad);
         }
       
         public void OpenItemSelect() {
@@ -160,6 +179,10 @@ namespace Core {
                 var item = s.playerFunctions.GetPlayerItemBySlot(i);
 
                 if (!(item is CreepAttatchment atch)) {
+                    continue;
+                }
+
+                if (!atch.Attachable(currentSquad)) {
                     continue;
                 }
 
@@ -206,8 +229,8 @@ namespace Core {
         // Button Callbacks
         //***********************************************************************************************************
 
-        void SelectCreepEntry(int i) {
-            creepSelected = i;
+        void SelectCreepEntry(CreepSquad s) {
+            creepSelected = s;
         }
 
         void SelectAttachmentSlot(int slot) {
@@ -221,8 +244,6 @@ namespace Core {
         //***********************************************************************************************************
         // Helpers
         //***********************************************************************************************************
-
-    
       
         void UpdateCreepStatsDisplay() {
             var c = currentSquad.actualDefinition;
@@ -235,7 +256,7 @@ namespace Core {
             creepDetailsReferences.size.valueText.text = (c.radius * 2).ToString("f2");
 
             var defaultSquad = s.playerFunctions.GetCreepArmy().defaultSquad;
-            defaultSquad.RecalculateActual();
+            defaultSquad.Recalculate();
             var defaultCreep = defaultSquad.actualDefinition;
             creepDetailsReferences.hp.SetBars(c.hp, defaultCreep.hp);
             creepDetailsReferences.money.SetBars(c.moneyReward, defaultCreep.moneyReward);
@@ -248,7 +269,7 @@ namespace Core {
 
         void UpdateAttachmentDisplay() {
             int atchIndex = 0;
-            int atchCount = currentSquad.NumModifications();
+            int atchCount = currentSquad.NumAttachments();
 
             int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSquad);
             foreach (var atchEntry in creepDetailsReferences.attatchments) {
@@ -269,7 +290,6 @@ namespace Core {
                 }
             }
         }
-        
         
         [System.Serializable]
         struct CreepDetailsReferences {

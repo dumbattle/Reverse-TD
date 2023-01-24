@@ -2,23 +2,24 @@
 
 
 namespace Core {
-    public class StatShiftCreepAttachment_Speed : CreepAttatchment {
+    public class StatShiftCreepAttachment_Hp2Speed : CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
-            results.AddSpdScale(-.3f);
-            results.AddHpScale(.3f);
-            results.AddSizeScale(0.2f);
+            results.AddHpScale(-.3f);
+            results.AddSizeScale(-0.2f);
+
+            results.AddSpdScale(.3f);
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.shiftSpeed2Hp;
+            return CreepItemIconResourceCache.shiftHp2Speed;
         }
 
         public override string GetName() {
-            return "Tank Module";
+            return "Haste Module";
         }
 
         public override string GetDescription() {
-            return "Gives a creep more HP, but lowers speed";
+            return "Faster, weaker creeps";
         }
 
         public override CreepModificationLevel GetLevel() {

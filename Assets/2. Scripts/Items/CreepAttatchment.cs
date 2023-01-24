@@ -13,7 +13,9 @@ namespace Core {
         public static float InverseScale(float baseStat, float currentStat, float scale) {
             return 1 / (1 / currentStat + 1 / baseStat * scale);
         }
-
+        public virtual bool Attachable(CreepSquad s) {
+            return true;
+        }
     }
  
     public enum CreepModificationLevel {

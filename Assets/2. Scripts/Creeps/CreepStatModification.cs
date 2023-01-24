@@ -1,22 +1,27 @@
 ﻿namespace Core {
     public class CreepStatModification {
         public float regenRate;
+        public int deathSpawnLevel;
 
-        Entry size = new Entry();
-        Entry hp = new Entry();
-        Entry money = new Entry();
-        Entry spawnRate = new Entry();
-        Entry count = new Entry();
-        Entry spd = new Entry();
-        Entry shrinkMinHp = new Entry();
-        Entry speedMinHpScale = new Entry();
-        
-        
+
+        StatEntry size = new StatEntry();
+        StatEntry hp = new StatEntry();
+        StatEntry money = new StatEntry();
+        StatEntry spawnRate = new StatEntry();
+        StatEntry count = new StatEntry();
+        StatEntry spd = new StatEntry();
+        StatEntry shrinkMinHp = new StatEntry();
+        StatEntry speedMinHpScale = new StatEntry();
+
         public CreepStatModification() {
             Reset();
         }
 
         public void Apply(CreepDefinition def) {
+            if (def == null) {
+                return;
+            }
+
             def.radius *= size.GetRatio();
             def.hp *= hp.GetRatio();
             def.moneyReward *= money.GetRatio();
@@ -38,11 +43,16 @@
             spd.Reset();
             shrinkMinHp.Reset();
             speedMinHpScale.Reset();
+            deathSpawnLevel = 0;
         }
 
         //***************************************************************************************************
         // Set Modifications
         //***************************************************************************************************
+
+        //-----------------------------------------------------------------------
+        // Basic Stats
+        //-----------------------------------------------------------------------
 
         /// <summary>
         /// Negative to indicate decrease
@@ -100,7 +110,11 @@
             speedMinHpScale.AddScale(-scale);
         }
 
-        class Entry {
+        //***************************************************************************************************
+        // Helpers
+        //***************************************************************************************************
+
+        class StatEntry {
             float numer = 1;
             float denom = 1;
 

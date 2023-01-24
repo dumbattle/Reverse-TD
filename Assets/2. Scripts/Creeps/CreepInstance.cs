@@ -26,6 +26,24 @@ namespace Core {
             result.hpRegen = 0;
             return result;
         }
+        public static CreepInstance GetChild(ScenarioInstance s, CreepDefinition def, CreepInstance parent) {
+            var result = _pool.Get();
+            result.definition = def;
+            result.health = new Health((int)def.hp);
+            result.direction = new Vector2(0, 0);
+
+            result.distTraveled = parent.distTraveled - Random.value;
+            result.distTraveled = Mathf.Max(result.distTraveled, 0);
+            result.offset = Random.insideUnitCircle * (.5f - def.radius);
+            result.path = parent.path;
+
+            result.slowLevel = 0;
+            result.slowTimer = 0;
+
+            result.hpRegen = 0;
+            result.SetPosition();
+            return result;
+        }
 
         public Vector2 position { get; set; }
         public Vector2 direction { get; set; }
@@ -37,6 +55,10 @@ namespace Core {
         //--------------------------------------------------------------------------------------
         // Accessors
         //--------------------------------------------------------------------------------------
+
+        public CreepDefinition GetDeathSplitDefinition() {
+            return definition.deathSplitDefinition;
+        }
 
         public Sprite GetSprite() {
             return definition.sprite;
@@ -100,12 +122,7 @@ namespace Core {
 
             // move 
             distTraveled += GetCurrentSpeed() * deltaTime;
-            var tileA = path[(int)distTraveled];
-            var tileB = path[(int)distTraveled + 1];
-
-            // set position + direction
-            position = Vector2.Lerp(tileA, tileB, distTraveled % 1) + offset;
-            direction = tileB - tileA;
+            SetPosition();
         }
 
         public void Return() {
@@ -130,6 +147,16 @@ namespace Core {
         public float EstimatedDistanceFromTarget() {
             float total = path.Count - 1;
             return total - distTraveled;
+        }
+
+        void SetPosition() {
+
+            var tileA = path[(int)distTraveled];
+            var tileB = path[(int)distTraveled + 1];
+
+            // set position + direction
+            position = Vector2.Lerp(tileA, tileB, distTraveled % 1) + offset;
+            direction = tileB - tileA;
         }
     }
 }

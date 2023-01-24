@@ -14,7 +14,7 @@ namespace Core.Campaign {
         }
         
         protected override (int initial, int perRoundFlat, int perRoundScale) GetTowerMoneyParams() {
-            return (0, 145, 15);
+            return (100, 145, 15);
         }
 
         protected override List<MainTowerParameters> GetMainTowerParameters() {

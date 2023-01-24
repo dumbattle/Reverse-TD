@@ -13,6 +13,8 @@ namespace Core {
         public Transform hpBarPivot;
         public Transform spdBarPivot;
         public Transform countBarPivot;
+
+        public CreepSquad squad;
     }
 
 }

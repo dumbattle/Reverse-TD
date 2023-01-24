@@ -20,7 +20,6 @@ namespace Core {
         //--------------------------------------------------------------------------------------------------
         // Dynamic
         //--------------------------------------------------------------------------------------------------
-        //List<Health> mainHealths = new List<Health>();
 
         Health totalHealth;
         int money = 0;
@@ -169,7 +168,7 @@ namespace Core {
                     var newTower = s.towerFunctions.ReplaceTower(spec.spec.current, spec.spec.upgradeResult);
                     activeTowers.Remove(spec.spec.current);
                     activeTowers.Add(newTower);
-                    money -= spec.spec.cost;
+                    //money -= spec.spec.cost;
                 }
                 else {
                     break;

@@ -27,11 +27,12 @@ namespace Core {
             CloseAllMenus();
         }
 
-        public void OpenCreepMenu(ScenarioInstance s) {
+        public CreepSquad OpenCreepMenu(ScenarioInstance s) {
             CloseAllMenus();
 
-            creepMenu.Open(s);
+            var result = creepMenu.Open(s);
             creepButtonText.color = Color.white;
+            return result;
         }
 
         public void OpenShopMenu(ScenarioInstance s) {

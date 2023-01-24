@@ -5,12 +5,12 @@ namespace Core {
     public class CreepDefinition {
         public string name;
         public Sprite sprite;
-        public Color glowColor;
+        public Color glowColor = Random.ColorHSV(0, 1, .5f, 1, 1, 1);
 
         //----------------------------------
         // Common
         //----------------------------------
-        
+
         public float hp;
         public float speed;
         public float radius;
@@ -23,11 +23,16 @@ namespace Core {
         //----------------------------------
         // Special
         //----------------------------------
-        
+
         public float hpRegenRate;
         public float shrinkMinHp = 1;
         public float speedMinHpScale = 1;
 
+        public CreepDefinition deathSplitDefinition;
+
+        //***********************************************************************
+        // Helpers
+        //***********************************************************************
         public CreepDefinition CreateCopy() {
             var result = new CreepDefinition();
             result.CopyFrom(this);
@@ -48,5 +53,7 @@ namespace Core {
             shrinkMinHp = d.shrinkMinHp;
             speedMinHpScale = d.speedMinHpScale;
         }
+
+
     }
 }

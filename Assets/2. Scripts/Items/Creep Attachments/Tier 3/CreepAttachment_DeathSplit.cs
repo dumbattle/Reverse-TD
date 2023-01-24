@@ -2,27 +2,30 @@
 
 
 namespace Core {
-    public class StatShiftCreepAttachment_Speed : CreepAttatchment {
+    public class CreepAttachment_DeathSplit: CreepAttatchment {
         public override void ApplyModification(CreepStatModification results) {
-            results.AddSpdScale(-.3f);
-            results.AddHpScale(.3f);
-            results.AddSizeScale(0.2f);
+            results.deathSpawnLevel++;
+           
         }
 
         public override Sprite GetIcon() {
-            return CreepItemIconResourceCache.shiftSpeed2Hp;
+            return CreepItemIconResourceCache.shiftCount2Hp;
         }
 
         public override string GetName() {
-            return "Tank Module";
+            return "Split Module";
         }
 
         public override string GetDescription() {
-            return "Gives a creep more HP, but lowers speed";
+            return "Creep will split inot smaller creeps when destroyed";
         }
 
         public override CreepModificationLevel GetLevel() {
             return CreepModificationLevel.L1;
+        }
+
+        public override bool Attachable(CreepSquad s) {
+            return !s.isChild;
         }
     }
 }

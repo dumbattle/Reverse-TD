@@ -47,7 +47,6 @@ namespace Core {
 
                         // creep done
                         DestroyCreep(c);
-                        
                         break;
                     }
                 }
@@ -129,6 +128,20 @@ namespace Core {
             c.health.DealDamage(amnt);
 
             if (c.health.current <= 0) {
+                var deathSplitDef = c.GetDeathSplitDefinition();
+
+                if (deathSplitDef  != null) {
+                    float count = deathSplitDef.count;
+                    while (count >0) {
+                        if (UnityEngine.Random.value > count) {
+                            break;
+                        }
+                        count--;
+
+                        var child = CreepInstance.GetChild(s, deathSplitDef, c);
+                        AddCreep(child);
+                    }
+                }
                 DestroyCreep(c);
             }
         }
@@ -137,7 +150,6 @@ namespace Core {
             creepManager.RemoveCreep(c);
             c.Return();
         }
-
 
         public int CreepCount() {
             return creepManager.CreepCount();

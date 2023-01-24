@@ -99,7 +99,7 @@
 
                 for (int i = 0; i < s.playerFunctions.GetCreepArmy().count; i++) {
                     var squad = s.playerFunctions.GetCreepArmy().GetSquad(i);
-                    squad.RecalculateActual();
+                    squad.Recalculate();
                 }
                 shop.SetHPItem();
             }

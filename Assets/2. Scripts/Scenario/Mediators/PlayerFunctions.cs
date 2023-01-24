@@ -36,7 +36,7 @@ namespace Core {
         public int NumAttachableInInventory(CreepSquad c) {
             var result = 0;
             foreach (var item in player.items) {
-                if (item is CreepAttatchment m) {
+                if (item is CreepAttatchment m && m.Attachable(c)) {
                     result++;
                 }
             }

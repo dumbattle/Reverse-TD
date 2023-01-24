@@ -6,15 +6,19 @@ namespace Core {
         CreepDefinition baseDefinition;
         public CreepDefinition actualDefinition { get; private set; }
 
-        List<CreepAttatchment> allModifiers = new List<CreepAttatchment>();
-        List<CreepAttatchment> level1Modifier = new List<CreepAttatchment>();
-        List<CreepAttatchment> level2Modifier = new List<CreepAttatchment>();
-        List<CreepAttatchment> level3Modifier = new List<CreepAttatchment>();
+        List<IPlayerItem> allAttachments = new List<IPlayerItem>();
+        List<ICreepDefinitionModifier> level1Modifier = new List<ICreepDefinitionModifier>();
+        List<ICreepDefinitionModifier> level2Modifier = new List<ICreepDefinitionModifier>();
+        List<ICreepDefinitionModifier> level3Modifier = new List<ICreepDefinitionModifier>();
 
         GlobalCreeepUpgrades globalUpgrades;
         CreepStatModification levelModifiers;
+
         CreepStatModification stage1 = new CreepStatModification();
         CreepStatModification stage2 = new CreepStatModification();
+
+        CreepSquad deathSplitSquad;
+        public bool isChild { get; private set; }
 
         public CreepSquad(CreepDefinition def, GlobalCreeepUpgrades globalUpgrades, CreepStatModification levelModifiers) {
             this.levelModifiers = levelModifiers;
@@ -22,56 +26,82 @@ namespace Core {
             actualDefinition = def.CreateCopy();
             this.globalUpgrades = globalUpgrades;
 
-            RecalculateActual();
+            Recalculate();
         }
 
-        public void AddModifier(CreepAttatchment mod) {
-            allModifiers.Add(mod);
-            GetLevelList(mod.GetLevel()).Add(mod);
-            RecalculateActual();
+        public void AddModifier(IPlayerItem item) {
+            allAttachments.Add(item);
+            if (item is CreepAttatchment atch) {
+                GetLevelList(atch.GetLevel()).Add(atch);
+                Recalculate();
+            }
         }
-        public void RemoveModifier(int index) {
-            var m = allModifiers[index];
-            allModifiers.RemoveAt(index);
-            GetLevelList(m.GetLevel()).Remove(m);
-            RecalculateActual();
+        
+        public void RemoveItem(int index) {
+            var item = allAttachments[index];
+            allAttachments.RemoveAt(index);
+            if (item is CreepAttatchment atch) {
+                GetLevelList(atch.GetLevel()).Remove(atch);
+                Recalculate();
+            }
+        }
+        
+        public int NumAttachments() {
+            return allAttachments.Count;
         }
 
-        public int NumModifications() {
-            return allModifiers.Count;
-        }
-
-        public CreepAttatchment GetAttachment(int index) {
-            if (index >= allModifiers.Count) {
+        public IPlayerItem GetAttachment(int index) {
+            if (index >= allAttachments.Count) {
                 return null;
             }
-            return allModifiers[index];
+            return allAttachments[index];
         }
-
-        public void RecalculateActual() {
+       
+        public void Recalculate() {
             stage1.Reset();
             stage2.Reset();
             actualDefinition.CopyFrom(baseDefinition);
 
             globalUpgrades.ApplyModification(stage1);
 
-
             foreach (var l in level1Modifier) {
                 l.ApplyModification(stage1);
             }
-
 
             foreach (var l in level2Modifier) {
                 l.ApplyModification(stage2);
             }
 
-            levelModifiers.Apply(actualDefinition);
+            levelModifiers?.Apply(actualDefinition);
             stage1.Apply(actualDefinition);
             stage2.Apply(actualDefinition);
+
+            // death split child
+            actualDefinition.deathSplitDefinition = null;
+
+            int deathSplitCount = stage1.deathSpawnLevel + stage2.deathSpawnLevel;
+
+            if (!isChild && deathSplitCount > 0) {
+                if (deathSplitSquad == null) {
+                    deathSplitSquad = new CreepSquad(CreepSelectionUtility.GetRandomNewCreep(), globalUpgrades, null);
+                    deathSplitSquad.baseDefinition.speed *= .8f;
+                    deathSplitSquad.baseDefinition.radius /= 2f;
+                    deathSplitSquad.isChild = true;
+                }
+
+                deathSplitSquad.baseDefinition.hp = baseDefinition.hp / (1f + deathSplitCount);
+                deathSplitSquad.baseDefinition.moneyReward = baseDefinition.moneyReward / (1f + deathSplitCount);
+                deathSplitSquad.baseDefinition.count = deathSplitCount;
+
+                deathSplitSquad.Recalculate();
+                actualDefinition.deathSplitDefinition = deathSplitSquad.actualDefinition;
+            }
         }
 
-
-        List<CreepAttatchment> GetLevelList(CreepModificationLevel level) {
+        public CreepSquad GetDeathSplitSquad() {
+            return deathSplitSquad;
+        }
+        List<ICreepDefinitionModifier> GetLevelList(CreepModificationLevel level) {
             switch (level) {
                 case CreepModificationLevel.L1:
                     return level1Modifier;
@@ -83,5 +113,4 @@ namespace Core {
             return null;
         }
     }
-
 }
