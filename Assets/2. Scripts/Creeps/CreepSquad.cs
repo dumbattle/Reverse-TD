@@ -102,6 +102,7 @@ namespace Core {
                     deathSplitSquad.baseDefinition.speed *= .8f;
                     deathSplitSquad.baseDefinition.radius /= 2f;
                     deathSplitSquad.isDeathSpawn = true;
+                    deathSplitSquad.baseDefinition.glowColor = UnityEngine.Color.black;
                 }
 
                 deathSplitSquad.baseDefinition.hp = baseDefinition.hp / (1f + deathSplitCount);
@@ -122,13 +123,14 @@ namespace Core {
                     carrierSquad = new CreepSquad(CreepSelectionUtility.GetRandomNewCreep(), globalUpgrades, null);
                     carrierSquad.baseDefinition.radius /= 2f;
                     carrierSquad.isCarrierSpawn = true;
+                    carrierSquad.baseDefinition.glowColor = UnityEngine.Color.white;
                 }
                 carrierSquad.baseDefinition.speed = baseDefinition.speed * 1.5f;
 
-                carrierSquad.baseDefinition.hp = baseDefinition.hp / 2;
+                carrierSquad.baseDefinition.hp = baseDefinition.hp / 40f * (10 + carrierLevel);
                 carrierSquad.baseDefinition.moneyReward = baseDefinition.moneyReward / 2;
                 carrierSquad.baseDefinition.count = 1;
-                carrierSquad.baseDefinition.spawnRate = 0.1f + 0.01f * carrierLevel;
+                carrierSquad.baseDefinition.spawnRate = 0.08f + 0.02f * carrierLevel;
 
                 carrierSquad.Recalculate();
                 actualDefinition.carrierDefinition = carrierSquad.actualDefinition;

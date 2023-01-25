@@ -24,7 +24,7 @@ namespace Core {
             result.slowTimer = 0;
 
             result.hpRegen = 0;
-            result.carrierSpawnTimer = ((def.carrierDefinition?.spawnInterval) ?? 0) * (Random.value / 2 + 0.5f);
+            result.carrierSpawnTimer = ((def.carrierDefinition?.spawnInterval) ?? 0) * (Random.value / 2);
             return result;
         }
         public static CreepInstance GetChild(ScenarioInstance s, CreepDefinition def, CreepInstance parent) {

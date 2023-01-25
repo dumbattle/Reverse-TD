@@ -62,45 +62,53 @@ namespace Core {
             gameObject.SetActive(true);
 
 
-            // set bars
             CreepSquad result = null;
             int entryIndex = 0;
+
             for (int i = 0; i < creepArmy.count; i++) {
-                var squad = creepArmy.GetSquad(i);
-                SetEntry(squad, null);
-                SetEntry(squad.GetDeathSplitSquad(), deathChildSprite);
-                SetEntry(squad.GetCarrierSquad(), carrierChildSprite);
-
-                void SetEntry(CreepSquad sqd, Sprite indicator) {
-                    if (sqd == null) {
-                        return;
-                    }
-                    if (sqd == openTo) {
-                        result = sqd;
-                    }
-                    if (creepEntries.Count <= entryIndex) {
-                        var newE = Instantiate(creepEntrySrc, creepEntrySrc.transform.parent);
-                        newE.button.SetClickListener(() => SelectCreepEntry(newE.squad));
-                        creepEntries.Add(newE);
-
-                    }
-                    var e = creepEntries[entryIndex];
-                    var c = sqd.actualDefinition;
-
-                    e.icon.sprite = c.sprite;
-                    e.glowIcon.color = c.glowColor;
-                    e.iconRoot.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
-                    e.gameObject.SetActive(true);
-                    e.squad = sqd;
-                    if (indicator == null) {
-                        e.childIndicator.gameObject.SetActive(false);
-                    }
-                    else {
-                        e.childIndicator.gameObject.SetActive(true);
-                        e.childIndicator.sprite = indicator;
-                    }
-                    entryIndex++;
+                // Get entry
+                if (creepEntries.Count <= entryIndex) {
+                    // new entry
+                    var newE = Instantiate(creepEntrySrc, creepEntrySrc.transform.parent);
+                    newE.button.SetClickListener(() => SelectCreepEntry(newE.squad));
+                    creepEntries.Add(newE);
                 }
+
+                var e = creepEntries[entryIndex];
+                
+                // Cache
+                var squad = creepArmy.GetSquad(i);
+                var c = squad.actualDefinition;
+
+                // Set entry values
+                e.icon.sprite = c.sprite;
+                e.glowIcon.color = c.glowColor;
+                e.iconRoot.localScale = new Vector3(c.radius * 2, c.radius * 2, 1);
+                e.gameObject.SetActive(true);
+                e.squad = squad;
+
+                // set death child icons
+                var deathSpawnSquad = squad.GetDeathSplitSquad();
+                e.deathChild.gameObject.SetActive(false);
+                e.deathGlow.gameObject.SetActive(false);
+                if (deathSpawnSquad != null) {
+                    e.deathChild.sprite = deathSpawnSquad.actualDefinition.sprite;
+                    e.deathGlow.color = deathSpawnSquad.actualDefinition.glowColor;
+                    e.deathChild.gameObject.SetActive(true);
+                    e.deathGlow.gameObject.SetActive(true);
+                }
+
+                // set carrier child icons
+                var carrierSquad = squad.GetCarrierSquad();
+                e.carrierChild.gameObject.SetActive(false);
+                e.carrierGlow.gameObject.SetActive(false);
+                if (carrierSquad != null) {
+                    e.carrierChild.sprite = carrierSquad.actualDefinition.sprite;
+                    e.carrierGlow.color = carrierSquad.actualDefinition.glowColor;
+                    e.carrierChild.gameObject.SetActive(true);
+                    e.carrierGlow.gameObject.SetActive(true);
+                }
+                entryIndex++;
             }
 
             // select first
@@ -270,6 +278,7 @@ namespace Core {
         [System.Serializable]
         struct CreepDetailsReferences {
             public Image creepImage;
+            public Image creepGlowImage;
             public List<PreRoundCreepMenu_Details_AttachmentEntry_Behaviour> attatchments;
 
             public PreRound_CreepMenu_Details_StatEntry_Behaviour hp;

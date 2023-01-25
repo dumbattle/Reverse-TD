@@ -9,7 +9,13 @@ namespace Core {
         public Transform iconRoot;
         public Image icon;
         public Image glowIcon;
-        public Image childIndicator;
+
+        public Image deathChild;
+        public Image deathGlow;
+        public Image carrierChild;
+        public Image carrierGlow;
+
+
         public LPEButtonBehaviour button;
 
         //[Space]
