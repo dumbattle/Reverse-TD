@@ -75,10 +75,13 @@ namespace Core {
                 }
 
                 var e = creepEntries[entryIndex];
-                
                 // Cache
                 var squad = creepArmy.GetSquad(i);
                 var c = squad.actualDefinition;
+
+                if (squad == openTo) {
+                    result = squad;
+                }
 
                 // Set entry values
                 e.icon.sprite = c.sprite;
@@ -114,6 +117,7 @@ namespace Core {
             // select first
             result = result ?? creepEntries[0].squad;
             SetCreepDetails(result);
+            DehighlightAllAttachmentSlots();
             return result;
         }
 
@@ -135,7 +139,12 @@ namespace Core {
             UpdateCreepStatsDisplay();
 
             // set attachment images
-            UpdateAttachmentDisplay();
+            ResetAttachmentDisplay();
+
+            // highlight button
+            foreach (var e in creepEntries) {
+                e.frameImage.sprite = e.squad == squad ? e.selectedSprite : e.unselectedSprite;
+            }
         }
 
         public void CloseItemSelect() {
@@ -251,7 +260,7 @@ namespace Core {
 
         }
 
-        void UpdateAttachmentDisplay() {
+        void ResetAttachmentDisplay() {
             int atchIndex = 0;
             int atchCount = currentSquad.NumAttachments();
 

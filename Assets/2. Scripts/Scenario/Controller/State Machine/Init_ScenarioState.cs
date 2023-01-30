@@ -32,8 +32,9 @@ namespace Core {
             s.references.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
             s.references.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
             s.references.ui.startButton.SetClickListener(InputManager.Set.Start);
-            s.references.ui.preRoundBehaviour.creepButton.SetClickListener(InputManager.Set.PreRoundUI.CreepMenuOpen);
-            s.references.ui.preRoundBehaviour.shopButton.SetClickListener(InputManager.Set.PreRoundUI.ShopMenuOpen);
+            //s.references.ui.preRoundBehaviour.creepButton.SetClickListener(InputManager.Set.PreRoundUI.CreepMenuOpen);
+            //s.references.ui.preRoundBehaviour.shopButton.SetClickListener(InputManager.Set.PreRoundUI.ShopMenuOpen);
+            s.references.ui.creepMenu.ReDraw(s);
 
 
             s.playerFunctions.GetShop().Refresh(s);

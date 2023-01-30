@@ -12,7 +12,8 @@ namespace Core {
         public Transform healthBarPivot;
 
         [Header("Menus")]
-        public PreRoundUIBehaviour preRoundBehaviour;
+        public ScenarioUI_CreepMenu creepMenu;
+        //public PreRoundUIBehaviour preRoundBehaviour;
         [Header("Other")]
         public EndRoundUnlockBehaviour endRoundUnlockBehaviour;
         public Image fadeOverlay;
@@ -20,18 +21,18 @@ namespace Core {
 
         private void Awake() {
             startButton.gameObject.SetActive(false);
-            preRoundBehaviour.Close();
+            //preRoundBehaviour.Close();
         }
 
 
         public void BeginRound() {
             startButton.gameObject.SetActive(false);
-            preRoundBehaviour.Close();
+            //preRoundBehaviour.Close();
         }
 
         public void BeginPreRound() {
             startButton.gameObject.SetActive(true);
-            preRoundBehaviour.Open();
+            //preRoundBehaviour.Open();
         }
     }
 

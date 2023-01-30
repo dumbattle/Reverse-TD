@@ -28,46 +28,25 @@ namespace Core {
 
         
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
-            //for (int i = paths.Count - 1; i >= 0; i--) {
-            //    var h = paths[i];
-            //    h.t--;
-
-            //    if (h.t <= 0) {
-            //        if (s.mapQuery.GetTile(h.current.x, h.current.y).distFromTarget == 0) {
-            //            h.Return();
-            //            paths.RemoveAt(i);
-            //        }
-            //        else {
-            //            h.current = CreepInstance.GetDestinationTile(s, h.current);
-            //            s.mapQuery.PingTile(h.current);
-            //            h.t = 5;
-            //        }
-            //    }
-            //}
-
-            //pathSpawnTiwmer--;
-            //if (pathSpawnTiwmer <= 0) {
-            //    CreepPathHighlighter h = CreepPathHighlighter.Get();
-            //    h.current = s.mapQuery.GetRandomCreepSpawn();
-            //    s.mapQuery.PingTile(h.current);
-            //    h.t = 6;
-            //    pathSpawnTiwmer = 10;
-            //    paths.Add(h);
-            //}
-
-
-
             s.HandleMoveZoomInput();
             if (InputManager.Start.requested) {
                 return PlayRound_ScenarioState.Get(s);
             }
 
-            if (InputManager.PreRoundUI.creepMenuOpen) {
-                return PreRoundIdle_CreepMenu_ScenarioState.Get(s);
+            if (s.references.ui.creepMenu.buyCreepButton.Clicked) {
+                var newCreep = CreepSelectionUtility.GetRandomNewCreep();
+                s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
+
+                s.references.ui.creepMenu.ReDraw(s);
             }
-            if (InputManager.PreRoundUI.shopMenuOpen) {
-                return PreRoundIdle_ShopMenu_ScenarioState.Get(s);
-            }
+            //if (InputManager.PreRoundUI.creepMenuOpen) {
+            //    return PreRoundIdle_CreepMenu_ScenarioState.Get(s);
+            //}
+
+            //if (InputManager.PreRoundUI.shopMenuOpen) {
+            //    return PreRoundIdle_ShopMenu_ScenarioState.Get(s);
+            //}
+
             return null;
         }
 
