@@ -11,23 +11,38 @@ namespace Core {
         [SerializeField] ScrollRect scrollRect;
         List<PreRoundCreepMenu_CreepEntry_Behaviour> creepEntries = new List<PreRoundCreepMenu_CreepEntry_Behaviour>();
         [SerializeField] PreRoundCreepMenu_CreepEntry_Behaviour creepEntrySrc;
+        public CreepDetailsReferences details;
 
 
         public LPEButtonBehaviour buyCreepButton;
         public TextMeshProUGUI butCostText;
+        public CreepSquad creepSelected { get; private set; }
 
+        CreepSquad currentSquad;
+        int openMode = -1;
+        float openPosition = 0;
         //*************************************************************************************************************
         // Unity Methods
         //*************************************************************************************************************
+       
         void Start() {
             creepEntrySrc.gameObject.SetActive(false);
             creepEntrySrc.gameObject.SetActive(false);
             buyCreepButton.SetDownListener(InputManager.Set.ButtonDown);
+            OpenStatsSubmenu();
         }
+        private void Update() {
+            if (openMode == 1 ? openPosition > 1 : openPosition < 0) {
+                return;
+            }
+            openPosition += FrameUtility.DeltaTime(false) * openMode / 0.5f;
 
-        // Update is called once per frame
-        void Update() {
-
+            var pos = details.root.anchoredPosition;
+            pos.x = Mathf.Lerp(-details.root.sizeDelta.x, 0, 1 - (1 - openPosition) * (1 - openPosition));
+            details.root.anchoredPosition = pos;
+        }
+        void LateUpdate() {
+            creepSelected = null;
         }
 
         public void OnPointerDown(PointerEventData eventData) {
@@ -38,6 +53,7 @@ namespace Core {
         //*************************************************************************************************************
         // Control
         //*************************************************************************************************************
+
         public void ReDraw(ScenarioInstance s) {
             var creepArmy = s.playerFunctions.GetCreepArmy();
 
@@ -90,14 +106,284 @@ namespace Core {
             buyCreepButton.transform.SetAsLastSibling();
         }
 
+        public void SetCreepDetails(ScenarioInstance s, CreepSquad family) {
+            if (family.isChild) {
+                SetCreepDetails(s, family.parentSquad);
+                return;
+            }
+            currentSquad = family;
+            var c = family.actualDefinition;
 
+            SelectParentOfCurrentSquad(s);
+        }
+
+        public void SelectParentOfCurrentSquad(ScenarioInstance s) {
+            var c = currentSquad.actualDefinition;
+
+            // set display creep
+            details.creepImage.sprite = c.sprite;
+            details.creepGlowImage.color = c.glowColor;
+
+            // button update
+            ResetFamilySelectButtons(currentSquad);
+            details.buttons.parentSelection.sprite = details.buttons.selectedSprite;
+
+
+            UpdateCreepDetails(s, currentSquad);
+        }
+      
+        public void SelectCarrierChildOfCurrentSquad(ScenarioInstance s) {
+            var child = currentSquad.GetCarrierSquad();
+            if (child == null) {
+                return;
+            }
+
+            var c = child.actualDefinition;
+
+            // set display creep
+            details.creepImage.sprite = c.sprite;
+            details.creepGlowImage.color = c.glowColor;
+
+            // button update
+            ResetFamilySelectButtons(currentSquad);
+            details.buttons.childCarrierSelection.sprite = details.buttons.selectedSprite;
+
+
+            UpdateCreepDetails(s, child);
+        }
+       
+        public void SelectDeathChildOfCurrentSquad(ScenarioInstance s) {
+            var child = currentSquad.GetDeathSplitSquad();
+            if (child == null) {
+                return;
+            }
+
+            var c = child.actualDefinition;
+
+            // set display creep
+            details.creepImage.sprite = c.sprite;
+            details.creepGlowImage.color = c.glowColor;
+
+            // button update
+            ResetFamilySelectButtons(currentSquad);
+            details.buttons.childDeathSelection.sprite = details.buttons.selectedSprite;
+
+
+            UpdateCreepDetails(s, child);
+        }
+
+        public void OpenStatsSubmenu() {
+            CloseAllSubmenus();
+            details.submenu.stats.rootObj.SetActive(true);
+            details.buttons.statsSubmenuSelection.sprite = details.buttons.selectedSprite;
+        }
+        
+        public void OpenAttachmentsSubmenu() {
+            CloseAllSubmenus();
+            details.submenu.attachments.rootObj.SetActive(true);
+            details.buttons.attachmentsSubmenuSelection.sprite = details.buttons.selectedSprite;
+        }
+
+        public void OpenDetailsTab(bool value) {
+            openMode = value ? 1 : -1;
+        }
+
+
+        //***********************************************************************************************************
+        // Query
+        //***********************************************************************************************************
+
+        public bool DetailsIsOpen() {
+            return openMode == 1;
+        }
         //***********************************************************************************************************
         // Button Callbacks
         //***********************************************************************************************************
 
         void SelectCreepEntry(CreepSquad s) {
-            
+            creepSelected = s;
         }
 
+        //***********************************************************************************************************
+        // Helpers
+        //***********************************************************************************************************
+
+        void CloseAllSubmenus() {
+            details.submenu.stats.rootObj.SetActive(false);
+            details.submenu.attachments.rootObj.SetActive(false);
+
+            details.buttons.statsSubmenuSelection.sprite = details.buttons.unselectedSprite;
+            details.buttons.attachmentsSubmenuSelection.sprite = details.buttons.unselectedSprite;
+        }
+        
+        void ResetFamilySelectButtons(CreepSquad parent) {
+            var c = parent.actualDefinition;
+
+            // parent
+            details.buttons.parentCreep.sprite = c.sprite;
+            details.buttons.parentGlow.color = c.glowColor;
+            details.buttons.parentSelection.sprite = details.buttons.unselectedSprite;
+
+            // carrier child
+            var carrierChild = parent.GetCarrierSquad();
+
+            if (carrierChild == null) {
+                details.buttons.childCarrierSelection.sprite = details.buttons.unavailableSprite;
+                details.buttons.childCarrierCreep.gameObject.SetActive(false);
+                details.buttons.childCarrierGlow.gameObject.SetActive(false);
+            }
+            else {
+                details.buttons.childCarrierSelection.sprite = details.buttons.unselectedSprite;
+                details.buttons.childCarrierCreep.gameObject.SetActive(true);
+                details.buttons.childCarrierGlow.gameObject.SetActive(true);
+                details.buttons.childCarrierCreep.sprite = carrierChild.actualDefinition.sprite;
+                details.buttons.childCarrierGlow.color = carrierChild.actualDefinition.glowColor;
+            }
+            // death child
+            var deathChild = parent.GetDeathSplitSquad();
+
+            if (deathChild == null) {
+                details.buttons.childDeathSelection.sprite = details.buttons.unavailableSprite;
+                details.buttons.childDeathCreep.gameObject.SetActive(false);
+                details.buttons.childDeathGlow.gameObject.SetActive(false);
+            }
+            else {
+                details.buttons.childDeathSelection.sprite = details.buttons.unselectedSprite;
+                details.buttons.childDeathCreep.gameObject.SetActive(true);
+                details.buttons.childDeathGlow.gameObject.SetActive(true);
+                details.buttons.childDeathCreep.sprite = deathChild.actualDefinition.sprite;
+                details.buttons.childDeathGlow.color = deathChild.actualDefinition.glowColor;
+            }
+        }
+
+        void UpdateCreepDetails(ScenarioInstance s, CreepSquad squad) {
+            UpdateCreepStatSubmenu(s, squad);
+            UpdateAttachmentSubMenu(s, squad);
+        }
+
+        void UpdateCreepStatSubmenu(ScenarioInstance s, CreepSquad squad) {
+            var c = squad.actualDefinition;
+            var defaultSquad = s.playerFunctions.GetCreepArmy().defaultSquad;
+            defaultSquad.Recalculate();
+            var defaultCreep = defaultSquad.actualDefinition;
+
+            // set stat texts
+            details.submenu.stats.hpText.text = ((int)c.hp).ToString();
+            details.submenu.stats.moneyText.text = ((int)c.moneyReward).ToString();
+            details.submenu.stats.speedText.text = c.speed.ToString("f2");
+            details.submenu.stats.countText.text = ((int)c.count).ToString();
+            details.submenu.stats.spawnRateText.text = c.spawnRate.ToString("f2");
+            details.submenu.stats.sizeText.text = (c.radius * 2).ToString("f2");
+
+            // set stat bars
+            details.submenu.stats.hpBarPivot.transform.localScale = new Vector3(c.hp / defaultCreep.hp / 4f, 1, 1);
+            details.submenu.stats.moneyBarPivot.transform.localScale = new Vector3(c.moneyReward / defaultCreep.moneyReward / 4f, 1, 1);
+            details.submenu.stats.speedBarPivot.transform.localScale = new Vector3(c.speed / defaultCreep.speed / 4f, 1, 1);
+            details.submenu.stats.countBarPivot.transform.localScale = new Vector3(c.count / defaultCreep.count / 4f, 1, 1);
+            details.submenu.stats.spawnBarPivot.transform.localScale = new Vector3(c.spawnRate / defaultCreep.spawnRate / 4f, 1, 1);
+            details.submenu.stats.sizeBarPivot.transform.localScale = new Vector3(c.radius / defaultCreep.radius / 4f, 1, 1);
+        }
+
+        void UpdateAttachmentSubMenu(ScenarioInstance s, CreepSquad squad) {
+            int atchIndex = 0;
+            int atchCount = currentSquad.NumAttachments();
+
+            int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSquad);
+            foreach (var atchEntry in details.submenu.attachments.attatchments) {
+                if (atchIndex < atchCount) {
+                    var a = currentSquad.GetAttachment(atchIndex);
+                    atchEntry.icon.sprite = a.GetIcon();
+                    atchEntry.icon.gameObject.SetActive(true);
+                    atchIndex++;
+
+                }
+                else if (numAttachInventory > 0) {
+                    atchEntry.icon.sprite = IconResourceCache.availablePlus;
+                    numAttachInventory--;
+                    atchEntry.icon.gameObject.SetActive(true);
+                }
+                else {
+                    atchEntry.icon.gameObject.SetActive(false);
+                }
+                atchEntry.SetSelected(false);
+            }
+        }
+
+        [System.Serializable]
+        public struct CreepDetailsReferences {
+            public RectTransform root;
+            public Image creepImage;
+            public Image creepGlowImage;
+
+
+            public ButtonReferences buttons;
+            public Submenu submenu;
+
+
+            [System.Serializable]
+            public struct ButtonReferences {
+                [Header("Display")]
+                public LPEButtonBehaviour squadParentButton;
+                public LPEButtonBehaviour squadChildDeathButton;
+                public LPEButtonBehaviour squadChildCarrierButton;
+
+                public Image parentCreep;
+                public Image childDeathCreep;
+                public Image childCarrierCreep;
+
+                public Image parentGlow;
+                public Image childDeathGlow;
+                public Image childCarrierGlow;
+
+                [Header("Creep Selection")]
+                public Image parentSelection;
+                public Image childDeathSelection;
+                public Image childCarrierSelection;
+
+                public Sprite selectedSprite;
+                public Sprite unselectedSprite;
+                public Sprite unavailableSprite;
+
+                public Sprite childDeathUnavailable;
+                public Sprite childCarrierUnavailable;
+
+                [Header("Sub Menu")]
+                public LPEButtonBehaviour statsSubmenuButton;
+                public LPEButtonBehaviour attachmentsSubmenuButton;
+                public Image statsSubmenuSelection;
+                public Image attachmentsSubmenuSelection;
+
+            }
+
+            [System.Serializable]
+            public struct Submenu {
+                public Stats stats;
+                public Attachments attachments;
+
+                [System.Serializable]
+                public struct Stats {
+                    public GameObject rootObj;
+
+                    public TextMeshProUGUI hpText;
+                    public Transform hpBarPivot;
+                    public TextMeshProUGUI moneyText;
+                    public Transform moneyBarPivot;
+                    public TextMeshProUGUI speedText;
+                    public Transform speedBarPivot;
+                    public TextMeshProUGUI countText;
+                    public Transform countBarPivot;
+                    public TextMeshProUGUI spawnRateText;
+                    public Transform spawnBarPivot;
+                    public TextMeshProUGUI sizeText;
+                    public Transform sizeBarPivot;
+                }
+
+                [System.Serializable]
+                public struct Attachments {
+                    public GameObject rootObj;
+                    public List<PreRoundCreepMenu_Details_AttachmentEntry_Behaviour> attatchments;
+                }
+            }
+        }
     }
 }

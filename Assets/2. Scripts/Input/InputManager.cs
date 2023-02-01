@@ -38,6 +38,12 @@ namespace Core {
             }
         }
 
+        public static class Consume {
+            public static void Cancel() {
+                InputManager.Cancel.requested = false;
+            }
+        }
+
         // clear
         public static void Clear() {
             MoveCamera.dir = new Vector2(0, 0);

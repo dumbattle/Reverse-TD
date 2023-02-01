@@ -251,13 +251,13 @@ namespace Core {
             var defaultSquad = s.playerFunctions.GetCreepArmy().defaultSquad;
             defaultSquad.Recalculate();
             var defaultCreep = defaultSquad.actualDefinition;
+
             creepDetailsReferences.hp.SetBars(c.hp, defaultCreep.hp);
             creepDetailsReferences.money.SetBars(c.moneyReward, defaultCreep.moneyReward);
             creepDetailsReferences.speed.SetBars(c.speed, defaultCreep.speed);
             creepDetailsReferences.count.SetBars(c.count, defaultCreep.count);
             creepDetailsReferences.spawnRate.SetBars(c.spawnRate, defaultCreep.spawnRate);
             creepDetailsReferences.size.SetBars(c.radius, defaultCreep.radius);
-
         }
 
         void ResetAttachmentDisplay() {

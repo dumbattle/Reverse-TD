@@ -53,27 +53,32 @@ namespace Core {
                 CreepResourceCache.triangleSpriteRed,
                 CreepResourceCache.triangleSpriteYellow,
             };
-            public override CreepDefinition GetDefinition() {
+            public CreepDefinition GetDefinition(bool randomize) {
                 var result = new CreepDefinition();
                 RandomWeights weights = GetWeights();
 
-                weights.hp = 1;
-                weights.speed = 1;
-                weights.count = 1;
-                weights.spawnRate = 1;
+                if (!randomize) {
+                    weights.hp = 1;
+                    weights.speed = 1;
+                    weights.count = 1;
+                    weights.spawnRate = 1;
+                }
 
                 result.name = GetName();
                 result.hp = weights.hp * 100;
                 result.radius = .1f + .15f * weights.hp / weights.count;
                 result.radius = Mathf.Min(result.radius, 0.45f);
-                result.speed = weights.speed *2 ;
+                result.speed = weights.speed * 2;
 
                 result.count = 20 * weights.count;
-                result.spawnRate = weights.spawnRate * result.count/ 5f;
+                result.spawnRate = weights.spawnRate * result.count / 5f;
                 result.sprite = GetSprite();
                 result.moneyReward = 100 / result.count;
-                result.glowColor = Random.ColorHSV(0,1,.5f,1,1,1);
+                result.glowColor = Random.ColorHSV(0, 1, .5f, 1, 1, 1);
                 return result;
+            }
+            public override CreepDefinition GetDefinition() {
+                return GetDefinition(false);
             }
             public virtual string GetName() {
                 return "Happy";

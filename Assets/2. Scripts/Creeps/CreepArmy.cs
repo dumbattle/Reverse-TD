@@ -17,8 +17,11 @@ namespace Core {
             defaultSquad = new CreepSquad(CreepSelectionUtility.GetInitialCreep(), globalUpgrades, levelModifiers);
         }
 
-        public void AddNewSquad(CreepDefinition cdef) {
-            squads.Add(new CreepSquad(cdef, globalUpgrades, levelModifiers));
+        public CreepSquad AddNewSquad(CreepDefinition cdef) {
+            var result = new CreepSquad(cdef, globalUpgrades, levelModifiers);
+            squads.Add(result);
+
+            return result;
         }
 
         public CreepSquad GetSquad(int index) {

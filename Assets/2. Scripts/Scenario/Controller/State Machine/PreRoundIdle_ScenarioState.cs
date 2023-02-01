@@ -33,11 +33,42 @@ namespace Core {
                 return PlayRound_ScenarioState.Get(s);
             }
 
-            if (s.references.ui.creepMenu.buyCreepButton.Clicked) {
+            ScenarioUI_CreepMenu creepMenu = s.references.ui.creepMenu;
+            if (creepMenu.buyCreepButton.Clicked) {
                 var newCreep = CreepSelectionUtility.GetRandomNewCreep();
-                s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
+                var squad = s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
+                squad.AddModifier(new CreepAttachment_Carrier());
+                squad.AddModifier(new CreepAttachment_DeathSplit());
+                creepMenu.ReDraw(s);
+            }
+            var creepSelected = creepMenu.creepSelected;
+            if (creepSelected != null) {
+                creepMenu.OpenDetailsTab(true);
+                creepMenu.SetCreepDetails(s, creepSelected);
+            }
 
-                s.references.ui.creepMenu.ReDraw(s);
+            if (creepMenu.details.buttons.squadParentButton.Clicked) {
+                creepMenu.SelectParentOfCurrentSquad(s);
+            }
+            if (creepMenu.details.buttons.squadChildCarrierButton.Clicked) {
+                creepMenu.SelectCarrierChildOfCurrentSquad(s);
+            }
+            if (creepMenu.details.buttons.squadChildDeathButton.Clicked) {
+                creepMenu.SelectDeathChildOfCurrentSquad(s);
+            }
+
+
+            if (creepMenu.details.buttons.statsSubmenuButton.Clicked) {
+                creepMenu.OpenStatsSubmenu();
+            }
+            if (creepMenu.details.buttons.attachmentsSubmenuButton.Clicked) {
+                creepMenu.OpenAttachmentsSubmenu();
+            }
+            if (InputManager.Cancel.requested) {
+                if (creepMenu.DetailsIsOpen()) {
+                    creepMenu.OpenDetailsTab(false);
+                    InputManager.Consume.Cancel();
+                }
             }
             //if (InputManager.PreRoundUI.creepMenuOpen) {
             //    return PreRoundIdle_CreepMenu_ScenarioState.Get(s);

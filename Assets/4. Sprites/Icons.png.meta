@@ -185,6 +185,12 @@ TextureImporter:
   - first:
       213: -6500817091253424190
     second: Clock
+  - first:
+      213: -7607551139151047526
+    second: Teal Attack
+  - first:
+      213: -2082710374031993758
+    second: Teal Attach
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1533,7 +1539,7 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1554,7 +1560,7 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1562,6 +1568,48 @@ TextureImporter:
       bones: []
       spriteID: 2cf2d0e5c4578c5a0800000000000000
       internalID: -6500817091253424190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teal Attack
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a949844ab8c8c6690800000000000000
+      internalID: -7607551139151047526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teal Attach
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2645dc113f9b813e0800000000000000
+      internalID: -2082710374031993758
       vertices: []
       indices: 
       edges: []
