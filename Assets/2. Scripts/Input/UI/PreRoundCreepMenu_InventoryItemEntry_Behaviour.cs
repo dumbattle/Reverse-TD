@@ -7,7 +7,7 @@ namespace Core {
     public class PreRoundCreepMenu_InventoryItemEntry_Behaviour : MonoBehaviour {
         public Image icon;
         public TextMeshProUGUI nameText;
-        public CreepAttatchment atch;
+        //public CreepAttatchment atch;
         public LPEButtonBehaviour button;
     }
 

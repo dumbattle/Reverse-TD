@@ -16,7 +16,7 @@ namespace Core {
         public void SetSelected(bool value) {
             backround.sprite =
                 value ? selectedSprite :
-                icon.gameObject.activeInHierarchy ? unselectedSprite :
+                icon.gameObject.activeSelf ? unselectedSprite :
                 emptySprite;
         }
     }

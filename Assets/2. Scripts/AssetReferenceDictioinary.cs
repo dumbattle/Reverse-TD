@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Core {
-    public abstract class AssetReferenceDictioinary<T> : ScriptableObject where T : Object {
+    public abstract class AssetReferenceDictioinary<T> : ScriptableObject{
         public T this[string s] => data[s];
         [SerializeField] Dict data;
 

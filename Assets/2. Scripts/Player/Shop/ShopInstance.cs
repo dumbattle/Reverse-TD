@@ -203,12 +203,12 @@
                     return;
                 }
                 else if (!purchased) {
-                    shopItem = new ShopItem() {
-                        icon = item.GetIcon(),
-                        name = item.GetName(),
-                        cost = 100,
-                        purchaseCallback = this
-                    };
+                    //shopItem = new ShopItem() {
+                    //    icon = item.GetIcon(),
+                    //    name = item.GetName(),
+                    //    cost = 100,
+                    //    purchaseCallback = this
+                    //};
                 }
                 else {
 

@@ -34,12 +34,12 @@ namespace Core {
             player.items.Remove(item);
         }
         public int NumAttachableInInventory(CreepSquad c) {
-            var result = 0;
-            foreach (var item in player.items) {
-                if (item is CreepAttatchment m && m.Attachable(c)) {
-                    result++;
-                }
-            }
+            var result = 0; 
+            //foreach (var item in player.items) {
+            //    if (item is CreepAttatchment m && m.Attachable(c)) {
+            //        result++;
+            //    }
+            //}
             return result;
         }
         public int GetPlayerInventoryCount() {

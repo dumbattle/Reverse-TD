@@ -18,9 +18,10 @@ namespace Core {
         public TextMeshProUGUI butCostText;
         public CreepSquad creepSelected { get; private set; }
 
-        CreepSquad currentSquad;
+        public CreepSquad currentSquad { get; private set; }
         int openMode = -1;
         float openPosition = 0;
+
         //*************************************************************************************************************
         // Unity Methods
         //*************************************************************************************************************
@@ -31,6 +32,7 @@ namespace Core {
             buyCreepButton.SetDownListener(InputManager.Set.ButtonDown);
             OpenStatsSubmenu();
         }
+        
         private void Update() {
             if (openMode == 1 ? openPosition > 1 : openPosition < 0) {
                 return;
@@ -41,6 +43,7 @@ namespace Core {
             pos.x = Mathf.Lerp(-details.root.sizeDelta.x, 0, 1 - (1 - openPosition) * (1 - openPosition));
             details.root.anchoredPosition = pos;
         }
+        
         void LateUpdate() {
             creepSelected = null;
         }
@@ -179,8 +182,9 @@ namespace Core {
         }
         
         public void OpenAttachmentsSubmenu() {
+            UnHiglightLoadoutSelection();
             CloseAllSubmenus();
-            details.submenu.attachments.rootObj.SetActive(true);
+            details.submenu.loadout.rootObj.SetActive(true);
             details.buttons.attachmentsSubmenuSelection.sprite = details.buttons.selectedSprite;
         }
 
@@ -188,6 +192,13 @@ namespace Core {
             openMode = value ? 1 : -1;
         }
 
+        /// <summary>
+        /// TODO - REFACTOR
+        /// </summary>
+        public void OpenLoadoutSlot(CreepLoadoutSlot slot, PreRoundCreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
+            UnHiglightLoadoutSelection();
+            buttonEntry.SetSelected(true);
+        }
 
         //***********************************************************************************************************
         // Query
@@ -196,6 +207,7 @@ namespace Core {
         public bool DetailsIsOpen() {
             return openMode == 1;
         }
+
         //***********************************************************************************************************
         // Button Callbacks
         //***********************************************************************************************************
@@ -210,7 +222,7 @@ namespace Core {
 
         void CloseAllSubmenus() {
             details.submenu.stats.rootObj.SetActive(false);
-            details.submenu.attachments.rootObj.SetActive(false);
+            details.submenu.loadout.rootObj.SetActive(false);
 
             details.buttons.statsSubmenuSelection.sprite = details.buttons.unselectedSprite;
             details.buttons.attachmentsSubmenuSelection.sprite = details.buttons.unselectedSprite;
@@ -276,38 +288,55 @@ namespace Core {
             details.submenu.stats.sizeText.text = (c.radius * 2).ToString("f2");
 
             // set stat bars
-            details.submenu.stats.hpBarPivot.transform.localScale = new Vector3(c.hp / defaultCreep.hp / 4f, 1, 1);
-            details.submenu.stats.moneyBarPivot.transform.localScale = new Vector3(c.moneyReward / defaultCreep.moneyReward / 4f, 1, 1);
-            details.submenu.stats.speedBarPivot.transform.localScale = new Vector3(c.speed / defaultCreep.speed / 4f, 1, 1);
-            details.submenu.stats.countBarPivot.transform.localScale = new Vector3(c.count / defaultCreep.count / 4f, 1, 1);
-            details.submenu.stats.spawnBarPivot.transform.localScale = new Vector3(c.spawnRate / defaultCreep.spawnRate / 4f, 1, 1);
-            details.submenu.stats.sizeBarPivot.transform.localScale = new Vector3(c.radius / defaultCreep.radius / 4f, 1, 1);
+            details.submenu.stats.hpBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.hp / defaultCreep.hp / 4f), 1, 1);
+            details.submenu.stats.moneyBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.moneyReward / defaultCreep.moneyReward / 4f), 1, 1);
+            details.submenu.stats.speedBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.speed / defaultCreep.speed / 4f), 1, 1);
+            details.submenu.stats.countBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.count / defaultCreep.count / 4f), 1, 1);
+            details.submenu.stats.spawnBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.spawnRate / defaultCreep.spawnRate / 4f), 1, 1);
+            details.submenu.stats.sizeBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.radius / defaultCreep.radius / 4f), 1, 1);
         }
 
         void UpdateAttachmentSubMenu(ScenarioInstance s, CreepSquad squad) {
-            int atchIndex = 0;
-            int atchCount = currentSquad.NumAttachments();
+            UpdateLoadoutSlot(details.submenu.loadout.specialization, squad.loadout.specialization);
+            UpdateLoadoutSlot(details.submenu.loadout.resource, squad.loadout.resource);
 
-            int numAttachInventory = s.playerFunctions.NumAttachableInInventory(currentSquad);
-            foreach (var atchEntry in details.submenu.attachments.attatchments) {
-                if (atchIndex < atchCount) {
-                    var a = currentSquad.GetAttachment(atchIndex);
-                    atchEntry.icon.sprite = a.GetIcon();
-                    atchEntry.icon.gameObject.SetActive(true);
-                    atchIndex++;
+            UpdateLoadoutSlot(details.submenu.loadout.tier1_1, squad.loadout.tier1_1);
+            UpdateLoadoutSlot(details.submenu.loadout.tier1_2, squad.loadout.tier1_2);
+            UpdateLoadoutSlot(details.submenu.loadout.tier1_3, squad.loadout.tier1_3);
 
-                }
-                else if (numAttachInventory > 0) {
-                    atchEntry.icon.sprite = IconResourceCache.availablePlus;
-                    numAttachInventory--;
-                    atchEntry.icon.gameObject.SetActive(true);
+            UpdateLoadoutSlot(details.submenu.loadout.tier2_1, squad.loadout.tier2_1);
+            UpdateLoadoutSlot(details.submenu.loadout.tier2_2, squad.loadout.tier2_2);
+
+            UpdateLoadoutSlot(details.submenu.loadout.tier3_A, squad.loadout.tier3_A);
+            UpdateLoadoutSlot(details.submenu.loadout.tier3_B, squad.loadout.tier3_B);
+
+            void UpdateLoadoutSlot(PreRoundCreepMenu_Details_AttachmentEntry_Behaviour entry, CreepLoadoutSlot slot) {
+                var atch = slot.currentAttactment;
+
+                if (atch.definition != null) {
+                    entry.icon.sprite = atch.GetIcon();
+                    entry.icon.gameObject.SetActive(true);
                 }
                 else {
-                    atchEntry.icon.gameObject.SetActive(false);
+                    entry.icon.gameObject.SetActive(false);
                 }
-                atchEntry.SetSelected(false);
+
+                entry.SetSelected(false);
             }
         }
+
+        void UnHiglightLoadoutSelection() {
+            details.submenu.loadout.specialization.SetSelected(false);
+            details.submenu.loadout.resource.SetSelected(false);
+            details.submenu.loadout.tier1_1.SetSelected(false);
+            details.submenu.loadout.tier1_2.SetSelected(false);
+            details.submenu.loadout.tier1_3.SetSelected(false);
+            details.submenu.loadout.tier2_1.SetSelected(false);
+            details.submenu.loadout.tier2_2.SetSelected(false);
+            details.submenu.loadout.tier3_A.SetSelected(false);
+            details.submenu.loadout.tier3_B.SetSelected(false);
+        }
+
 
         [System.Serializable]
         public struct CreepDetailsReferences {
@@ -315,10 +344,8 @@ namespace Core {
             public Image creepImage;
             public Image creepGlowImage;
 
-
             public ButtonReferences buttons;
             public Submenu submenu;
-
 
             [System.Serializable]
             public struct ButtonReferences {
@@ -358,7 +385,7 @@ namespace Core {
             [System.Serializable]
             public struct Submenu {
                 public Stats stats;
-                public Attachments attachments;
+                public Loadout loadout;
 
                 [System.Serializable]
                 public struct Stats {
@@ -379,9 +406,21 @@ namespace Core {
                 }
 
                 [System.Serializable]
-                public struct Attachments {
+                public struct Loadout {
                     public GameObject rootObj;
-                    public List<PreRoundCreepMenu_Details_AttachmentEntry_Behaviour> attatchments;
+
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour specialization;
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour resource;
+
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier1_1;
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier1_2;
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier1_3;
+
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier2_1;
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier2_2;
+
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier3_A;
+                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier3_B;
                 }
             }
         }

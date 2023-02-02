@@ -27,7 +27,7 @@
                 for (int i = 0; i < 2; i++) {
                     var newItem = PlayerItemUtility.GetRandomItem(s.roundManager.current);
                     s.playerFunctions.AddItem(newItem);
-                    s.references.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
+                    //s.references.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
                 }
 
                 // money reward

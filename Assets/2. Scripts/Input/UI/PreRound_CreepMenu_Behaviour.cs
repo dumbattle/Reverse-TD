@@ -27,7 +27,7 @@ namespace Core {
 
         public CreepSquad creepSelected { get; private set; }
         public int attachmentSelected { get; private set; }
-        public CreepAttatchment itemSelected { get; private set; }
+        //public CreepAttatchment itemSelected { get; private set; }
 
         void Awake() {
             applyAttachmentButton.gameObject.SetActive(false);
@@ -42,7 +42,7 @@ namespace Core {
         }
 
         void LateUpdate() {
-            itemSelected = null;
+            //itemSelected = null;
             creepSelected = null;
             attachmentSelected = -1;
         }
@@ -156,43 +156,43 @@ namespace Core {
         }
       
         public void OpenItemSelect() {
-            // close existing entries
-            foreach (var e in itemEntries) {
-                e.gameObject.SetActive(false);
-            }
+            //// close existing entries
+            //foreach (var e in itemEntries) {
+            //    e.gameObject.SetActive(false);
+            //}
 
-            // open proper menu
-            creepSelectionRoot.SetActive(false);
-            itemSelectionRoot.SetActive(true);
+            //// open proper menu
+            //creepSelectionRoot.SetActive(false);
+            //itemSelectionRoot.SetActive(true);
 
-            // set entries
-            int entryIndex = 0;
+            //// set entries
+            //int entryIndex = 0;
 
-            for (int i = 0; i < s.playerFunctions.GetPlayerInventoryCount(); i++) {
-                var item = s.playerFunctions.GetPlayerItemBySlot(i);
+            //for (int i = 0; i < s.playerFunctions.GetPlayerInventoryCount(); i++) {
+            //    var item = s.playerFunctions.GetPlayerItemBySlot(i);
 
-                if (!(item is CreepAttatchment atch)) {
-                    continue;
-                }
+            //    if (!(item is CreepAttatchment atch)) {
+            //        continue;
+            //    }
 
-                if (!atch.Attachable(currentSquad)) {
-                    continue;
-                }
+            //    if (!atch.Attachable(currentSquad)) {
+            //        continue;
+            //    }
 
-                if (itemEntries.Count <= entryIndex) {
-                    var newE = Instantiate(itemEntrySrc, itemEntrySrc.transform.parent);
-                    newE.button.SetClickListener(() => ItemSelected(newE.atch));
-                    itemEntries.Add(newE);
+            //    if (itemEntries.Count <= entryIndex) {
+            //        var newE = Instantiate(itemEntrySrc, itemEntrySrc.transform.parent);
+            //        newE.button.SetClickListener(() => ItemSelected(newE.atch));
+            //        itemEntries.Add(newE);
 
-                }
-                var e = itemEntries[entryIndex];
+            //    }
+            //    var e = itemEntries[entryIndex];
 
-                e.icon.sprite = atch.GetIcon();
-                e.nameText.text = atch.GetName();
-                e.gameObject.SetActive(true);
-                e.atch = atch;
-                entryIndex++;
-            }
+            //    e.icon.sprite = atch.GetIcon();
+            //    e.nameText.text = atch.GetName();
+            //    e.gameObject.SetActive(true);
+            //    e.atch = atch;
+            //    entryIndex++;
+            //}
         }
 
         public void HighlightAttachmentSlot(int slot) {
@@ -230,9 +230,9 @@ namespace Core {
             attachmentSelected = slot;
         }
 
-        void ItemSelected(CreepAttatchment item) {
-            itemSelected = item;
-        }
+        //void ItemSelected(CreepAttatchment item) {
+        //    itemSelected = item;
+        //}
 
         //***********************************************************************************************************
         // Helpers

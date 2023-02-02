@@ -37,8 +37,13 @@ namespace Core {
             if (creepMenu.buyCreepButton.Clicked) {
                 var newCreep = CreepSelectionUtility.GetRandomNewCreep();
                 var squad = s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
-                squad.AddModifier(new CreepAttachment_Carrier());
-                squad.AddModifier(new CreepAttachment_DeathSplit());
+                squad.loadout.tier1_1.currentAttactment.definition = squad.loadout.tier1_1.allowedAttachments[0];
+                squad.loadout.tier1_1.currentAttactment.level = Random.Range(1, 11);
+                squad.loadout.tier1_2.currentAttactment.definition = squad.loadout.tier1_2.allowedAttachments[0];
+                squad.loadout.tier1_2.currentAttactment.level = Random.Range(1, 11);
+                squad.loadout.tier1_3.currentAttactment.definition = squad.loadout.tier1_3.allowedAttachments[0];
+                squad.loadout.tier1_3.currentAttactment.level = Random.Range(1, 11);
+                squad.Recalculate();
                 creepMenu.ReDraw(s);
             }
             var creepSelected = creepMenu.creepSelected;
@@ -64,20 +69,25 @@ namespace Core {
             if (creepMenu.details.buttons.attachmentsSubmenuButton.Clicked) {
                 creepMenu.OpenAttachmentsSubmenu();
             }
+
+            // TODO - this section is horrible, find some way to refactor
+            if (creepMenu.details.submenu.loadout.tier1_1.button.Clicked) {
+                creepMenu.OpenLoadoutSlot(creepMenu.currentSquad.loadout.tier1_1, creepMenu.details.submenu.loadout.tier1_1);
+            }
+            if (creepMenu.details.submenu.loadout.tier1_2.button.Clicked) {
+                creepMenu.OpenLoadoutSlot(creepMenu.currentSquad.loadout.tier1_2, creepMenu.details.submenu.loadout.tier1_2);
+            }
+            if (creepMenu.details.submenu.loadout.tier1_3.button.Clicked) {
+                creepMenu.OpenLoadoutSlot(creepMenu.currentSquad.loadout.tier1_3, creepMenu.details.submenu.loadout.tier1_3);
+            }
+
             if (InputManager.Cancel.requested) {
                 if (creepMenu.DetailsIsOpen()) {
                     creepMenu.OpenDetailsTab(false);
                     InputManager.Consume.Cancel();
                 }
             }
-            //if (InputManager.PreRoundUI.creepMenuOpen) {
-            //    return PreRoundIdle_CreepMenu_ScenarioState.Get(s);
-            //}
-
-            //if (InputManager.PreRoundUI.shopMenuOpen) {
-            //    return PreRoundIdle_ShopMenu_ScenarioState.Get(s);
-            //}
-
+     
             return null;
         }
 

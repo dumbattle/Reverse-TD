@@ -11,11 +11,11 @@ namespace Core {
 
         public int NumAttachable(CreepSquad c) {
             var result = 0;
-            foreach (var item in items) {
-                if (item is CreepAttatchment m) {
-                    result++;
-                }
-            }
+            //foreach (var item in items) {
+            //    if (item is CreepAttatchment m) {
+            //        result++;
+            //    }
+            //}
             return result;
         }
     }
