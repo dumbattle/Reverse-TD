@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using LPE;
 
-
 namespace Core {
     public static class TileSpriteCache {
         public static class Magenta {

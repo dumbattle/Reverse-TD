@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Core {
     public class ResourceType {
-        public static ResourceType green { get; }
-        public static ResourceType red { get; }
-        public static ResourceType blue { get; }
-        public static ResourceType yellow { get; }
-        public static ResourceType diamond { get; }
+        public static ResourceType green { get; } = new ResourceType();
+        public static ResourceType red { get; } = new ResourceType();
+        public static ResourceType blue { get; } = new ResourceType();
+        public static ResourceType yellow { get; } = new ResourceType();
+        public static ResourceType diamond { get; } = new ResourceType();
 
         ResourceType() { }
     }
@@ -88,6 +88,19 @@ namespace Core {
 
         public Sprite GetIcon() {
             return definition?.GetIcon(level) ?? null;
+        }
+        public string GetName() {
+            return definition?.GetName(level) ?? null;
+        }
+        public string GetDescription() {
+            return definition?.GetDescription(level) ?? null;
+        }
+        public ResourceRequirement GetCostForrUpgrade() {
+            if (level == 10) {
+                return null;
+            }
+
+            return definition?.GetCost(level + 1) ?? null;
         }
     }
 
@@ -213,20 +226,25 @@ namespace Core {
         };
 
         static string[] _descCache = {
-            $"Increases HP by {_statScales[0]}%",
-            $"Increases HP by {_statScales[0]}%",
-            $"Increases HP by {_statScales[1]}%",
-            $"Increases HP by {_statScales[2]}%",
-            $"Increases HP by {_statScales[3]}%",
-            $"Increases HP by {_statScales[4]}%",
-            $"Increases HP by {_statScales[5]}%",
-            $"Increases HP by {_statScales[6]}%",
-            $"Increases HP by {_statScales[7]}%",
-            $"Increases HP by {_statScales[8]}%",
-            $"Increases HP by {_statScales[9]}%",
+            $"Increases HP by <color=green>{_statScales[0]}</color>%",
+            GetDescriptionTextWithUpgradeHelper(0),
+            GetDescriptionTextWithUpgradeHelper(1),
+            GetDescriptionTextWithUpgradeHelper(2),
+            GetDescriptionTextWithUpgradeHelper(3),
+            GetDescriptionTextWithUpgradeHelper(4),
+            GetDescriptionTextWithUpgradeHelper(5),
+            GetDescriptionTextWithUpgradeHelper(6),
+            GetDescriptionTextWithUpgradeHelper(7),
+            GetDescriptionTextWithUpgradeHelper(8),
+            $"Increases HP by <color=green>{_statScales[9]}</color>%",
         };
-
+        static string GetDescriptionTextWithUpgradeHelper(int i) {
+            var amount = _statScales[i];
+            var upAmnt = _statScales[i + 1] - amount;
+            return $"Increases HP by <color=green>{amount}</color>(<color=yellow>+{upAmnt}</color>)%";
+        }
         public override string GetName(int level) {
+            return "HP Gem";
             return _nameCache[level];
         }
 

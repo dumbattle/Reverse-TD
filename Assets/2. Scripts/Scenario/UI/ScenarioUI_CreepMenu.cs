@@ -12,7 +12,7 @@ namespace Core {
         List<PreRoundCreepMenu_CreepEntry_Behaviour> creepEntries = new List<PreRoundCreepMenu_CreepEntry_Behaviour>();
         [SerializeField] PreRoundCreepMenu_CreepEntry_Behaviour creepEntrySrc;
         public CreepDetailsReferences details;
-
+        public ScenarioUI_CreepMenu_LoadoutSlot_Subpanel loadout;
 
         public LPEButtonBehaviour buyCreepButton;
         public TextMeshProUGUI butCostText;
@@ -182,7 +182,7 @@ namespace Core {
         }
         
         public void OpenAttachmentsSubmenu() {
-            UnHiglightLoadoutSelection();
+            DeselectLoadoutSelection();
             CloseAllSubmenus();
             details.submenu.loadout.rootObj.SetActive(true);
             details.buttons.attachmentsSubmenuSelection.sprite = details.buttons.selectedSprite;
@@ -196,8 +196,9 @@ namespace Core {
         /// TODO - REFACTOR
         /// </summary>
         public void OpenLoadoutSlot(CreepLoadoutSlot slot, PreRoundCreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
-            UnHiglightLoadoutSelection();
+            DeselectLoadoutSelection();
             buttonEntry.SetSelected(true);
+            loadout.upgradePanel.Open(slot);
         }
 
         //***********************************************************************************************************
@@ -310,6 +311,8 @@ namespace Core {
             UpdateLoadoutSlot(details.submenu.loadout.tier3_A, squad.loadout.tier3_A);
             UpdateLoadoutSlot(details.submenu.loadout.tier3_B, squad.loadout.tier3_B);
 
+            DeselectLoadoutSelection();
+
             void UpdateLoadoutSlot(PreRoundCreepMenu_Details_AttachmentEntry_Behaviour entry, CreepLoadoutSlot slot) {
                 var atch = slot.currentAttactment;
 
@@ -325,7 +328,9 @@ namespace Core {
             }
         }
 
-        void UnHiglightLoadoutSelection() {
+        void DeselectLoadoutSelection() {
+            loadout.upgradePanel.Close();
+
             details.submenu.loadout.specialization.SetSelected(false);
             details.submenu.loadout.resource.SetSelected(false);
             details.submenu.loadout.tier1_1.SetSelected(false);
