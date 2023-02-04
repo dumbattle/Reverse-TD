@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using LPE;
 
 namespace Core {
     public class ScenarioUI_CreepMenu_LoadoutSlot_UpgradePanel: MonoBehaviour {
@@ -17,47 +17,52 @@ namespace Core {
             "Level 9",
             "Level 10",
         };
+
         [SerializeField] float openWidth;
+        public LPEButtonBehaviour upgradeButton;
 
-
+        [Space]
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI levelText;
         public TextMeshProUGUI descriptionText;
+        public TextMeshProUGUI upgradeButtonText;
 
+        [Header("Costs")]
         public TextMeshProUGUI gCostText;
         public TextMeshProUGUI rCostText;
         public TextMeshProUGUI bCostText;
         public TextMeshProUGUI yCostText;
         public TextMeshProUGUI dCostText;
 
+        [Space]
         public GameObject gCostRoot;
         public GameObject rCostRoot;
         public GameObject bCostRoot;
         public GameObject yCostRoot;
         public GameObject dCostRoot;
 
-        public TextMeshProUGUI upgradeButtonText;
 
 
         RectTransform rt;
+        public CreepLoadoutSlot selectedLoadout { get; private set; }
 
-        private void Awake() {
+
+        void Awake() {
             rt = GetComponent<RectTransform>();
         }
 
         public void Open(CreepLoadoutSlot l) {
+            selectedLoadout = l;
             rt.sizeDelta = new Vector2(openWidth, rt.sizeDelta.y);
             nameText.text = l.currentAttactment.GetName();
             levelText.text = levelTextCache[l.currentAttactment.level-1];
             descriptionText.text = l.currentAttactment.GetDescription();
-
 
             gCostRoot.gameObject.SetActive(false);
             rCostRoot.gameObject.SetActive(false);
             bCostRoot.gameObject.SetActive(false);
             yCostRoot.gameObject.SetActive(false);
             dCostRoot.gameObject.SetActive(false);
-
 
             var cost = l.currentAttactment.GetCostForUpgrade();
             if (cost != null) {

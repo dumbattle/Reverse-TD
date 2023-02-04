@@ -18,15 +18,17 @@ namespace Core {
         public TextMeshProUGUI butCostText;
         public CreepSquad creepSelected { get; private set; }
 
-        public CreepSquad currentSquad { get; private set; }
+        public CreepSquad currentFamily { get; private set; }
+        public CreepSquad currentSelectedSquad { get; private set; }
 
         int openMode = -1;
         float openPosition = 0;
-
+        CreepLoadoutSlot currentSlot;
+        PreRoundCreepMenu_Details_AttachmentEntry_Behaviour currnetButtonEntry;
         //*************************************************************************************************************
         // Unity Methods
         //*************************************************************************************************************
-       
+
         void Start() {
             creepEntrySrc.gameObject.SetActive(false);
             creepEntrySrc.gameObject.SetActive(false);
@@ -114,29 +116,29 @@ namespace Core {
                 SetCreepDetails(s, family.parentSquad);
                 return;
             }
-            currentSquad = family;
+            currentFamily = family;
             var c = family.actualDefinition;
 
             SelectParentOfCurrentSquad(s);
         }
 
         public void SelectParentOfCurrentSquad(ScenarioInstance s) {
-            var c = currentSquad.actualDefinition;
+            var c = currentFamily.actualDefinition;
 
             // set display creep
             details.creepImage.sprite = c.sprite;
             details.creepGlowImage.color = c.glowColor;
 
             // button update
-            ResetFamilySelectButtons(currentSquad);
+            ResetFamilySelectButtons(currentFamily);
             details.buttons.parentSelection.sprite = details.buttons.selectedSprite;
 
 
-            UpdateCreepDetails(s, currentSquad);
+            UpdateCreepDetails(s, currentFamily);
         }
       
         public void SelectCarrierChildOfCurrentSquad(ScenarioInstance s) {
-            var child = currentSquad.GetCarrierSquad();
+            var child = currentFamily.GetCarrierSquad();
             if (child == null) {
                 return;
             }
@@ -148,7 +150,7 @@ namespace Core {
             details.creepGlowImage.color = c.glowColor;
 
             // button update
-            ResetFamilySelectButtons(currentSquad);
+            ResetFamilySelectButtons(currentFamily);
             details.buttons.childCarrierSelection.sprite = details.buttons.selectedSprite;
 
 
@@ -156,7 +158,7 @@ namespace Core {
         }
        
         public void SelectDeathChildOfCurrentSquad(ScenarioInstance s) {
-            var child = currentSquad.GetDeathSplitSquad();
+            var child = currentFamily.GetDeathSplitSquad();
             if (child == null) {
                 return;
             }
@@ -168,7 +170,7 @@ namespace Core {
             details.creepGlowImage.color = c.glowColor;
 
             // button update
-            ResetFamilySelectButtons(currentSquad);
+            ResetFamilySelectButtons(currentFamily);
             details.buttons.childDeathSelection.sprite = details.buttons.selectedSprite;
 
 
@@ -207,6 +209,18 @@ namespace Core {
             else {
                 loadout.upgradePanel.Open(slot);
             }
+
+            currentSlot = slot;
+            currnetButtonEntry = buttonEntry;
+        }
+
+        public void ReopenLoadoutSlot() {
+            OpenLoadoutSlot(currentSlot, currnetButtonEntry);
+        }
+
+        public void RedrawCreepDetails(ScenarioInstance s) {
+            UpdateCreepStatSubmenu(s, currentSelectedSquad);
+            UpdateAttachmentSubMenu(s, currentSelectedSquad);
         }
 
         //***********************************************************************************************************
@@ -278,8 +292,10 @@ namespace Core {
         }
 
         void UpdateCreepDetails(ScenarioInstance s, CreepSquad squad) {
+            currentSelectedSquad = squad;
             UpdateCreepStatSubmenu(s, squad);
             UpdateAttachmentSubMenu(s, squad);
+            DeselectLoadoutSelection();
         }
 
         void UpdateCreepStatSubmenu(ScenarioInstance s, CreepSquad squad) {
@@ -319,7 +335,6 @@ namespace Core {
             UpdateLoadoutSlot(details.submenu.loadout.tier3_A, squad.loadout.tier3_A);
             UpdateLoadoutSlot(details.submenu.loadout.tier3_B, squad.loadout.tier3_B);
 
-            DeselectLoadoutSelection();
 
             void UpdateLoadoutSlot(PreRoundCreepMenu_Details_AttachmentEntry_Behaviour entry, CreepLoadoutSlot slot) {
                 var atch = slot.currentAttactment;

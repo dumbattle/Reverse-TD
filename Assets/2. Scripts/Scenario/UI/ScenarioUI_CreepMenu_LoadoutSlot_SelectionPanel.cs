@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using LPE;
 
 
 namespace Core {
@@ -24,16 +25,24 @@ namespace Core {
         public GameObject dCostRoot;
 
         public TextMeshProUGUI applyButtonText;
+        public LPEButtonBehaviour applyButton;
 
+        public CreepAttachmentDefinition selectedAttachment { get; private set; }
+        public CreepLoadoutSlot selectedLoadout { get; private set; }
         List<ScenarioUI_CreepMenu_LoadoutSlot_SelectionPanel_OptionEntry> entries = new List<ScenarioUI_CreepMenu_LoadoutSlot_SelectionPanel_OptionEntry>();
         RectTransform rt;
 
-        private void Awake() {
+
+
+        void Awake() {
             rt = GetComponent<RectTransform>();
             entrySrc.gameObject.SetActive(false);
         }
-
+        
         public void Open(CreepLoadoutSlot l) {
+            // track selection
+            selectedLoadout = l;
+
             // open panel
             rt.sizeDelta = new Vector2(openWidth, rt.sizeDelta.y);
 
@@ -70,6 +79,9 @@ namespace Core {
 
 
         void OptionSelected(int i, CreepAttachmentDefinition atch) {
+            // track selection
+            selectedAttachment = atch;
+
             // close all entries
             foreach (var e in entries) {
                 e.selectHighlight.SetActive(false);

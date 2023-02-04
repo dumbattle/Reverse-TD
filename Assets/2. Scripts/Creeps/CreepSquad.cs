@@ -83,18 +83,41 @@ namespace Core {
         /// <summary>
         /// Between [1, 10] inclusive
         /// </summary>
-        public int level = 1;
+        public int level { get; private set; } = 1;
 
+        //***************************************************************************************
+        // Control
+        //***************************************************************************************
+
+        public void ResetAttachment(CreepAttachmentDefinition def) {
+            definition = def;
+            level = 1;
+        }
+
+        public void UpgradeLevel() {
+
+            level++;
+            if (level > 10) {
+                level = 10;
+            }
+        }
+
+        //***************************************************************************************
+        // Query
+        //***************************************************************************************
 
         public Sprite GetIcon() {
             return definition?.GetIcon(level) ?? null;
         }
+
         public string GetName() {
             return definition?.GetName(level) ?? null;
         }
+
         public string GetDescription() {
             return definition?.GetDescription(level) ?? null;
         }
+
         public ResourceRequirement GetCostForUpgrade() {
             if (level == 10) {
                 return null;
@@ -367,7 +390,7 @@ namespace Core {
         }
 
         public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage2.AddHpScale(_statScales[level - 1] / 100f);
+            stage2.AddSpawnRateScale(_statScales[level - 1] / 100f);
         }
 
         protected override ResourceRequirement[] InitUpgradeCosts() {
@@ -465,7 +488,7 @@ namespace Core {
         }
 
         public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage2.AddHpScale(_statScales[level - 1] / 100f);
+            stage2.AddCountScale(_statScales[level - 1] / 100f);
         }
 
         protected override ResourceRequirement[] InitUpgradeCosts() {
