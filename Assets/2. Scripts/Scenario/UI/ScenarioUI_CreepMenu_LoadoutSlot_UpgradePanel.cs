@@ -18,7 +18,6 @@ namespace Core {
             "Level 10",
         };
         [SerializeField] float openWidth;
-        [SerializeField] RectTransform parentLayout;
 
 
         public TextMeshProUGUI nameText;
@@ -30,6 +29,12 @@ namespace Core {
         public TextMeshProUGUI bCostText;
         public TextMeshProUGUI yCostText;
         public TextMeshProUGUI dCostText;
+
+        public GameObject gCostRoot;
+        public GameObject rCostRoot;
+        public GameObject bCostRoot;
+        public GameObject yCostRoot;
+        public GameObject dCostRoot;
 
         public TextMeshProUGUI upgradeButtonText;
 
@@ -46,13 +51,45 @@ namespace Core {
             levelText.text = levelTextCache[l.currentAttactment.level-1];
             descriptionText.text = l.currentAttactment.GetDescription();
 
-            var cost = l.currentAttactment.GetCostForrUpgrade();
+
+            gCostRoot.gameObject.SetActive(false);
+            rCostRoot.gameObject.SetActive(false);
+            bCostRoot.gameObject.SetActive(false);
+            yCostRoot.gameObject.SetActive(false);
+            dCostRoot.gameObject.SetActive(false);
+
+
+            var cost = l.currentAttactment.GetCostForUpgrade();
             if (cost != null) {
-                gCostText.text = cost[ResourceType.green].ToString();
-                rCostText.text = cost[ResourceType.red].ToString();
-                bCostText.text = cost[ResourceType.blue].ToString();
-                yCostText.text = cost[ResourceType.yellow].ToString();
-                dCostText.text = cost[ResourceType.diamond].ToString();
+                var gCost = cost[ResourceType.green];
+                var rCost = cost[ResourceType.red];
+                var bCost = cost[ResourceType.blue];
+                var yCost = cost[ResourceType.yellow];
+                var dCost = cost[ResourceType.diamond];
+                if (gCost > 0) {
+                    gCostRoot.gameObject.SetActive(true);
+                    gCostText.text = gCost.ToString();
+                }
+
+                if (rCost > 0) {
+                    rCostRoot.gameObject.SetActive(true);
+                    rCostText.text = rCost.ToString();
+                }
+
+                if (bCost > 0) {
+                    bCostRoot.gameObject.SetActive(true);
+                    bCostText.text = bCost.ToString();
+                }
+
+                if (yCost > 0) {
+                    yCostRoot.gameObject.SetActive(true);
+                    yCostText.text = yCost.ToString();
+                }
+
+                if (dCost > 0) {
+                    dCostRoot.gameObject.SetActive(true);
+                    dCostText.text = dCost.ToString();
+                }
             }
         }
 

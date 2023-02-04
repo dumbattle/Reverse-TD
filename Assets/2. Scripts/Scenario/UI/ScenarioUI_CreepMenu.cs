@@ -19,6 +19,7 @@ namespace Core {
         public CreepSquad creepSelected { get; private set; }
 
         public CreepSquad currentSquad { get; private set; }
+
         int openMode = -1;
         float openPosition = 0;
 
@@ -51,7 +52,6 @@ namespace Core {
         public void OnPointerDown(PointerEventData eventData) {
             InputManager.Set.ButtonDown();
         }
-
 
         //*************************************************************************************************************
         // Control
@@ -198,7 +198,15 @@ namespace Core {
         public void OpenLoadoutSlot(CreepLoadoutSlot slot, PreRoundCreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
             DeselectLoadoutSelection();
             buttonEntry.SetSelected(true);
-            loadout.upgradePanel.Open(slot);
+
+            var atch = slot.currentAttactment.definition;
+
+            if (atch == null) {
+                loadout.selectPanel.Open(slot);
+            }
+            else {
+                loadout.upgradePanel.Open(slot);
+            }
         }
 
         //***********************************************************************************************************
@@ -330,6 +338,7 @@ namespace Core {
 
         void DeselectLoadoutSelection() {
             loadout.upgradePanel.Close();
+            loadout.selectPanel.Close();
 
             details.submenu.loadout.specialization.SetSelected(false);
             details.submenu.loadout.resource.SetSelected(false);
@@ -341,7 +350,6 @@ namespace Core {
             details.submenu.loadout.tier3_A.SetSelected(false);
             details.submenu.loadout.tier3_B.SetSelected(false);
         }
-
 
         [System.Serializable]
         public struct CreepDetailsReferences {
