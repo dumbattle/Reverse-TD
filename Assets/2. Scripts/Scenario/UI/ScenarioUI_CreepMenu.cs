@@ -9,8 +9,8 @@ using TMPro;
 namespace Core {
     public class ScenarioUI_CreepMenu : MonoBehaviour, IPointerDownHandler {
         [SerializeField] ScrollRect scrollRect;
-        List<PreRoundCreepMenu_CreepEntry_Behaviour> creepEntries = new List<PreRoundCreepMenu_CreepEntry_Behaviour>();
-        [SerializeField] PreRoundCreepMenu_CreepEntry_Behaviour creepEntrySrc;
+        List<ScenarioUI_CreepMenu_CreepEntry_Behaviour> creepEntries = new List<ScenarioUI_CreepMenu_CreepEntry_Behaviour>();
+        [SerializeField] ScenarioUI_CreepMenu_CreepEntry_Behaviour creepEntrySrc;
         public CreepDetailsReferences details;
         public ScenarioUI_CreepMenu_LoadoutSlot_Subpanel loadout;
 
@@ -24,7 +24,7 @@ namespace Core {
         int openMode = -1;
         float openPosition = 0;
         CreepLoadoutSlot currentSlot;
-        PreRoundCreepMenu_Details_AttachmentEntry_Behaviour currnetButtonEntry;
+        ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour currnetButtonEntry;
         //*************************************************************************************************************
         // Unity Methods
         //*************************************************************************************************************
@@ -197,7 +197,7 @@ namespace Core {
         /// <summary>
         /// TODO - REFACTOR
         /// </summary>
-        public void OpenLoadoutSlot(CreepLoadoutSlot slot, PreRoundCreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
+        public void OpenLoadoutSlot(CreepLoadoutSlot slot, ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
             DeselectLoadoutSelection();
             buttonEntry.SetSelected(true);
 
@@ -336,7 +336,7 @@ namespace Core {
             UpdateLoadoutSlot(details.submenu.loadout.tier3_B, squad.loadout.tier3_B);
 
 
-            void UpdateLoadoutSlot(PreRoundCreepMenu_Details_AttachmentEntry_Behaviour entry, CreepLoadoutSlot slot) {
+            void UpdateLoadoutSlot(ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour entry, CreepLoadoutSlot slot) {
                 var atch = slot.currentAttactment;
 
                 if (atch.definition != null) {
@@ -437,18 +437,18 @@ namespace Core {
                 public struct Loadout {
                     public GameObject rootObj;
 
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour specialization;
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour resource;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour specialization;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour resource;
 
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier1_1;
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier1_2;
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier1_3;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier1_1;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier1_2;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier1_3;
 
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier2_1;
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier2_2;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier2_1;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier2_2;
 
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier3_A;
-                    public PreRoundCreepMenu_Details_AttachmentEntry_Behaviour tier3_B;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier3_A;
+                    public ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour tier3_B;
                 }
             }
         }

@@ -20,16 +20,6 @@
 
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             if (mode == 0) {
-                s.playerFunctions.GetShop().Refresh(s);
-
-       
-                // unlock new item
-                for (int i = 0; i < 2; i++) {
-                    var newItem = PlayerItemUtility.GetRandomItem(s.roundManager.current);
-                    s.playerFunctions.AddItem(newItem);
-                    //s.references.ui.endRoundUnlockBehaviour.AddEntry(newItem.GetIcon(), newItem.GetName());
-                }
-
                 // money reward
                 var m = s.roundManager.GetCurrentRoundMoneyReward();
                 s.playerFunctions.AddMoney(m);
