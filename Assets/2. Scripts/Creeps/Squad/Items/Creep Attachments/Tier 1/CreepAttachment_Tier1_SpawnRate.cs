@@ -23,24 +23,31 @@ namespace Core {
             100,
         };
 
+
+
         static string[] _descCache = {
-            $"Increases Spawn Rate by <color=green>{_statScales[0]}</color>%",
-            GetDescriptionTextWithUpgradeHelper(0),
-            GetDescriptionTextWithUpgradeHelper(1),
-            GetDescriptionTextWithUpgradeHelper(2),
-            GetDescriptionTextWithUpgradeHelper(3),
-            GetDescriptionTextWithUpgradeHelper(4),
-            GetDescriptionTextWithUpgradeHelper(5),
-            GetDescriptionTextWithUpgradeHelper(6),
-            GetDescriptionTextWithUpgradeHelper(7),
-            GetDescriptionTextWithUpgradeHelper(8),
-            $"Increases Spawn Rate by <color=green>{_statScales[9]}</color>%",
+            GetDescriptionTextWithUpgradeHelper(0, false),
+            GetDescriptionTextWithUpgradeHelper(0, true),
+            GetDescriptionTextWithUpgradeHelper(1, true),
+            GetDescriptionTextWithUpgradeHelper(2, true),
+            GetDescriptionTextWithUpgradeHelper(3, true),
+            GetDescriptionTextWithUpgradeHelper(4, true),
+            GetDescriptionTextWithUpgradeHelper(5, true),
+            GetDescriptionTextWithUpgradeHelper(6, true),
+            GetDescriptionTextWithUpgradeHelper(7, true),
+            GetDescriptionTextWithUpgradeHelper(8, true),
+            GetDescriptionTextWithUpgradeHelper(9, false)
         };
-        static string GetDescriptionTextWithUpgradeHelper(int i) {
+
+        static string GetDescriptionTextWithUpgradeHelper(int i, bool upgradeHint) {
             var amount = _statScales[i];
-            var upAmnt = _statScales[i + 1] - amount;
-            return $"Increases Spawn Rate by <color=green>{amount}</color>(<color=yellow>+{upAmnt}</color>)%";
+            var upAmnt = upgradeHint ? _statScales[i + 1] - amount : 0;
+            return
+                $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>+{amount}%</color>\n" +
+                $"<size=10000em> </size>\n" +
+                $"<color=yellow>Spawn Rate</color>\n";
         }
+
         public override string GetName(int level) {
             return "Spawn Rate Gem";
         }

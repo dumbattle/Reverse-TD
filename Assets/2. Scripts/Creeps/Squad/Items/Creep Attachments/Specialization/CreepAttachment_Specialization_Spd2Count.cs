@@ -2,29 +2,28 @@
 
 
 namespace Core {
+    public class CreepAttachment_Specialization_Spd2Count : CreepAttachmentDefinition {
+        static CreepAttachment_Specialization_Spd2Count instance = new CreepAttachment_Specialization_Spd2Count();
+        public static CreepAttachment_Specialization_Spd2Count Get() => instance;
 
-    public class CreepAttachment_Tier1_Count : CreepAttachmentDefinition {
-        static CreepAttachment_Tier1_Count instance = new CreepAttachment_Tier1_Count();
-        public static CreepAttachment_Tier1_Count Get() => instance;
+        CreepAttachment_Specialization_Spd2Count() { }
 
-        CreepAttachment_Tier1_Count() { }
+
+        const float SPD_DECREASE = 50;
 
 
         static float[] _statScales = {
-            30,
-            34,
-            39,
-            45,
-            51,
-            59,
-            67,
-            77,
-            88,
-            100,
+            50,
+            57,
+            65,
+            74,
+            84,
+            95,
+            107,
+            120,
+            134,
+            150,
         };
-
-
-
         static string[] _descCache = {
             GetDescriptionTextWithUpgradeHelper(0, false),
             GetDescriptionTextWithUpgradeHelper(0, true),
@@ -44,39 +43,44 @@ namespace Core {
             var upAmnt = upgradeHint ? _statScales[i + 1] - amount : 0;
             return
                 $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>+{amount}%</color>\n" +
-                $"<size=10000em> </size>\n" +
-                $"<color=yellow>Count</color>\n";
-        }
+                $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>+{amount}%</color>\n" +
+                $"<color=red>-{SPD_DECREASE}%</color>\n" +
 
+                $"<size=10000em> </size>\n" +
+
+                $"Base <color=yellow>Count</color>\n" +
+                $"Base <color=yellow>Spawn Rate</color>\n" +
+                $"Base <color=yellow>SPD</color>";
+        }
         public override string GetName(int level) {
-            return "Number Gem";
+            return "Horde Gem";
         }
 
         public override Sprite GetIcon(int level) {
             switch (level) {
                 case 1:
-                    return CreepItemIconResourceCache.GemCyan1;
+                    return CreepItemIconResourceCache.GemBlue1;
                 case 2:
-                    return CreepItemIconResourceCache.GemCyan2;
+                    return CreepItemIconResourceCache.GemBlue2;
                 case 3:
-                    return CreepItemIconResourceCache.GemCyan3;
+                    return CreepItemIconResourceCache.GemBlue3;
                 case 4:
-                    return CreepItemIconResourceCache.GemCyan4;
+                    return CreepItemIconResourceCache.GemBlue4;
                 case 5:
-                    return CreepItemIconResourceCache.GemCyan5;
+                    return CreepItemIconResourceCache.GemBlue5;
                 case 6:
-                    return CreepItemIconResourceCache.GemCyan6;
+                    return CreepItemIconResourceCache.GemBlue6;
                 case 7:
-                    return CreepItemIconResourceCache.GemCyan7;
+                    return CreepItemIconResourceCache.GemBlue7;
                 case 8:
-                    return CreepItemIconResourceCache.GemCyan8;
+                    return CreepItemIconResourceCache.GemBlue8;
                 case 9:
-                    return CreepItemIconResourceCache.GemCyan9;
+                    return CreepItemIconResourceCache.GemBlue9;
                 case 10:
-                    return CreepItemIconResourceCache.GemCyan10;
+                    return CreepItemIconResourceCache.GemBlue10;
             }
 
-            return CreepItemIconResourceCache.GemCyan1;
+            return CreepItemIconResourceCache.GemBlue1;
         }
 
         public override string GetDescription(int level) {
@@ -84,7 +88,9 @@ namespace Core {
         }
 
         public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage2.AddCountScale(_statScales[level - 1] / 100f);
+            stage1.AddCountScale(_statScales[level - 1] / 100f);
+            stage1.AddSpawnRateScale(_statScales[level - 1] / 100f);
+            stage1.AddSpdScale(1 - (100 / (100f - SPD_DECREASE)));
         }
 
         protected override ResourceRequirement[] InitUpgradeCosts() {

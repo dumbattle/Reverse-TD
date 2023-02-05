@@ -78,61 +78,6 @@ namespace Core {
         }
     }
 
-    public class CreepLoadout {
-        public CreepLoadoutSlot specialization { get; private set; } = new CreepLoadoutSlot();
-        public CreepLoadoutSlot resource { get; private set; } = new CreepLoadoutSlot();
-
-        public CreepLoadoutSlot tier1_1 { get; private set; } = GetTier1Slot();
-        public CreepLoadoutSlot tier1_2 { get; private set; } = GetTier1Slot();
-        public CreepLoadoutSlot tier1_3 { get; private set; } = GetTier1Slot();
-
-        public CreepLoadoutSlot tier2_1 { get; private set; } = new CreepLoadoutSlot();
-        public CreepLoadoutSlot tier2_2 { get; private set; } = new CreepLoadoutSlot();
-
-        public CreepLoadoutSlot tier3_A { get; private set; } = new CreepLoadoutSlot();
-        public CreepLoadoutSlot tier3_B { get; private set; } = new CreepLoadoutSlot();
-
-        public void GetApplication(CreepStatModification stage1, CreepStatModification stage2) {
-            specialization.GetApplication(stage1, stage2);
-            resource.GetApplication(stage1, stage2);
-
-            tier1_1.GetApplication(stage1, stage2);
-            tier1_2.GetApplication(stage1, stage2);
-            tier1_3.GetApplication(stage1, stage2);
-
-            tier2_1.GetApplication(stage1, stage2);
-            tier2_2.GetApplication(stage1, stage2);
-
-            tier3_A.GetApplication(stage1, stage2);
-            tier3_B.GetApplication(stage1, stage2);
-        }
-
-        static CreepLoadoutSlot GetTier1Slot() {
-            return new CreepLoadoutSlot(
-                CreepAttachment_Tier1_HP.Get(),
-                CreepAttachment_Tier1_SPD.Get(),
-                CreepAttachment_Tier1_SpawnRate.Get(),
-                CreepAttachment_Tier1_Count.Get()
-            );
-        }
-    }
-
-    public class CreepLoadoutSlot {
-        public CreepAttachmentInstance currentAttactment { get; } = new CreepAttachmentInstance();
-        public CreepAttachmentDefinition[] allowedAttachments { get; private set; }
-
-        public CreepLoadoutSlot(params CreepAttachmentDefinition[] allowed) {
-            allowedAttachments = allowed;
-        }
-        public void GetApplication(CreepStatModification stage1, CreepStatModification stage2) {
-            if (currentAttactment.definition == null) {
-                return;
-            }
-
-            currentAttactment.definition.ApplyModification(currentAttactment.level, stage1, stage2);
-        }
-    }
-
 
     public class CreepSquad {
         CreepDefinition baseDefinition;

@@ -24,10 +24,6 @@ namespace Core {
         public Image frameImage;
         public Sprite unselectedSprite;
         public Sprite selectedSprite;
-        //[Space]
-        //public Transform hpBarPivot;
-        //public Transform spdBarPivot;
-        //public Transform countBarPivot;
 
         public CreepSquad squad;
     }

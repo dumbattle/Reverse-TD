@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 
 
-
 namespace Core {
-    public class CreepAttachment_Tier1_SPD : CreepAttachmentDefinition {
-        static CreepAttachment_Tier1_SPD instance = new CreepAttachment_Tier1_SPD();
-        public static CreepAttachment_Tier1_SPD Get() => instance;
+    public class CreepAttachment_Specialization_Count2SPD : CreepAttachmentDefinition {
+        static CreepAttachment_Specialization_Count2SPD instance = new CreepAttachment_Specialization_Count2SPD();
+        public static CreepAttachment_Specialization_Count2SPD Get() => instance;
 
-        CreepAttachment_Tier1_SPD() { }
+        CreepAttachment_Specialization_Count2SPD() { }
 
+        const float COUNT_DECREASE = 50;
 
         static float[] _statScales = {
-            30,
-            34,
-            39,
-            45,
-            51,
-            59,
-            67,
-            77,
-            88,
-            100,
+            50,
+            57,
+            65,
+            74,
+            84,
+            95,
+            107,
+            120,
+            134,
+            150,
         };
 
 
@@ -43,13 +43,19 @@ namespace Core {
             var upAmnt = upgradeHint ? _statScales[i + 1] - amount : 0;
             return
                 $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>+{amount}%</color>\n" +
+                $"<color=red>-{COUNT_DECREASE}%</color>\n" +
+                $"<color=red>-{COUNT_DECREASE}%</color>\n" +
+
                 $"<size=10000em> </size>\n" +
-                $"<color=yellow>Speed</color>\n";
+
+                $"Base <color=yellow>Speed</color>\n" +
+                $"Base <color=yellow>Count</color>\n" +
+                $"Base <color=yellow>Spawn Rate</color>";
         }
 
-       
+
         public override string GetName(int level) {
-            return "Speed Gem";
+            return "Fat Gem";
         }
 
         public override Sprite GetIcon(int level) {
@@ -84,29 +90,29 @@ namespace Core {
         }
 
         public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage2.AddSpdScale(_statScales[level - 1] / 100f);
+            stage1.AddSpdScale(_statScales[level - 1] / 100f);
+
+            stage1.AddCountScale(1 - (100 / (100f - COUNT_DECREASE)));
+            stage1.AddSpawnRateScale(1 - (100 / (100f - COUNT_DECREASE)));
         }
 
         protected override ResourceRequirement[] InitUpgradeCosts() {
             return new[] {
-                new ResourceRequirement(green: 100),
-                new ResourceRequirement(green: 125, yellow: 50),
+                new ResourceRequirement(green: 90, diamond: 25),
+                new ResourceRequirement(green: 105, diamond: 75),
 
-                new ResourceRequirement(green: 150, yellow: 100),
-                new ResourceRequirement(green: 175, yellow: 150),
+                new ResourceRequirement(green: 120, diamond: 125),
+                new ResourceRequirement(green: 135, diamond: 175),
 
-                new ResourceRequirement(green: 200, yellow: 200),
-                new ResourceRequirement(green: 210, yellow: 250, diamond: 100),
+                new ResourceRequirement(green: 150, diamond: 225),
+                new ResourceRequirement(green: 165, diamond: 275, blue: 100),
 
-                new ResourceRequirement(green: 220, yellow: 300, diamond: 150),
-                new ResourceRequirement(green: 230, yellow: 350, diamond: 200),
+                new ResourceRequirement(green: 180, diamond: 325, blue: 150),
+                new ResourceRequirement(green: 195, diamond: 375, blue: 200),
 
-                new ResourceRequirement(green: 240, yellow: 400, diamond: 250),
-                new ResourceRequirement(green: 250, yellow: 450, diamond: 300),
+                new ResourceRequirement(green: 210, diamond: 425, blue: 250),
+                new ResourceRequirement(green: 225, diamond: 475, blue: 300),
             };
         }
     }
-
-
-
 }

@@ -25,6 +25,7 @@ namespace Core {
         float openPosition = 0;
         CreepLoadoutSlot currentSlot;
         ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour currnetButtonEntry;
+
         //*************************************************************************************************************
         // Unity Methods
         //*************************************************************************************************************
@@ -59,7 +60,7 @@ namespace Core {
         // Control
         //*************************************************************************************************************
 
-        public void ReDraw(ScenarioInstance s) {
+        public void ReDrawCreepList(ScenarioInstance s) {
             var creepArmy = s.playerFunctions.GetCreepArmy();
 
             for (int i = 0; i < creepArmy.count; i++) {
@@ -192,6 +193,11 @@ namespace Core {
 
         public void OpenDetailsTab(bool value) {
             openMode = value ? 1 : -1;
+
+            if (!value) {
+                loadout.selectPanel.Close();
+                loadout.upgradePanel.Close();
+            }
         }
 
         /// <summary>

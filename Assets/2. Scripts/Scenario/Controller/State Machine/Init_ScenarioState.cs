@@ -32,7 +32,7 @@ namespace Core {
             s.references.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
             s.references.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
             s.references.ui.startButton.SetClickListener(InputManager.Set.Start);
-            s.references.ui.creepMenu.ReDraw(s);
+            s.references.ui.creepMenu.ReDrawCreepList(s);
 
 
             s.parameters.creepPathfinder.DrawBehaviours(s);
