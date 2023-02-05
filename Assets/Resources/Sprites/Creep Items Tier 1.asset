@@ -10,23 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7498711091ab0c4409d8c6bdd411b5f5, type: 3}
-  m_Name: Creep Items Icons
+  m_Name: Creep Items Tier 1
   m_EditorClassIdentifier: 
   data:
     m_keys:
-    - Creep +HP
-    - Creep +Money
-    - Creep +Speed
-    - Creep +Count
-    - Creep +Grouping
-    - Creep +Regen
-    - Creep Speed Greedy
-    - Creep Shift spd hp
-    - Creep Shift count hp
-    - Creep Shift count spd
-    - Creep Shift hp spd
-    - Creep Shift hp count
-    - Creep Shift spd count
     - Gem Blue 1
     - Gem Blue 2
     - Gem Blue 3
@@ -68,19 +55,6 @@ MonoBehaviour:
     - Gem Yellow 9
     - Gem Yellow 10
     m_values:
-    - {fileID: -8179040606652740800, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: -6931339683150358059, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 3220665290143086019, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 3434086634727231013, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: -148319563816140896, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 1562533389854618834, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 6510515419312912815, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: -505306787334139433, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 2594068508085724225, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 3929133199111790865, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 4321908322816216039, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 5658616018816720155, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
-    - {fileID: 1470462077960011716, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -3396240181295692418, guid: cde0ed842fd809e49bced609c48d9c59, type: 3}
     - {fileID: -5368371022779572603, guid: cde0ed842fd809e49bced609c48d9c59, type: 3}
     - {fileID: 8517140334400616114, guid: cde0ed842fd809e49bced609c48d9c59, type: 3}

@@ -59,28 +59,23 @@ namespace Core {
         public override Sprite GetIcon(int level) {
             switch (level) {
                 case 1:
-                    return CreepItemIconResourceCache.GemBlue1;
                 case 2:
-                    return CreepItemIconResourceCache.GemBlue2;
+                    return CreepItemIconResourceCache.GemBlueOutlineYellow1;
                 case 3:
-                    return CreepItemIconResourceCache.GemBlue3;
                 case 4:
-                    return CreepItemIconResourceCache.GemBlue4;
+                    return CreepItemIconResourceCache.GemBlueOutlineYellow2;
                 case 5:
-                    return CreepItemIconResourceCache.GemBlue5;
                 case 6:
-                    return CreepItemIconResourceCache.GemBlue6;
+                    return CreepItemIconResourceCache.GemBlueOutlineYellow3;
                 case 7:
-                    return CreepItemIconResourceCache.GemBlue7;
                 case 8:
-                    return CreepItemIconResourceCache.GemBlue8;
+                    return CreepItemIconResourceCache.GemBlueOutlineYellow4;
                 case 9:
-                    return CreepItemIconResourceCache.GemBlue9;
                 case 10:
-                    return CreepItemIconResourceCache.GemBlue10;
+                    return CreepItemIconResourceCache.GemBlueOutlineYellow5;
             }
 
-            return CreepItemIconResourceCache.GemBlue1;
+            return CreepItemIconResourceCache.GemBlueOutlineYellow1;
         }
 
         public override string GetDescription(int level) {

@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Core {
     public class CreepResourceCache {
-        static LazyLoadResource<SpriteReferenceDictionary> creepDict = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Creep Sprites");
+        static LazyLoadResource<SpriteReferenceDictionary> creepDict 
+            = new LazyLoadResource<SpriteReferenceDictionary>("Sprites/Creep Sprites");
 
         public static Sprite circleSpriteGreen => creepDict.obj["Circle Green"];
         public static Sprite circleSpriteBlue => creepDict.obj["Circle Blue"];
