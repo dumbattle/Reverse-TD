@@ -49,6 +49,18 @@ namespace Core {
             this.yellow = yellow;
             this.diamond = diamond;
         }
+
+        /// <summary>
+        /// Does this contain at least the resources specified in req
+        /// </summary>
+        public bool Satisfies(ResourceAmount req) {
+            return
+                green >= req.green &&
+                red >= req.red &&
+                blue >= req.blue &&
+                yellow >= req.yellow &&
+                diamond >= req.diamond;
+        }
     }
 
     public class ResourceCollection : ResourceAmount {
@@ -96,6 +108,13 @@ namespace Core {
             blue += r[ResourceType.blue];
             yellow += r[ResourceType.yellow];
             diamond += r[ResourceType.diamond];
+        }
+        public void Spend(ResourceAmount cost) {
+            green -= cost[ResourceType.green];
+            red -= cost[ResourceType.red];
+            blue -= cost[ResourceType.blue];
+            yellow -= cost[ResourceType.yellow];
+            diamond -= cost[ResourceType.diamond];
         }
     }
 

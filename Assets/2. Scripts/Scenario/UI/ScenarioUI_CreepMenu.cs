@@ -202,31 +202,36 @@ namespace Core {
             if (!value) {
                 loadout.selectPanel.Close();
                 loadout.upgradePanel.Close();
+                LayoutRebuilder.ForceRebuildLayoutImmediate(loadout.subpanelRoot);
             }
         }
-
+        public void OpenAttachmentmentReplace(ScenarioInstance s) {
+            loadout.selectPanel.Open(s, currentSlot);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(loadout.subpanelRoot);
+        }
         /// <summary>
         /// TODO - REFACTOR
         /// </summary>
-        public void OpenLoadoutSlot(CreepLoadoutSlot slot, ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
+        public void OpenLoadoutSlot(ScenarioInstance s, CreepLoadoutSlot slot, ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour buttonEntry) {
             DeselectLoadoutSelection();
             buttonEntry.SetSelected(true);
 
             var atch = slot.currentAttactment.definition;
 
             if (atch == null) {
-                loadout.selectPanel.Open(slot);
+                loadout.selectPanel.Open(s, slot);
             }
             else {
-                loadout.upgradePanel.Open(slot);
+                loadout.upgradePanel.Open(s, slot);
             }
 
             currentSlot = slot;
             currnetButtonEntry = buttonEntry;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(loadout.subpanelRoot);
         }
 
-        public void ReopenLoadoutSlot() {
-            OpenLoadoutSlot(currentSlot, currnetButtonEntry);
+        public void ReopenLoadoutSlot(ScenarioInstance s) {
+            OpenLoadoutSlot(s, currentSlot, currnetButtonEntry);
         }
 
         public void RedrawCreepDetails(ScenarioInstance s) {
@@ -307,6 +312,7 @@ namespace Core {
             UpdateCreepStatSubmenu(s, squad);
             UpdateAttachmentSubMenu(s, squad);
             DeselectLoadoutSelection();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(loadout.subpanelRoot);
         }
 
         void UpdateCreepStatSubmenu(ScenarioInstance s, CreepSquad squad) {

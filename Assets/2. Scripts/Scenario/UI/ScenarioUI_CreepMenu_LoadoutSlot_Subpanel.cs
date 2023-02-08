@@ -3,6 +3,7 @@
 namespace Core {
     public class ScenarioUI_CreepMenu_LoadoutSlot_Subpanel : MonoBehaviour {
         [Header("Sub Panels")]
+        public RectTransform subpanelRoot;
         public ScenarioUI_CreepMenu_LoadoutSlot_UpgradePanel upgradePanel;
         public ScenarioUI_CreepMenu_LoadoutSlot_SelectionPanel selectPanel;
 

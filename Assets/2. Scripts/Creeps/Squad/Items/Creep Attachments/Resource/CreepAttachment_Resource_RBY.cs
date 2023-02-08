@@ -2,28 +2,28 @@
 
 
 namespace Core {
-    public class CreepAttachment_Resource_Blue : CreepAttachmentDefinition {
-        static CreepAttachment_Resource_Blue instance = new CreepAttachment_Resource_Blue();
-        public static CreepAttachment_Resource_Blue Get() => instance;
+    public class CreepAttachment_Resource_RBY : CreepAttachmentDefinition {
+        static CreepAttachment_Resource_RBY instance = new CreepAttachment_Resource_RBY();
+        public static CreepAttachment_Resource_RBY Get() => instance;
 
-        CreepAttachment_Resource_Blue() { }
+        CreepAttachment_Resource_RBY() { }
 
 
         static float[] _amounts = {
+            25,
+            35,
+
+            46,
+            58,
+
+            71,
+            85,
+
             100,
-            125,
+            116,
 
-            155,
-            190,
-
-            230,
-            275,
-
-            325,
-            380,
-
-            440,
-            500,
+            133,
+            150,
         };
 
 
@@ -46,19 +46,23 @@ namespace Core {
             var upAmnt = upgradeHint ? _amounts[i + 1] - amount : 0;
             return
                 $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>{amount}</color>\n" +
+                $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>{amount}</color>\n" +
+                $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>{amount}</color>\n" +
 
                 $"<size=10000em> </size>\n" +
 
-                TMPSpriteAssetUtility.RESOURCE_BLUE_EMBED;
+                TMPSpriteAssetUtility.RESOURCE_RED_EMBED + "\n" +
+                TMPSpriteAssetUtility.RESOURCE_BLUE_EMBED + "\n" +
+                TMPSpriteAssetUtility.RESOURCE_YELLOW_EMBED;
         }
 
 
         public override string GetName(int level) {
-            return "Green Collecter";
+            return "Rainbow Collecter";
         }
 
         public override Sprite GetIcon(int level) {
-            return IconResourceCache.resourceBlue;
+            return IconResourceCache.resourceRBY;
         }
 
         public override string GetDescription(int level) {
@@ -66,7 +70,9 @@ namespace Core {
         }
 
         public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
+            stage1.AddResourceReward(ResourceType.red, _amounts[level - 1]);
             stage1.AddResourceReward(ResourceType.blue, _amounts[level - 1]);
+            stage1.AddResourceReward(ResourceType.yellow, _amounts[level - 1]);
         }
 
         protected override ResourceAmount[] InitUpgradeCosts() {
@@ -87,5 +93,6 @@ namespace Core {
                 new ResourceAmount(green: 225, diamond: 475, blue: 300),
             };
         }
+
     }
 }

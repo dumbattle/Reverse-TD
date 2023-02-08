@@ -53,6 +53,7 @@ namespace Core {
         public static Sprite resourceBlue => iconDict.obj["Shard Blue"];
         public static Sprite resourceYellow => iconDict.obj["Shard Yellow"];
         public static Sprite resourceDiamond => iconDict.obj["Shard Diamond"];
+        public static Sprite resourceRBY => iconDict.obj["Shard RBY"];
 
 
 

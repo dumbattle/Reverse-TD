@@ -26,6 +26,7 @@ MonoBehaviour:
     - Shard Blue
     - Shard Yellow
     - Shard Diamond
+    - Shard RBY
     m_values:
     - {fileID: 2130535880278150251, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: 2514988542215765323, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
@@ -39,3 +40,4 @@ MonoBehaviour:
     - {fileID: -8179040606652740800, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: 3434086634727231013, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
     - {fileID: -148319563816140896, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+    - {fileID: 1562533389854618834, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}

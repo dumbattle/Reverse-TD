@@ -45,9 +45,11 @@
                 CreepAttachment_Resource_Blue.Get(),
                 CreepAttachment_Resource_Red.Get(),
                 CreepAttachment_Resource_Yellow.Get(),
-                CreepAttachment_Resource_Diamond.Get()
+
+                CreepAttachment_Resource_Diamond.Get(),
+                CreepAttachment_Resource_RBY.Get()
             );
-            //result.currentAttactment.ResetAttachment(CreepAttachment_Resource_Green.Get());
+            result.currentAttactment.ResetAttachment(CreepAttachment_Resource_Green.Get());
             return result;
         }
         static CreepLoadoutSlot GetTier1Slot() {

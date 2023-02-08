@@ -31,7 +31,7 @@ namespace Core {
         public CreepLoadoutSlot selectedLoadout { get; private set; }
         List<ScenarioUI_CreepMenu_LoadoutSlot_SelectionPanel_OptionEntry> entries = new List<ScenarioUI_CreepMenu_LoadoutSlot_SelectionPanel_OptionEntry>();
         RectTransform rt;
-
+        ScenarioInstance s;
 
 
         void Awake() {
@@ -39,7 +39,8 @@ namespace Core {
             entrySrc.gameObject.SetActive(false);
         }
         
-        public void Open(CreepLoadoutSlot l) {
+        public void Open(ScenarioInstance s, CreepLoadoutSlot l) {
+            this.s = s;
             // track selection
             selectedLoadout = l;
 
@@ -106,29 +107,36 @@ namespace Core {
             yCostRoot.gameObject.SetActive(false);
             dCostRoot.gameObject.SetActive(false);
 
+            var playerResources = s.playerFunctions.GetCurrentResources();
+
             if (gCost > 0) {
                 gCostRoot.gameObject.SetActive(true);
                 gCostText.text = gCost.ToString();
+                gCostText.color = playerResources[ResourceType.green] >= gCost ? Color.white : Color.red;
             }
 
             if (rCost > 0) {
                 rCostRoot.gameObject.SetActive(true);
                 rCostText.text = rCost.ToString();
+                rCostText.color = playerResources[ResourceType.red] >= rCost ? Color.white : Color.red;
             }
 
             if (bCost > 0) {
                 bCostRoot.gameObject.SetActive(true);
                 bCostText.text = bCost.ToString();
+                bCostText.color = playerResources[ResourceType.blue] >= bCost ? Color.white : Color.red;
             }
 
             if (yCost > 0) {
                 yCostRoot.gameObject.SetActive(true);
                 yCostText.text = yCost.ToString();
+                yCostText.color = playerResources[ResourceType.yellow] >= yCost ? Color.white : Color.red;
             }
 
             if (dCost > 0) {
                 dCostRoot.gameObject.SetActive(true);
                 dCostText.text = dCost.ToString();
+                dCostText.color = playerResources[ResourceType.diamond] >= dCost ? Color.white : Color.red;
             }
 
         }

@@ -58,38 +58,54 @@ namespace Core {
             if (creepMenu.details.buttons.attachmentsSubmenuButton.Clicked) {
                 creepMenu.OpenAttachmentsSubmenu();
             }
-
+            if (creepMenu.loadout.upgradePanel.replaceButton.Clicked) {
+                creepMenu.OpenAttachmentmentReplace(s);
+            }
             // TODO - this section is horrible, find some way to refactor
             if (creepMenu.details.submenu.loadout.tier1_1.button.Clicked) {
-                creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.tier1_1, creepMenu.details.submenu.loadout.tier1_1);
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.tier1_1, creepMenu.details.submenu.loadout.tier1_1);
             }
             if (creepMenu.details.submenu.loadout.tier1_2.button.Clicked) {
-                creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.tier1_2, creepMenu.details.submenu.loadout.tier1_2);
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.tier1_2, creepMenu.details.submenu.loadout.tier1_2);
             }
             if (creepMenu.details.submenu.loadout.tier1_3.button.Clicked) {
-                creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.tier1_3, creepMenu.details.submenu.loadout.tier1_3);
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.tier1_3, creepMenu.details.submenu.loadout.tier1_3);
             }
             if (creepMenu.details.submenu.loadout.specialization.button.Clicked) {
-                creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.specialization, creepMenu.details.submenu.loadout.specialization);
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.specialization, creepMenu.details.submenu.loadout.specialization);
             }
             if (creepMenu.details.submenu.loadout.resource.button.Clicked) {
-                creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.resource, creepMenu.details.submenu.loadout.resource);
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.resource, creepMenu.details.submenu.loadout.resource);
             }
 
+            // select new attachment
             if (creepMenu.loadout.selectPanel.applyButton.Clicked) {
-                creepMenu.loadout.selectPanel.selectedLoadout.currentAttactment.ResetAttachment(creepMenu.loadout.selectPanel.selectedAttachment);
-                creepMenu.ReopenLoadoutSlot();
-                creepMenu.currentFamily.Recalculate();
-                creepMenu.RedrawCreepDetails(s);
-                creepMenu.ReDrawCreepList(s);
+                var selectedAttachment = creepMenu.loadout.selectPanel.selectedAttachment;
+                var cost = selectedAttachment.GetCost(1);
+
+                if (s.playerFunctions.GetCurrentResources().Satisfies(cost)) {
+                    s.playerFunctions.Spend(cost);
+                    creepMenu.loadout.selectPanel.selectedLoadout.currentAttactment.ResetAttachment(selectedAttachment);
+                    creepMenu.ReopenLoadoutSlot(s);
+                    creepMenu.currentFamily.Recalculate();
+                    creepMenu.RedrawCreepDetails(s);
+                    creepMenu.ReDrawCreepList(s);
+                }
             }
 
+            // upgrade attachment
             if (creepMenu.loadout.upgradePanel.upgradeButton.Clicked) {
-                creepMenu.loadout.upgradePanel.selectedLoadout.currentAttactment.UpgradeLevel();
-                creepMenu.ReopenLoadoutSlot();
-                creepMenu.currentFamily.Recalculate();
-                creepMenu.RedrawCreepDetails(s);
-                creepMenu.ReDrawCreepList(s);
+                var selectedAttachment = creepMenu.loadout.upgradePanel.selectedLoadout.currentAttactment;
+                var cost = selectedAttachment.GetCostForUpgrade();
+
+                if (cost != null && s.playerFunctions.GetCurrentResources().Satisfies(cost)) {
+                    s.playerFunctions.Spend(cost);
+                    selectedAttachment.UpgradeLevel();
+                    creepMenu.ReopenLoadoutSlot(s);
+                    creepMenu.currentFamily.Recalculate();
+                    creepMenu.RedrawCreepDetails(s);
+                    creepMenu.ReDrawCreepList(s);
+                }
             }
 
             if (InputManager.Cancel.requested) {
