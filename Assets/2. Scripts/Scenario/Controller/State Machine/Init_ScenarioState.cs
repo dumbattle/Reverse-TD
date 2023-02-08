@@ -20,7 +20,7 @@ namespace Core {
 
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             s.references.ui.fadeOverlay.color = new Color(0, 0, 0, 1);
-            s.playerFunctions.AddMoney(500);
+            s.playerFunctions.AddMoney(ResourceType.green, 500);
             // initial towers
             s.parameters.towerController.Init(s);
 

@@ -3,11 +3,10 @@
         public float regenRate;
         public int deathSpawnLevel;
         public int carrierSpawnLevel;
-
+        public ResourceCollection resourceReward = new ResourceCollection();
 
         StatEntry size = new StatEntry();
         StatEntry hp = new StatEntry();
-        StatEntry money = new StatEntry();
         StatEntry spawnRate = new StatEntry();
         StatEntry count = new StatEntry();
         StatEntry spd = new StatEntry();
@@ -25,7 +24,7 @@
 
             def.radius *= size.GetRatio();
             def.hp *= hp.GetRatio();
-            def.moneyReward *= money.GetRatio();
+            def.resourceReward.Add(resourceReward);
             def.spawnRate *= spawnRate.GetRatio();
             def.count *= count.GetRatio();
             def.speed *= spd.GetRatio();
@@ -38,7 +37,7 @@
         public void Reset() {
             size.Reset();
             hp.Reset();
-            money.Reset();
+            resourceReward.Reset();
             spawnRate.Reset();
             count.Reset();
             spd.Reset();
@@ -73,8 +72,8 @@
         /// <summary>
         /// Negative to indicate decrease
         /// </summary>
-        public void AddMoneyScale(float scale) {
-            money.AddScale(scale);
+        public void AddResourceReward(ResourceType t, float amnt) {
+            resourceReward[t] += amnt;
         }
        
         /// <summary>

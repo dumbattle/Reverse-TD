@@ -72,6 +72,9 @@ namespace Core {
             if (creepMenu.details.submenu.loadout.specialization.button.Clicked) {
                 creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.specialization, creepMenu.details.submenu.loadout.specialization);
             }
+            if (creepMenu.details.submenu.loadout.resource.button.Clicked) {
+                creepMenu.OpenLoadoutSlot(creepMenu.currentFamily.loadout.resource, creepMenu.details.submenu.loadout.resource);
+            }
 
             if (creepMenu.loadout.selectPanel.applyButton.Clicked) {
                 creepMenu.loadout.selectPanel.selectedLoadout.currentAttactment.ResetAttachment(creepMenu.loadout.selectPanel.selectedAttachment);

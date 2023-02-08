@@ -48,6 +48,14 @@ namespace Core {
         public static Sprite lockedDark => iconDict.obj["Lock Dark"];
         public static Sprite newCreep => iconDict.obj["New Creep"];
 
+        public static Sprite resourceGreen => iconDict.obj["Shard Green"];
+        public static Sprite resourceRed => iconDict.obj["Shard Red"];
+        public static Sprite resourceBlue => iconDict.obj["Shard Blue"];
+        public static Sprite resourceYellow => iconDict.obj["Shard Yellow"];
+        public static Sprite resourceDiamond => iconDict.obj["Shard Diamond"];
+
+
+
 
         public static Sprite Rank(int rank) {
             if (rank <= 0) {

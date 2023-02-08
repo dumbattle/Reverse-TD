@@ -86,22 +86,22 @@ namespace Core {
             stage2.AddHpScale(_statScales[level - 1] / 100f);
         }
 
-        protected override ResourceRequirement[] InitUpgradeCosts() {
+        protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {
-                new ResourceRequirement(green: 100),
-                new ResourceRequirement(green: 125, red: 50),
+                new ResourceAmount(green: 100),
+                new ResourceAmount(green: 125, red: 50),
 
-                new ResourceRequirement(green: 150, red: 100),
-                new ResourceRequirement(green: 175, red: 150),
+                new ResourceAmount(green: 150, red: 100),
+                new ResourceAmount(green: 175, red: 150),
 
-                new ResourceRequirement(green: 200, red: 200),
-                new ResourceRequirement(green: 210, red: 250, diamond: 100),
+                new ResourceAmount(green: 200, red: 200),
+                new ResourceAmount(green: 210, red: 250, diamond: 100),
 
-                new ResourceRequirement(green: 220, red: 300, diamond: 150),
-                new ResourceRequirement(green: 230, red: 350, diamond: 200),
+                new ResourceAmount(green: 220, red: 300, diamond: 150),
+                new ResourceAmount(green: 230, red: 350, diamond: 200),
 
-                new ResourceRequirement(green: 240, red: 400, diamond: 250),
-                new ResourceRequirement(green: 250, red: 450, diamond: 300),
+                new ResourceAmount(green: 240, red: 400, diamond: 250),
+                new ResourceAmount(green: 250, red: 450, diamond: 300),
             };
         }
     }

@@ -73,7 +73,6 @@ namespace Core {
                 result.count = 20 * weights.count;
                 result.spawnRate = weights.spawnRate * result.count / 5f;
                 result.sprite = GetSprite();
-                result.moneyReward = 100 / result.count;
                 result.glowColor = Random.ColorHSV(0, 1, .5f, 1, 1, 1);
                 return result;
             }

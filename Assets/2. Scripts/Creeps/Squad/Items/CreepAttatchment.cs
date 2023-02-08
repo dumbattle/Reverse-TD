@@ -45,7 +45,7 @@ namespace Core {
             return definition?.GetDescription(level) ?? null;
         }
 
-        public ResourceRequirement GetCostForUpgrade() {
+        public ResourceAmount GetCostForUpgrade() {
             if (level == 10) {
                 return null;
             }

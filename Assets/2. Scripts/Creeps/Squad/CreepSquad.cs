@@ -12,7 +12,7 @@ namespace Core {
 
         ResourceType() { }
     }
-    public class ResourceRequirement {
+    public class ResourceAmount {
         public float this[ResourceType r] {
             get {
                 if (r == ResourceType.green) {
@@ -42,7 +42,7 @@ namespace Core {
         protected float diamond;
 
 
-        public ResourceRequirement(float green = 0, float red = 0, float blue = 0, float yellow = 0, float diamond = 0) {
+        public ResourceAmount(float green = 0, float red = 0, float blue = 0, float yellow = 0, float diamond = 0) {
             this.green = green;
             this.red = red;
             this.blue = blue;
@@ -51,7 +51,7 @@ namespace Core {
         }
     }
 
-    public class ResourceCollection : ResourceRequirement {
+    public class ResourceCollection : ResourceAmount {
         public new float this[ResourceType r] {
             get {
                 return base[r];
@@ -59,22 +59,43 @@ namespace Core {
             set {
                 if (r == ResourceType.green) {
                     green = value;
+                    return;
                 }
                 if (r == ResourceType.red) {
                     red = value;
+                    return;
                 }
                 if (r == ResourceType.blue) {
                     blue = value;
+                    return;
                 }
                 if (r == ResourceType.yellow) {
                     yellow = value;
+                    return;
                 }
                 if (r == ResourceType.diamond) {
                     diamond = value;
+                    return;
                 }
 
                 throw new System.ArgumentException($"INVALID RESOURCE TYPE: '{r}'");
             }
+        }
+
+        public void Reset() {
+            green = 0;
+            red = 0;
+            blue = 0;
+            yellow = 0;
+            diamond = 0;
+        }
+
+        public void Add(ResourceAmount r) {
+            green += r[ResourceType.green];
+            red += r[ResourceType.red];
+            blue += r[ResourceType.blue];
+            yellow += r[ResourceType.yellow];
+            diamond += r[ResourceType.diamond];
         }
     }
 
@@ -116,7 +137,6 @@ namespace Core {
             baseDefinition = def;
             actualDefinition = def.CreateCopy();
             this.globalUpgrades = globalUpgrades;
-
             Recalculate();
         }
 

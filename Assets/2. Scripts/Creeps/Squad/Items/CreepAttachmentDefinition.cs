@@ -4,7 +4,7 @@
 
 namespace Core {
     public abstract class CreepAttachmentDefinition {
-        ResourceRequirement[] _upgradeCosts;
+        ResourceAmount[] _upgradeCosts;
 
         public CreepAttachmentDefinition() {
             _upgradeCosts = InitUpgradeCosts();
@@ -13,7 +13,7 @@ namespace Core {
         /// <summary>
         /// To unlock provided level. level is 1-indexed
         /// </summary>
-        public ResourceRequirement GetCost(int level) {
+        public ResourceAmount GetCost(int level) {
             level = Mathf.Clamp(level - 1, 0, _upgradeCosts.Length - 1);
 
             return _upgradeCosts[level];
@@ -37,7 +37,7 @@ namespace Core {
         public abstract void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2);
 
 
-        protected abstract ResourceRequirement[] InitUpgradeCosts();
+        protected abstract ResourceAmount[] InitUpgradeCosts();
     }
 
 }

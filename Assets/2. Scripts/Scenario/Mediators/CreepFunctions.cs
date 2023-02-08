@@ -40,7 +40,7 @@ namespace Core {
                     if (collision) {
                         // money
                         float hpScale = (float)c.health.current / c.health.max;
-                        s.playerFunctions.AddMoney(Mathf.CeilToInt(c.GetMaxMoneyReward() * hpScale));
+                        s.playerFunctions.AddMoney(c.GetMaxMoneyReward(), 1f/ c.NumberOfCreepsInSquad());
 
                         // notify tower controller
                         s.parameters.towerController.OnCreepReachMainTower(s, c, mt);

@@ -14,7 +14,7 @@ namespace Core {
         public float hp;
         public float speed;
         public float radius;
-        public float moneyReward;
+        public ResourceCollection resourceReward = new ResourceCollection();
 
         public float count;
         public float spawnRate;
@@ -46,7 +46,11 @@ namespace Core {
             radius = d.radius;
             sprite = d.sprite;
             hp = d.hp;
-            moneyReward = d.moneyReward;
+            resourceReward[ResourceType.green] = d.resourceReward[ResourceType.green];
+            resourceReward[ResourceType.red] = d.resourceReward[ResourceType.red];
+            resourceReward[ResourceType.blue] = d.resourceReward[ResourceType.blue];
+            resourceReward[ResourceType.yellow] = d.resourceReward[ResourceType.yellow];
+            resourceReward[ResourceType.diamond] = d.resourceReward[ResourceType.diamond];
             count = d.count;
             spawnRate = d.spawnRate;
             glowColor = d.glowColor;

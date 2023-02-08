@@ -10,12 +10,28 @@ namespace Core {
             this.references = references;
             this.player = player;
         }
-        public int CurrentMoney() {
+        public ResourceAmount CurrentMoney() {
             return player.money;
         }
-        public void AddMoney(int amnt) {
-            player.money += amnt;
-            references.ui.moneyText.text = player.money.ToString();
+        public void AddMoney(ResourceType type, float amnt) {
+            player.money[type] += amnt;
+            references.ui.gMoneyText.text = ((int)player.money[ResourceType.green]).ToString();
+            references.ui.rMoneyText.text = ((int)player.money[ResourceType.red]).ToString();
+            references.ui.bMoneyText.text = ((int)player.money[ResourceType.blue]).ToString();
+            references.ui.yMoneyText.text = ((int)player.money[ResourceType.yellow]).ToString();
+            references.ui.dMoneyText.text = ((int)player.money[ResourceType.diamond]).ToString();
+        }
+        public void AddMoney(ResourceAmount amnt, float multiplier=1) {
+            player.money[ResourceType.green] += amnt[ResourceType.green] * multiplier;
+            player.money[ResourceType.red] += amnt[ResourceType.red] * multiplier;
+            player.money[ResourceType.blue] += amnt[ResourceType.blue] * multiplier;
+            player.money[ResourceType.yellow] += amnt[ResourceType.yellow] * multiplier;
+            player.money[ResourceType.diamond] += amnt[ResourceType.diamond] * multiplier;
+            references.ui.gMoneyText.text = ((int)player.money[ResourceType.green]).ToString();
+            references.ui.rMoneyText.text = ((int)player.money[ResourceType.red]).ToString();
+            references.ui.bMoneyText.text = ((int)player.money[ResourceType.blue]).ToString();
+            references.ui.yMoneyText.text = ((int)player.money[ResourceType.yellow]).ToString();
+            references.ui.dMoneyText.text = ((int)player.money[ResourceType.diamond]).ToString();
         }
         public CreepArmy GetCreepArmy() {
             return player.creepArmy;

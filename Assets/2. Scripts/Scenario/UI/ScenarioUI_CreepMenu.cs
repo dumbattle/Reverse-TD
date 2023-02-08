@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using LPE;
 using TMPro;
+using System;
+
 
 namespace Core {
     public class ScenarioUI_CreepMenu : MonoBehaviour, IPointerDownHandler {
@@ -22,7 +24,7 @@ namespace Core {
         public CreepSquad currentSelectedSquad { get; private set; }
 
         int openMode = -1;
-        float openPosition = 0;
+        //float openPosition = 0;
         CreepLoadoutSlot currentSlot;
         ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour currnetButtonEntry;
 
@@ -35,18 +37,19 @@ namespace Core {
             creepEntrySrc.gameObject.SetActive(false);
             buyCreepButton.SetDownListener(InputManager.Set.ButtonDown);
             OpenStatsSubmenu();
+            OpenDetailsTab(false);
         }
         
-        private void Update() {
-            if (openMode == 1 ? openPosition > 1 : openPosition < 0) {
-                return;
-            }
-            openPosition += FrameUtility.DeltaTime(false) * openMode / 0.5f;
+        //private void Update() {
+        //    if (openMode == 1 ? openPosition > 1 : openPosition < 0) {
+        //        return;
+        //    }
+        //    openPosition += FrameUtility.DeltaTime(false) * openMode / 0.5f;
 
-            var pos = details.root.anchoredPosition;
-            pos.x = Mathf.Lerp(-details.root.sizeDelta.x, 0, 1 - (1 - openPosition) * (1 - openPosition));
-            details.root.anchoredPosition = pos;
-        }
+        //    var pos = details.root.anchoredPosition;
+        //    pos.x = Mathf.Lerp(-details.root.sizeDelta.x, 0, 1 - (1 - openPosition) * (1 - openPosition));
+        //    details.root.anchoredPosition = pos;
+        //}
         
         void LateUpdate() {
             creepSelected = null;
@@ -193,7 +196,9 @@ namespace Core {
 
         public void OpenDetailsTab(bool value) {
             openMode = value ? 1 : -1;
-
+            var pos = details.root.anchoredPosition;
+            pos.x = value ? 0 :-details.root.sizeDelta.x;
+            details.root.anchoredPosition = pos;
             if (!value) {
                 loadout.selectPanel.Close();
                 loadout.upgradePanel.Close();
@@ -312,7 +317,7 @@ namespace Core {
 
             // set stat texts
             details.submenu.stats.hpText.text = ((int)c.hp).ToString();
-            details.submenu.stats.moneyText.text = ((int)c.moneyReward).ToString();
+            //details.submenu.stats.moneyText.text = ((int)c.moneyReward).ToString();
             details.submenu.stats.speedText.text = c.speed.ToString("f2");
             details.submenu.stats.countText.text = ((int)c.count).ToString();
             details.submenu.stats.spawnRateText.text = c.spawnRate.ToString("f2");
@@ -320,7 +325,7 @@ namespace Core {
 
             // set stat bars
             details.submenu.stats.hpBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.hp / defaultCreep.hp / 4f), 1, 1);
-            details.submenu.stats.moneyBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.moneyReward / defaultCreep.moneyReward / 4f), 1, 1);
+            //details.submenu.stats.moneyBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.moneyReward / defaultCreep.moneyReward / 4f), 1, 1);
             details.submenu.stats.speedBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.speed / defaultCreep.speed / 4f), 1, 1);
             details.submenu.stats.countBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.count / defaultCreep.count / 4f), 1, 1);
             details.submenu.stats.spawnBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.spawnRate / defaultCreep.spawnRate / 4f), 1, 1);

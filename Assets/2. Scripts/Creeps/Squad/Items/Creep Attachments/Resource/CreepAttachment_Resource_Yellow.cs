@@ -2,26 +2,30 @@
 
 
 namespace Core {
-    public class CreepAttachment_Specialization_Spd2HP : CreepAttachmentDefinition {
-        static CreepAttachment_Specialization_Spd2HP instance = new CreepAttachment_Specialization_Spd2HP();
-        public static CreepAttachment_Specialization_Spd2HP Get() => instance;
+    public class CreepAttachment_Resource_Yellow : CreepAttachmentDefinition {
+        static CreepAttachment_Resource_Yellow instance = new CreepAttachment_Resource_Yellow();
+        public static CreepAttachment_Resource_Yellow Get() => instance;
 
-        CreepAttachment_Specialization_Spd2HP() { }
-        const float SIZE_INCREASE = 15;
+        CreepAttachment_Resource_Yellow() { }
 
 
-        static float[] _statScales = {
-            50,
-            57,
-            65,
-            74,
-            84,
-            95,
-            107,
-            120,
-            134,
-            150,
+        static float[] _amounts = {
+            100,
+            125,
+
+            155,
+            190,
+
+            230,
+            275,
+
+            325,
+            380,
+
+            440,
+            500,
         };
+
 
         static string[] _descCache = {
             GetDescriptionTextWithUpgradeHelper(0, false),
@@ -38,44 +42,23 @@ namespace Core {
         };
 
         static string GetDescriptionTextWithUpgradeHelper(int i, bool upgradeHint) {
-            var amount = _statScales[i];
-            var upAmnt = upgradeHint ? _statScales[i + 1] - amount : 0;
+            var amount = _amounts[i];
+            var upAmnt = upgradeHint ? _amounts[i + 1] - amount : 0;
             return
-                $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>+{amount}%</color>\n" +
-                $"<color=yellow>-{SIZE_INCREASE}%</color>\n" +
-                $"<color=red>-50%</color>\n" +
+                $"{(upgradeHint ? $"(<color=yellow>+{upAmnt}</color>)" : "")}<color=green>{amount}</color>\n" +
 
                 $"<size=10000em> </size>\n" +
 
-                $"Base <color=yellow>HP</color>\n" +
-                $"Base <color=yellow>Size</color>\n" +
-                $"Base <color=yellow>SPD</color>";
+                TMPSpriteAssetUtility.RESOURCE_YELLOW_EMBED;
         }
 
+
         public override string GetName(int level) {
-            return "Tank Gem";
+            return "Yellow Collecter";
         }
 
         public override Sprite GetIcon(int level) {
-            switch (level) {
-                case 1:
-                case 2:
-                    return CreepItemIconResourceCache.GemRedOutlineYellow1;
-                case 3:
-                case 4:
-                    return CreepItemIconResourceCache.GemRedOutlineYellow2;
-                case 5:
-                case 6:
-                    return CreepItemIconResourceCache.GemRedOutlineYellow3;
-                case 7:
-                case 8:
-                    return CreepItemIconResourceCache.GemRedOutlineYellow4;
-                case 9:
-                case 10:
-                    return CreepItemIconResourceCache.GemRedOutlineYellow5;
-            }
-
-            return CreepItemIconResourceCache.GemRedOutlineYellow1;
+            return IconResourceCache.resourceYellow;
         }
 
         public override string GetDescription(int level) {
@@ -83,13 +66,7 @@ namespace Core {
         }
 
         public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage1.AddHpScale(_statScales[level - 1] / 100f);
-            stage1.AddSizeScale(SIZE_INCREASE / 100);
-
-            stage1.AddSpdScale(-1);
-
-            //stage1.AddCountScale(-1);
-            //stage1.AddSpawnRateScale(-1);
+            stage1.AddResourceReward(ResourceType.yellow, _amounts[level - 1]);
         }
 
         protected override ResourceAmount[] InitUpgradeCosts() {

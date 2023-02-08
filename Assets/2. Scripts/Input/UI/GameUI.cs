@@ -8,8 +8,13 @@ namespace Core {
     public class GameUI : MonoBehaviour {
         [Header("HUD")]
         public LPEButtonBehaviour startButton;
-        public TextMeshProUGUI moneyText;
         public Transform healthBarPivot;
+        [Space]
+        public TextMeshProUGUI gMoneyText;
+        public TextMeshProUGUI rMoneyText;
+        public TextMeshProUGUI bMoneyText;
+        public TextMeshProUGUI yMoneyText;
+        public TextMeshProUGUI dMoneyText;
 
         [Header("Menus")]
         public ScenarioUI_CreepMenu creepMenu;

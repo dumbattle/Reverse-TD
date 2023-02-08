@@ -69,8 +69,12 @@ namespace Core {
             return definition.glowColor;
         }
 
-        public float GetMaxMoneyReward() {
-            return definition.moneyReward;
+        public ResourceCollection GetMaxMoneyReward() {
+            return definition.resourceReward;
+        }
+
+        public float NumberOfCreepsInSquad() {
+            return definition.count;
         }
 
         //--------------------------------------------------------------------------------------

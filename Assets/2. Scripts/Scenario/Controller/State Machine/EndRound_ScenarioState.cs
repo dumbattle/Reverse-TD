@@ -19,41 +19,41 @@
         //******************************************************************************
 
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
-            if (mode == 0) {
-                // money reward
-                var m = s.roundManager.GetCurrentRoundMoneyReward();
-                s.playerFunctions.AddMoney(m);
-                s.references.ui.endRoundUnlockBehaviour.AddEntry(IconResourceCache.moneyReward, m.ToString());
+            //if (mode == 0) {
+            //    //// money reward
+            //    //var m = s.roundManager.GetCurrentRoundMoneyReward();
+            //    //s.playerFunctions.AddMoney(m);
+            //    //s.references.ui.endRoundUnlockBehaviour.AddEntry(IconResourceCache.moneyReward, m.ToString());
 
-                // next state
-                s.references.ui.endRoundUnlockBehaviour.StartUnlockAnimation();
-                mode++;
-                return null;
-            }
-            else if (mode == 1) {
-                // wait for animation
-                if (!s.references.ui.endRoundUnlockBehaviour.AnimationDone()) {
-                    return null;
-                }
+            //    // next state
+            //    s.references.ui.endRoundUnlockBehaviour.StartUnlockAnimation();
+            //    mode++;
+            //    return null;
+            //}
+            //else if (mode == 1) {
+            //    // wait for animation
+            //    if (!s.references.ui.endRoundUnlockBehaviour.AnimationDone()) {
+            //        return null;
+            //    }
 
-                mode++;
-            }
-            else if (mode == 2) {
-                // get close input
-                if (InputManager.Continue.requested) {
-                    s.references.ui.endRoundUnlockBehaviour.StartCloseAnimation();
-                    mode++;
-                }
-            }
-            else if (mode == 3) {
-                // wait for animation
-                if (!s.references.ui.endRoundUnlockBehaviour.AnimationDone()) {
-                    return null;
-                }
+            //    mode++;
+            //}
+            //else if (mode == 2) {
+            //    // get close input
+            //    if (InputManager.Continue.requested) {
+            //        s.references.ui.endRoundUnlockBehaviour.StartCloseAnimation();
+            //        mode++;
+            //    }
+            //}
+            //else if (mode == 3) {
+            //    // wait for animation
+            //    if (!s.references.ui.endRoundUnlockBehaviour.AnimationDone()) {
+            //        return null;
+            //    }
 
-                mode++;
-            }
-            else if (mode == 4) {
+            //    mode++;
+            //}
+            //else if (mode == 4) {
                 s.parameters.towerController.OnRoundEnd(s);
 
                 s.roundManager.NextRound();
@@ -61,7 +61,7 @@
 
                 // go to pre round
                 return PreRoundIdle_ScenarioState.Get(s);
-            }
+            //}
 
 
             return null;

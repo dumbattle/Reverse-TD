@@ -87,22 +87,22 @@ namespace Core {
             stage2.AddSpawnRateScale(_statScales[level - 1] / 100f);
         }
 
-        protected override ResourceRequirement[] InitUpgradeCosts() {
+        protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {
-                new ResourceRequirement(green: 100),
-                new ResourceRequirement(green: 125, blue: 50),
+                new ResourceAmount(green: 100),
+                new ResourceAmount(green: 125, blue: 50),
 
-                new ResourceRequirement(green: 150, blue: 100),
-                new ResourceRequirement(green: 175, blue: 150),
+                new ResourceAmount(green: 150, blue: 100),
+                new ResourceAmount(green: 175, blue: 150),
 
-                new ResourceRequirement(green: 200, blue: 200),
-                new ResourceRequirement(green: 210, blue: 250, diamond: 100),
+                new ResourceAmount(green: 200, blue: 200),
+                new ResourceAmount(green: 210, blue: 250, diamond: 100),
 
-                new ResourceRequirement(green: 220, blue: 300, diamond: 150),
-                new ResourceRequirement(green: 230, blue: 350, diamond: 200),
+                new ResourceAmount(green: 220, blue: 300, diamond: 150),
+                new ResourceAmount(green: 230, blue: 350, diamond: 200),
 
-                new ResourceRequirement(green: 240, blue: 400, diamond: 250),
-                new ResourceRequirement(green: 250, blue: 450, diamond: 300),
+                new ResourceAmount(green: 240, blue: 400, diamond: 250),
+                new ResourceAmount(green: 250, blue: 450, diamond: 300),
             };
         }
     }
