@@ -93,20 +93,20 @@ namespace Core {
 
         protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {
-                new ResourceAmount(green: 90, diamond: 25),
-                new ResourceAmount(green: 105, diamond: 75),
+                new ResourceAmount(green: 90),
+                new ResourceAmount(green: 97, yellow: 90),
 
-                new ResourceAmount(green: 120, diamond: 125),
-                new ResourceAmount(green: 135, diamond: 175),
+                new ResourceAmount(green: 108, yellow: 116, blue: 25),
+                new ResourceAmount(green: 123, yellow: 167, blue: 35),
 
-                new ResourceAmount(green: 150, diamond: 225),
-                new ResourceAmount(green: 165, diamond: 275, blue: 100),
+                new ResourceAmount(green: 142, yellow: 243, blue: 50),
+                new ResourceAmount(green: 165, yellow: 344, blue: 70),
 
-                new ResourceAmount(green: 180, diamond: 325, blue: 150),
-                new ResourceAmount(green: 195, diamond: 375, blue: 200),
+                new ResourceAmount(green: 192, yellow: 470, blue: 95),
+                new ResourceAmount(green: 223, yellow: 621, blue: 125),
 
-                new ResourceAmount(green: 210, diamond: 425, blue: 250),
-                new ResourceAmount(green: 225, diamond: 475, blue: 300),
+                new ResourceAmount(green: 258, yellow: 797, blue: 160),
+                new ResourceAmount(green: 300, yellow: 1000, blue: 200),
             };
         }
     }

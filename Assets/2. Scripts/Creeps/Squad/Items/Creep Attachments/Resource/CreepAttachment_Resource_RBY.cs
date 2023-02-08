@@ -10,20 +10,20 @@ namespace Core {
 
 
         static float[] _amounts = {
-            25,
-            35,
-
+            40,
             46,
-            58,
 
-            71,
-            85,
+            55,
+            67,
 
+            82,
             100,
-            116,
 
-            133,
-            150,
+            121,
+            145,
+
+            171,
+            200,
         };
 
 
@@ -78,19 +78,19 @@ namespace Core {
         protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {
                 new ResourceAmount(green: 90, diamond: 25),
-                new ResourceAmount(green: 105, diamond: 75),
+                new ResourceAmount(green: 105, diamond: 55),
 
-                new ResourceAmount(green: 120, diamond: 125),
-                new ResourceAmount(green: 135, diamond: 175),
+                new ResourceAmount(green: 130, diamond: 105),
+                new ResourceAmount(green: 165, diamond: 175),
 
-                new ResourceAmount(green: 150, diamond: 225),
-                new ResourceAmount(green: 165, diamond: 275, blue: 100),
+                new ResourceAmount(green: 210, diamond: 265),
+                new ResourceAmount(green: 265, diamond: 375),
 
-                new ResourceAmount(green: 180, diamond: 325, blue: 150),
-                new ResourceAmount(green: 195, diamond: 375, blue: 200),
+                new ResourceAmount(green: 330, diamond: 505),
+                new ResourceAmount(green: 405, diamond: 655),
 
-                new ResourceAmount(green: 210, diamond: 425, blue: 250),
-                new ResourceAmount(green: 225, diamond: 475, blue: 300),
+                new ResourceAmount(green: 490, diamond: 825),
+                new ResourceAmount(green: 585, diamond: 1015),
             };
         }
 

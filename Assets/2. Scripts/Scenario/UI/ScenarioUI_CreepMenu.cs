@@ -17,7 +17,7 @@ namespace Core {
         public ScenarioUI_CreepMenu_LoadoutSlot_Subpanel loadout;
 
         public LPEButtonBehaviour buyCreepButton;
-        public TextMeshProUGUI butCostText;
+        public TextMeshProUGUI buyCostText;
         public CreepSquad creepSelected { get; private set; }
 
         public CreepSquad currentFamily { get; private set; }
@@ -113,6 +113,8 @@ namespace Core {
             }
 
             buyCreepButton.transform.SetAsLastSibling();
+            var cost = s.playerFunctions.GetNewCreepCost();
+            buyCostText.text = cost[ResourceType.green].ToString();
         }
 
         public void SetCreepDetails(ScenarioInstance s, CreepSquad family) {

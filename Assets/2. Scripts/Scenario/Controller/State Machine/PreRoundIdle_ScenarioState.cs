@@ -30,11 +30,18 @@ namespace Core {
             }
 
             if (creepMenu.buyCreepButton.Clicked) {
-                var newCreep = CreepSelectionUtility.GetRandomNewCreep();
-                var squad = s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
-                squad.Recalculate();
-                creepMenu.ReDrawCreepList(s);
+                var cost = s.playerFunctions.GetNewCreepCost();
+
+
+                if (s.playerFunctions.GetCurrentResources().Satisfies(cost)) {
+                    s.playerFunctions.Spend(cost);
+                    var newCreep = CreepSelectionUtility.GetRandomNewCreep();
+                    var squad = s.playerFunctions.GetCreepArmy().AddNewSquad(newCreep);
+                    squad.Recalculate();
+                    creepMenu.ReDrawCreepList(s);
+                }
             }
+
             var creepSelected = creepMenu.creepSelected;
             if (creepSelected != null) {
                 creepMenu.OpenDetailsTab(true);

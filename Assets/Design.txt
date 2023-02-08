@@ -28,3 +28,30 @@ Resource (Dust?)
     3 Common   - Red/Blue/Yellow
     1 Rare     - Diamond
 
+Aquisition Rate
+    - Level 1  -> 100 (Base line, 1 round max income)
+        - Upgrade Rate?
+            - 2-3  Cheap upgrades/Round
+            - 2-3  Rounds for meddium upgrade
+            - 5-10 Rounds for high tier upgrade
+    - Level 10 -> ???
+
+Cost Distribution
+    Low    -> 0-500
+    Medium -> 500 - 1000
+    High   -> 1000 - 1500
+    Slope  -> ratio of level 10 cost to level 1 cost
+        - High Slope = cost is much cheaper at lower levels
+
+    - Income
+        - Green -> Low {G}
+        - R/B/Y -> High {G}
+        - D     -> Low {R}, {B}, {Y}
+        - RBY   -> Low {G}, Medium{D}, high slope {D}
+    - Specialization
+        - Stat shift -> Low {G}, Low {R/G/B (Down attr)}, High {R/G/B (Up attr)}
+
+    - Tier 1
+        - HP/Spd/Rate -> Low {G}, Low high Slope {R/B/Y}
+        - Count       -> Low {G},  Low {B},  Low {D},
+            - Cost more b/c has high potential synergy with other upgrades

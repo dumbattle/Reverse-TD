@@ -5,6 +5,8 @@ namespace Core {
     public class PlayerFunctions {
         ScenarioUnityReferences references;
         PlayerData player;
+        ResourceCollection newCreepCost = new ResourceCollection();
+
 
         public PlayerFunctions(ScenarioUnityReferences references, PlayerData player) {
             this.references = references;
@@ -31,6 +33,12 @@ namespace Core {
         }
         public CreepArmy GetCreepArmy() {
             return player.creepArmy;
+        }
+        public ResourceAmount GetNewCreepCost() {
+            newCreepCost.Reset();
+            newCreepCost[ResourceType.green] = 100 + (player.creepArmy.count - 1) * 25;
+            return newCreepCost;
+
         }
         public GlobalCreeepUpgrades GetGlobalCreeepUpgrades() {
             return player.globalCreeepUpgrades;

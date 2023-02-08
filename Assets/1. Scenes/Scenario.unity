@@ -462,8 +462,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: 18.5, y: 0}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &49098385
 MonoBehaviour:
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1161201145128540330, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
+  m_Sprite: {fileID: -6931339683150358059, guid: 24e89de11ef7ffe4782e70aca344df08, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15890,7 +15890,7 @@ MonoBehaviour:
         tier3_B: {fileID: 1514781563}
   loadout: {fileID: 1344010280}
   buyCreepButton: {fileID: 1314119667}
-  butCostText: {fileID: 345359874}
+  buyCostText: {fileID: 345359874}
 --- !u!1 &1682837824
 GameObject:
   m_ObjectHideFlags: 0
