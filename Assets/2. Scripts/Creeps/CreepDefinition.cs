@@ -19,7 +19,7 @@ namespace Core {
         public float count;
         public float spawnRate;
         public float spawnInterval => 1 / spawnRate;
-
+        public float damageScale= 1;
         //----------------------------------
         // Special
         //----------------------------------

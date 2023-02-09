@@ -108,7 +108,7 @@ namespace Core {
 
         public void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
             var h = main2Health[mainTower];
-            h.DealDamage(c.health.current);
+            h.DealDamage( c.GetTowerDamage());
             SetTotalHpScale(s);
 
             if (h.current <= 0 && !mainTower.IsDefeated()) {

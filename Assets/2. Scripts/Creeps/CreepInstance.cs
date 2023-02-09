@@ -155,6 +155,9 @@ namespace Core {
         // Query
         //**********************************************************************************************************
 
+        public int GetTowerDamage() {
+            return Mathf.CeilToInt(health.current * definition.damageScale);
+        }
         public float GetCurrentSpeed() {
             var hpScale = Mathf.Lerp(definition.speedMinHpScale, 1, health.Ratio());
             return definition.speed / (slowLevel + 1f) * hpScale;

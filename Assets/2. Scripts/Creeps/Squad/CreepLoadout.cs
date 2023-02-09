@@ -7,8 +7,8 @@
         public CreepLoadoutSlot tier1_2 { get; private set; } = GetTier1Slot();
         public CreepLoadoutSlot tier1_3 { get; private set; } = GetTier1Slot();
 
-        public CreepLoadoutSlot tier2_1 { get; private set; } = new CreepLoadoutSlot();
-        public CreepLoadoutSlot tier2_2 { get; private set; } = new CreepLoadoutSlot();
+        public CreepLoadoutSlot tier2_1 { get; private set; } = GetTier2Slot();
+        public CreepLoadoutSlot tier2_2 { get; private set; } = GetTier2Slot();
 
         public CreepLoadoutSlot tier3_A { get; private set; } = new CreepLoadoutSlot();
         public CreepLoadoutSlot tier3_B { get; private set; } = new CreepLoadoutSlot();
@@ -57,7 +57,13 @@
                 CreepAttachment_Tier1_HP.Get(),
                 CreepAttachment_Tier1_SPD.Get(),
                 CreepAttachment_Tier1_SpawnRate.Get(),
-                CreepAttachment_Tier1_Count.Get()
+                CreepAttachment_Tier1_Count.Get(),
+                CreepAttachment_Tier1_Damage.Get()
+            );
+        }
+        static CreepLoadoutSlot GetTier2Slot() {
+            return new CreepLoadoutSlot(
+                CreepAttachment_Tier2_Regen.Get()
             );
         }
     }

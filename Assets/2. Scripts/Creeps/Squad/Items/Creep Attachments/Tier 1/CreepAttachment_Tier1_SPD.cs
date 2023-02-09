@@ -3,6 +3,7 @@
 
 
 namespace Core {
+
     public class CreepAttachment_Tier1_SPD : CreepAttachmentDefinition {
         static CreepAttachment_Tier1_SPD instance = new CreepAttachment_Tier1_SPD();
         public static CreepAttachment_Tier1_SPD Get() => instance;

@@ -83,6 +83,12 @@ namespace Core {
             if (creepMenu.details.submenu.loadout.resource.button.Clicked) {
                 creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.resource, creepMenu.details.submenu.loadout.resource);
             }
+            if (creepMenu.details.submenu.loadout.tier2_1.button.Clicked) {
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.tier2_1, creepMenu.details.submenu.loadout.tier2_1);
+            }
+            if (creepMenu.details.submenu.loadout.tier2_2.button.Clicked) {
+                creepMenu.OpenLoadoutSlot(s, creepMenu.currentFamily.loadout.tier2_2, creepMenu.details.submenu.loadout.tier2_2);
+            }
 
             // select new attachment
             if (creepMenu.loadout.selectPanel.applyButton.Clicked) {

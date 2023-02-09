@@ -10,6 +10,7 @@
         StatEntry spawnRate = new StatEntry();
         StatEntry count = new StatEntry();
         StatEntry spd = new StatEntry();
+        StatEntry dmg = new StatEntry();
         StatEntry shrinkMinHp = new StatEntry();
         StatEntry speedMinHpScale = new StatEntry();
 
@@ -28,6 +29,7 @@
             def.spawnRate *= spawnRate.GetRatio();
             def.count *= count.GetRatio();
             def.speed *= spd.GetRatio();
+            def.damageScale *= dmg.GetRatio();
             def.radius = UnityEngine.Mathf.Min(def.radius, 0.45f);
             def.hpRegenRate += regenRate;
             def.shrinkMinHp *= shrinkMinHp.GetRatio();
@@ -41,10 +43,12 @@
             spawnRate.Reset();
             count.Reset();
             spd.Reset();
+            dmg.Reset();
             shrinkMinHp.Reset();
             speedMinHpScale.Reset();
             deathSpawnLevel = 0;
             carrierSpawnLevel = 0;
+            regenRate = 0;
         }
 
         //***************************************************************************************************
@@ -95,6 +99,13 @@
         /// </summary>
         public void AddSpdScale(float scale) {
             spd.AddScale(scale);
+        }
+
+        /// <summary>
+        /// Negative to indicate decrease
+        /// </summary>
+        public void AddDamage(float scale) {
+            dmg.AddScale(scale);
         }
 
         /// <summary>
