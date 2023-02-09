@@ -32,7 +32,6 @@ namespace Core {
             if (creepMenu.buyCreepButton.Clicked) {
                 var cost = s.playerFunctions.GetNewCreepCost();
 
-
                 if (s.playerFunctions.GetCurrentResources().Satisfies(cost)) {
                     s.playerFunctions.Spend(cost);
                     var newCreep = CreepSelectionUtility.GetRandomNewCreep();

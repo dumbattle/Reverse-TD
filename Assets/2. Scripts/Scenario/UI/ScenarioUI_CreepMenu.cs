@@ -24,7 +24,6 @@ namespace Core {
         public CreepSquad currentSelectedSquad { get; private set; }
 
         int openMode = -1;
-        //float openPosition = 0;
         CreepLoadoutSlot currentSlot;
         ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour currnetButtonEntry;
 
@@ -124,7 +123,7 @@ namespace Core {
             }
             currentFamily = family;
             var c = family.actualDefinition;
-
+            HighlightCreepSelection(family);
             SelectParentOfCurrentSquad(s);
         }
 
@@ -205,12 +204,15 @@ namespace Core {
                 loadout.selectPanel.Close();
                 loadout.upgradePanel.Close();
                 LayoutRebuilder.ForceRebuildLayoutImmediate(loadout.subpanelRoot);
+                HighlightCreepSelection(null);
             }
         }
+        
         public void OpenAttachmentmentReplace(ScenarioInstance s) {
             loadout.selectPanel.Open(s, currentSlot);
             LayoutRebuilder.ForceRebuildLayoutImmediate(loadout.subpanelRoot);
         }
+        
         /// <summary>
         /// TODO - REFACTOR
         /// </summary>
@@ -385,6 +387,11 @@ namespace Core {
             details.submenu.loadout.tier3_B.SetSelected(false);
         }
 
+        void HighlightCreepSelection(CreepSquad s) {
+            foreach (var e in creepEntries) {
+                e.frameImage.sprite = e.squad == s ? e.selectedSprite : e.unselectedSprite;
+            }
+        }
         [System.Serializable]
         public struct CreepDetailsReferences {
             public RectTransform root;

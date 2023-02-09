@@ -111,11 +111,16 @@ namespace MainMenu {
         }
         [Serializable]
         public struct MainButtons {
+            public Sprite unselectedFrame;
+            public Sprite selectedFrame;
+            
             public LPEButtonBehaviour campaignButton;
-            public RectTransform campaignRect;
+            public Image campaignButtonFrame;
+            //public RectTransform campaignRect;
 
             public LPEButtonBehaviour endlessButton;
-            public RectTransform endlessRect;
+            public Image endlessButtonFrame;
+            //public RectTransform endlessRect;
         }
     }
 }

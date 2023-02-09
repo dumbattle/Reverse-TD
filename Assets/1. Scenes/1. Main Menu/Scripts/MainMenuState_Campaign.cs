@@ -11,13 +11,13 @@ namespace MainMenu {
 
         static MainMenuState_Campaign instance = new MainMenuState_Campaign();
         public static MainMenuState_Campaign Get(MainMenu_Main m) {
-            m.mainButtons.campaignRect.anchoredPosition = new Vector2(50, 0);
+            m.mainButtons.campaignButtonFrame.sprite = m.mainButtons.selectedFrame;
             m.campaignMenu.Open();
             return instance;
         }
 
         MainMenuState_Campaign() { }
-        
+
         //**********************************************************************************************
         // Implementation
         //**********************************************************************************************
@@ -25,13 +25,13 @@ namespace MainMenu {
         public IFSM_State<MainMenu_Main> Update(MainMenu_Main m) {
             // switch to endless menu
             if (MainMenuInputManager.MainButtons.Endless || m.mainButtons.endlessButton.Down) {
-                m.mainButtons.campaignRect.anchoredPosition = new Vector2(0, 0);
+                m.mainButtons.campaignButtonFrame.sprite = m.mainButtons.unselectedFrame;
                 m.campaignMenu.rootObject.SetActive(false);
                 return MainMenuState_Endless.Get(m);
             }
             // cancel
             if (MainMenuInputManager.cancel) {
-                m.mainButtons.campaignRect.anchoredPosition = new Vector2(0, 0);
+                m.mainButtons.campaignButtonFrame.sprite = m.mainButtons.unselectedFrame;
                 m.campaignMenu.rootObject.SetActive(false);
                 return MainMenuState_MainMenu.Get();
             }

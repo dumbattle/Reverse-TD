@@ -34,10 +34,10 @@ TextureImporter:
     second: Neon Blue Right Frame
   - first:
       213: 8391660652416901024
-    second: UI_10
+    second: Neon Inner Cyan
   - first:
       213: 9094600903545770030
-    second: UI_11
+    second: Neon Cyan TopRight Outer
   - first:
       213: -4532114073746202998
     second: UI_12
@@ -782,6 +782,48 @@ TextureImporter:
       bones: []
       spriteID: 977855523f4e53cf0800000000000000
       internalID: -273060469431498887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Neon Inner Cyan
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 79
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 17, y: 17, z: 17, w: 17}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af9ee607ea257470800000000000000
+      internalID: 8391660652416901024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Neon Cyan TopRight Outer
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 144
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 32, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e20dac52653863e70800000000000000
+      internalID: 9094600903545770030
       vertices: []
       indices: 
       edges: []
