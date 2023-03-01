@@ -26,7 +26,7 @@
             def.radius *= size.GetRatio();
             def.hp *= hp.GetRatio();
             def.resourceReward.Add(resourceReward);
-            def.spawnRate *= spawnRate.GetRatio();
+            //def.spawnRate *= spawnRate.GetRatio();
             def.count *= count.GetRatio();
             def.speed *= spd.GetRatio();
             def.damageScale *= dmg.GetRatio();

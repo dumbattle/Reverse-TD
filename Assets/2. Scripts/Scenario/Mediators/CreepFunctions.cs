@@ -39,11 +39,11 @@ namespace Core {
 
                     if (collision) {
                         // money
-                        float hpScale = (float)c.health.current / c.health.max;
-                        s.playerFunctions.AddMoney(c.GetMaxMoneyReward(), 1f/ c.NumberOfCreepsInSquad());
-
+                        s.playerFunctions.AddMoney(c.GetMaxMoneyReward(), c.IncomeMultiplier()/ c.NumberOfCreepsInSquad());
+                        c.squad.roundStatistics.AddResourceEarned(c.GetMaxMoneyReward(), c.IncomeMultiplier() / c.NumberOfCreepsInSquad());
                         // notify tower controller
-                        s.parameters.towerController.OnCreepReachMainTower(s, c, mt);
+                        var dmg = s.parameters.towerController.OnCreepReachMainTower(s, c, mt);
+                        c.squad.roundStatistics.AddDamageDealtTower(dmg);
 
                         // creep done
                         DestroyCreep(c);
@@ -126,7 +126,7 @@ namespace Core {
 
         public void DamageCreep(CreepInstance c, int amnt) {
             c.health.DealDamage(amnt);
-
+            c.squad.roundStatistics.AddDamageTaken(amnt);
             if (c.health.current <= 0) {
                 var deathSplitDef = c.GetDeathSplitDefinition();
 
@@ -138,7 +138,7 @@ namespace Core {
                         }
                         count--;
 
-                        var child = CreepInstance.GetChild(s, deathSplitDef, c);
+                        var child = CreepInstance.GetChild(s, deathSplitDef, c, c.squad.GetDeathSplitSquad());
                         AddCreep(child);
                     }
                 }

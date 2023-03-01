@@ -79,11 +79,11 @@ namespace Core {
                 if (isDragging) {
                     isDragging = false;
                 }
-                //// -- not draging, get tile select
-                //else {
-                //    var t = b.mapQueury.WorldToTileIndex(b.parameters.mainCam.ScreenToWorldPoint(lastDragPosition));
-                //    InputManager.Set.SelectTile(t);
-                //}
+                // -- not draging, get tile select
+                else {
+                    var t = s.mapQuery.WorldToTileIndex(s.references.mainCamera.ScreenToWorldPoint(lastDragPosition));
+                    InputManager.Set.TileSelect(t);
+                }
             }
 
             InputManager.Set.ZoomCamera(-Input.mouseScrollDelta.y);

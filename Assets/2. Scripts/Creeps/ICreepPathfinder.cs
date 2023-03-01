@@ -6,5 +6,6 @@ namespace Core {
     public interface ICreepPathfinder {
         List<Vector2Int> GetPath(ScenarioInstance s);
         void DrawBehaviours(ScenarioInstance s);
+        List<Vector2Int> GetStartIndicies();
     }
 }

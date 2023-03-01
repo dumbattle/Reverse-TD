@@ -106,15 +106,17 @@ namespace Core {
             UpgradeTowers(s);
         }
 
-        public void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
+        public float OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
+            var dmg = c.GetTowerDamage();
             var h = main2Health[mainTower];
-            h.DealDamage( c.GetTowerDamage());
+            h.DealDamage(dmg);
             SetTotalHpScale(s);
 
             if (h.current <= 0 && !mainTower.IsDefeated()) {
                 mainTower.SetAsDefeated();
                 lastDestroyedTower = mainTower;
             }
+            return dmg;
         }
        
         public List<IMainTower> GetAllMainTowers() {

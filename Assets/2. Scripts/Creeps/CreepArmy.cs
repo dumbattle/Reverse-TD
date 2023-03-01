@@ -14,11 +14,11 @@ namespace Core {
             this.levelModifiers = levelModifiers;
             AddNewSquad(CreepSelectionUtility.GetInitialCreep());
 
-            defaultSquad = new CreepSquad(CreepSelectionUtility.GetInitialCreep(), globalUpgrades, levelModifiers);
+            defaultSquad = new CreepSquad(CreepSelectionUtility.GetInitialCreep());
         }
 
         public CreepSquad AddNewSquad(CreepDefinition cdef) {
-            var result = new CreepSquad(cdef, globalUpgrades, levelModifiers);
+            var result = new CreepSquad(cdef);
             squads.Add(result);
 
             return result;

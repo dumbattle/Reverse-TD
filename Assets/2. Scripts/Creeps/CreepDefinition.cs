@@ -13,13 +13,16 @@ namespace Core {
 
         public float hp;
         public float speed;
+        public float count;
+        public float spawnRate;
+        public float damageScale = 1;
+        public float incomeScale = 1;
+
         public float radius;
         public ResourceCollection resourceReward = new ResourceCollection();
 
-        public float count;
-        public float spawnRate;
         public float spawnInterval => 1 / spawnRate;
-        public float damageScale= 1;
+
         //----------------------------------
         // Special
         //----------------------------------
@@ -34,6 +37,7 @@ namespace Core {
         //***********************************************************************
         // Helpers
         //***********************************************************************
+        
         public CreepDefinition CreateCopy() {
             var result = new CreepDefinition();
             result.CopyFrom(this);

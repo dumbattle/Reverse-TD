@@ -5,12 +5,19 @@ using System.Collections.Generic;
 namespace Core {
     public class SetCreepPathfinder : ICreepPathfinder {
         List<List<Vector2Int>> paths = new List<List<Vector2Int>>();
+        List<Vector2Int> startIndicies = new List<Vector2Int>();
         bool randomizeOrder;
         int currentIndex = -1;
 
         public SetCreepPathfinder(bool randomizeOrder, params List<Vector2Int>[] paths) {
             this.randomizeOrder = randomizeOrder;
             this.paths.AddRange(paths);
+
+            foreach (var p in paths) {
+                if (!startIndicies.Contains(p[0])) {
+                    startIndicies.Add(p[0]);
+                }
+            }
         }
 
         public List<Vector2Int> GetPath(ScenarioInstance s) {
@@ -47,5 +54,10 @@ namespace Core {
                 }
             }
         }
+   
+        public List<Vector2Int> GetStartIndicies() {
+            return startIndicies;
+        }
+
     }
 }

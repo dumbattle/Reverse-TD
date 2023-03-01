@@ -76,9 +76,11 @@ namespace Core {
             UpgradeTowers2(s);
         }
 
-        public void OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
-            health.DealDamage(c.health.current);
+        public float OnCreepReachMainTower(ScenarioInstance s, CreepInstance c, IMainTower mainTower) {
+            var dmg = c.GetTowerDamage();
+            health.DealDamage(dmg);
             s.references.ui.healthBarPivot.transform.localScale = new Vector3((float)health.current / health.max, 1, 1);
+            return dmg;
         }
 
         public List<IMainTower> GetAllMainTowers() {

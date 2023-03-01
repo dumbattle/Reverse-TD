@@ -97,7 +97,7 @@
             var squad = army.GetSquad(currentSquad);
             
             // next creep
-            s.creepFunctions.AddCreep(CreepInstance.Get(s, squad.actualDefinition));
+            s.creepFunctions.AddCreep(CreepInstance.Get(s, squad.actualDefinition, squad));
 
             // update
             

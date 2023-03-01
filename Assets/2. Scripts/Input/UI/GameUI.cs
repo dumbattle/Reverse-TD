@@ -17,9 +17,10 @@ namespace Core {
         public TextMeshProUGUI dMoneyText;
 
         [Header("Menus")]
-        public ScenarioUI_CreepMenu creepMenu;
+        //public ScenarioUI_CreepMenu creepMenu;
+        public CreepMenu creepMenu;
+
         [Header("Other")]
-        public EndRoundUnlockBehaviour endRoundUnlockBehaviour;
         public Image fadeOverlay;
 
 

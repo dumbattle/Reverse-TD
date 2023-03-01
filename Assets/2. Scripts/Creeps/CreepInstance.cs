@@ -9,8 +9,9 @@ namespace Core {
         static ObjectPool<CreepInstance> _pool = new ObjectPool<CreepInstance>(() => new CreepInstance());
         CreepInstance() { }
 
-        public static CreepInstance Get(ScenarioInstance s, CreepDefinition def) {
+        public static CreepInstance Get(ScenarioInstance s, CreepDefinition def, CreepSquad squad) {
             var result = _pool.Get();
+            result.squad = squad;
             result.definition = def;
             result.health = new Health((int)def.hp);
             result.direction = new Vector2(0, 0);
@@ -27,8 +28,9 @@ namespace Core {
             result.carrierSpawnTimer = ((def.carrierDefinition?.spawnInterval) ?? 0) * (Random.value / 2);
             return result;
         }
-        public static CreepInstance GetChild(ScenarioInstance s, CreepDefinition def, CreepInstance parent) {
+        public static CreepInstance GetChild(ScenarioInstance s, CreepDefinition def, CreepInstance parent, CreepSquad squad) {
             var result = _pool.Get();
+            result.squad = squad;
             result.definition = def;
             result.health = new Health((int)def.hp);
             result.direction = new Vector2(0, 0);
@@ -52,6 +54,8 @@ namespace Core {
         public Health health;
         public float radius => GetCurrentRadius();
         CreepDefinition definition;
+        
+        public CreepSquad squad { get; private set; }
 
         //--------------------------------------------------------------------------------------
         // Accessors
@@ -72,6 +76,9 @@ namespace Core {
         public ResourceCollection GetMaxMoneyReward() {
             return definition.resourceReward;
         }
+        public float IncomeMultiplier() {
+            return definition.incomeScale;
+        }
 
         public float NumberOfCreepsInSquad() {
             return definition.count;
@@ -86,10 +93,12 @@ namespace Core {
         //.............................................................................
         // Pathfinding
         //.............................................................................
+       
         float distTraveled;
         Vector2 offset;
 
         List<Vector2Int> path;
+       
         //.............................................................................
         // Pathfinding
         //.............................................................................
@@ -141,7 +150,7 @@ namespace Core {
                 if (carrierSpawnTimer < 0) {
                     carrierSpawnTimer += definition.carrierDefinition.spawnInterval;
 
-                    var child = GetChild(s, definition.carrierDefinition, this);
+                    var child = GetChild(s, definition.carrierDefinition, this, squad.GetCarrierSquad());
                     s.creepFunctions.AddCreep(child);
                 }
             }

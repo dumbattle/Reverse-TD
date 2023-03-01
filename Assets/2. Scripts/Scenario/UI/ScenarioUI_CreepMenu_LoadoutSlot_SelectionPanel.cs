@@ -75,6 +75,7 @@ namespace Core {
         }
 
         public void Close() {
+            rt ??= GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(0, rt.sizeDelta.y);
         }
 

@@ -13,6 +13,11 @@ namespace Core {
                 InputManager.ZoomCamera.val = val;
             }
 
+            public static void TileSelect(Vector2Int index) {
+                InputManager.TileSelect.index = index;
+                InputManager.TileSelect.yes = true;
+            }
+
             public static void ButtonDown() {
                 InputManager.ButtonDown.yes = true;
             }
@@ -38,6 +43,7 @@ namespace Core {
             }
         }
 
+        // set
         public static class Consume {
             public static void Cancel() {
                 InputManager.Cancel.requested = false;
@@ -52,8 +58,9 @@ namespace Core {
             Start.requested = false;
             Continue.requested = false;
             Cancel.requested = false;
-            PreRoundUI.creepMenuOpen= false;
+            PreRoundUI.creepMenuOpen = false;
             PreRoundUI.shopMenuOpen = false;
+            InputManager.TileSelect.yes = false;
         }
 
         // inputs
@@ -67,6 +74,10 @@ namespace Core {
             public static bool yes => val != 0;
         }
 
+        public static class TileSelect {
+            public static bool yes;
+            public static Vector2Int index;
+        }
 
         /// <summary>
         /// Whenever any button is pressed (not released)

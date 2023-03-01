@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 namespace Core {
     public class StochasticCreepPathfinder : ICreepPathfinder {
+
+        public List<Vector2Int> GetStartIndicies() {
+            return null;
+        }
         public List<Vector2Int> GetPath(ScenarioInstance s) {
             var result = new List<Vector2Int>();
             result.Add(s.mapQuery.GetRandomCreepSpawn());

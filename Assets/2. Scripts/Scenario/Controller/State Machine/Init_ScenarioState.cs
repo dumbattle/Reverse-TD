@@ -29,10 +29,10 @@ namespace Core {
             s.playerFunctions.GetCreepArmy().Init(s.playerFunctions.GetGlobalCreeepUpgrades(), s.parameters.creepModifiers);
 
             // TODO refactor out
-            s.references.ui.endRoundUnlockBehaviour.continueButton.SetClickListener(InputManager.Set.Continue);
             s.references.ui.startButton.SetDownListener(InputManager.Set.ButtonDown);
             s.references.ui.startButton.SetClickListener(InputManager.Set.Start);
-            s.references.ui.creepMenu.ReDrawCreepList(s);
+            //s.references.ui.creepMenu.ReDrawCreepList(s);
+            s.references.ui.creepMenu.Close();
 
 
             s.parameters.creepPathfinder.DrawBehaviours(s);

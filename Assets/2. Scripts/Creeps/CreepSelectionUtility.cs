@@ -40,7 +40,7 @@ namespace Core {
             result.damageScale = 1;
 
             result.count = 20;
-            result.spawnRate = result.count / 5f;
+            result.spawnRate = 5f;
             result.sprite = sprites[Random.Range(0, sprites.Length)];
             result.glowColor = Random.ColorHSV(0, 1, .5f, 1, 1, 1);
             return result;

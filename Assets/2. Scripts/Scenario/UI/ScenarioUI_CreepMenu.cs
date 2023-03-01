@@ -187,7 +187,12 @@ namespace Core {
             details.submenu.stats.rootObj.SetActive(true);
             details.buttons.statsSubmenuSelection.sprite = details.buttons.selectedSprite;
         }
-        
+        public void OpenInfoSubmenu() {
+            CloseAllSubmenus();
+            details.submenu.info.rootObj.SetActive(true);
+            details.buttons.infoSubmenuSelection.sprite = details.buttons.selectedSprite;
+        }
+
         public void OpenAttachmentsSubmenu() {
             DeselectLoadoutSelection();
             CloseAllSubmenus();
@@ -265,9 +270,11 @@ namespace Core {
 
         void CloseAllSubmenus() {
             details.submenu.stats.rootObj.SetActive(false);
+            details.submenu.info.rootObj.SetActive(false);
             details.submenu.loadout.rootObj.SetActive(false);
 
             details.buttons.statsSubmenuSelection.sprite = details.buttons.unselectedSprite;
+            details.buttons.infoSubmenuSelection.sprite = details.buttons.unselectedSprite;
             details.buttons.attachmentsSubmenuSelection.sprite = details.buttons.unselectedSprite;
         }
         
@@ -330,7 +337,7 @@ namespace Core {
             //details.submenu.stats.moneyText.text = ((int)c.moneyReward).ToString();
             details.submenu.stats.speedText.text = c.speed.ToString("f2");
             details.submenu.stats.countText.text = ((int)c.count).ToString();
-            details.submenu.stats.spawnRateText.text = c.spawnRate.ToString("f2");
+            //details.submenu.stats.spawnRateText.text = c.spawnRate.ToString("f2");
             details.submenu.stats.sizeText.text = (c.radius * 2).ToString("f2");
 
             // set stat bars
@@ -338,7 +345,7 @@ namespace Core {
             //details.submenu.stats.moneyBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.moneyReward / defaultCreep.moneyReward / 4f), 1, 1);
             details.submenu.stats.speedBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.speed / defaultCreep.speed / 4f), 1, 1);
             details.submenu.stats.countBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.count / defaultCreep.count / 4f), 1, 1);
-            details.submenu.stats.spawnBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.spawnRate / defaultCreep.spawnRate / 4f), 1, 1);
+            //details.submenu.stats.spawnBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.spawnRate / defaultCreep.spawnRate / 4f), 1, 1);
             details.submenu.stats.sizeBarPivot.transform.localScale = new Vector3(Mathf.Clamp01(c.radius / defaultCreep.radius / 4f), 1, 1);
         }
 
@@ -392,6 +399,7 @@ namespace Core {
                 e.frameImage.sprite = e.squad == s ? e.selectedSprite : e.unselectedSprite;
             }
         }
+        
         [System.Serializable]
         public struct CreepDetailsReferences {
             public RectTransform root;
@@ -430,8 +438,10 @@ namespace Core {
 
                 [Header("Sub Menu")]
                 public LPEButtonBehaviour statsSubmenuButton;
+                public LPEButtonBehaviour infoSubmenuButton;
                 public LPEButtonBehaviour attachmentsSubmenuButton;
                 public Image statsSubmenuSelection;
+                public Image infoSubmenuSelection;
                 public Image attachmentsSubmenuSelection;
 
             }
@@ -439,6 +449,7 @@ namespace Core {
             [System.Serializable]
             public struct Submenu {
                 public Stats stats;
+                public Info info;
                 public Loadout loadout;
 
                 [System.Serializable]
@@ -457,6 +468,10 @@ namespace Core {
                     public Transform spawnBarPivot;
                     public TextMeshProUGUI sizeText;
                     public Transform sizeBarPivot;
+                }
+                [System.Serializable]
+                public struct Info {
+                    public GameObject rootObj;
                 }
 
                 [System.Serializable]
