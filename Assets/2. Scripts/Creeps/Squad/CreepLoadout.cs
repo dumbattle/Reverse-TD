@@ -1,7 +1,7 @@
 ﻿namespace Core {
     public class CreepLoadout {
-        public CreepLoadoutSlot resource { get; private set; } = GetResourceSlot();
-        public CreepLoadoutSlot specialization { get; private set; } = GetSpecializationSlot();
+        public CreepLoadoutSlot loot { get; private set; } = GetResourceSlot();
+        public CreepLoadoutSlot build { get; private set; } = GetSpecializationSlot();
         public CreepLoadoutSlot armor { get; private set; } = new CreepLoadoutSlot();
 
         public CreepLoadoutSlot attr1 { get; private set; } = new CreepLoadoutSlot();
@@ -12,8 +12,8 @@
         public CreepLoadoutSlot spec2 { get; private set; } = new CreepLoadoutSlot();
 
         public void Apply(CreepStatSet stats) {
-            resource.Apply(stats);
-            specialization.Apply(stats);
+            loot.Apply(stats);
+            build.Apply(stats);
             armor.Apply(stats);
 
             attr1.Apply(stats);
@@ -27,15 +27,14 @@
 
         static CreepLoadoutSlot GetSpecializationSlot() {
             var result = new CreepLoadoutSlot(
-                //CreepAttachment_Specialization_Spd2HP.Get(),
-                CreepAttachment_Specialization_Count2HP.Get()
-                //CreepAttachment_Specialization_HP2Count.Get(),
+                CreepAttachment_Specialization_Spd2HP.Get(),
+                CreepAttachment_Specialization_Count2HP.Get(),
+                CreepAttachment_Specialization_HP2Count.Get(),
 
-            //CreepAttachment_Specialization_Spd2Count.Get(),
-            //CreepAttachment_Specialization_HP2SPD.Get(),
-            //CreepAttachment_Specialization_Count2SPD.Get()
+                CreepAttachment_Specialization_Spd2Count.Get(),
+                CreepAttachment_Specialization_HP2SPD.Get(),
+                CreepAttachment_Specialization_Count2SPD.Get()
             );
-            result.currentAttactment.ResetAttachment(CreepAttachment_Specialization_Count2HP.Get());
             return result;
         }
         static CreepLoadoutSlot GetResourceSlot() {

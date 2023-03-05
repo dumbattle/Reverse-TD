@@ -22,9 +22,29 @@ namespace GameUI.CreepMenus {
 
         public CreepLoadout_DetailsPanel detailsPanel;
 
-        public (CreepMenuLoadoutEntryBehaviour behaviour, CreepLoadoutSlot loadoutSlot) CheckSelection(CreepLoadout l) {
+        public void Init() {
+            lootEntry.InitSelector(new CreepLoadoutSlotSelector_Loot());
+            classEntry.InitSelector(new CreepLoadoutSlotSelector_Build());
+        }
+
+        public void Open(ScenarioInstance s, CreepLoadout l) {
+            root.gameObject.SetActive(true);
+            detailsPanel.Close();
+            Redraw(s, l);
+        }
+
+        public void Close() {
+            root.gameObject.SetActive(false);
+            detailsPanel.Close();
+        }
+
+        public void Redraw(ScenarioInstance s, CreepLoadout l) {
+            lootEntry.Set(s, l);
+            classEntry.Set(s, l);
+        }
+        public CreepMenuLoadoutEntryBehaviour CheckSelection(CreepLoadout l) {
             if (lootEntry.Clicked()) {
-                return (lootEntry, l.resource);
+                return lootEntry;
             }
 
             //if (armorEntry.Clicked()) {
@@ -32,7 +52,7 @@ namespace GameUI.CreepMenus {
             //}
 
             if (classEntry.Clicked()) {
-                return (classEntry, l.specialization);
+                return classEntry;
             }
 
             //if (attr1Entry.Clicked()) {
@@ -55,25 +75,7 @@ namespace GameUI.CreepMenus {
             //    return (special2Entry, l.spec2);
             //}
 
-            return (null, null);
-        }
-        
-
-
-        public void Open(ScenarioInstance s, CreepLoadout l) {
-            root.gameObject.SetActive(true);
-            detailsPanel.Close();
-            Redraw(s, l);
-        }
-
-        public void Close() {
-            root.gameObject.SetActive(false);
-            detailsPanel.Close();
-        }
-
-        public void Redraw(ScenarioInstance s, CreepLoadout l) {
-            lootEntry.Set(s, l.resource);
-            classEntry.Set(s, l.specialization);
+            return null;
         }
 
     }
@@ -153,7 +155,7 @@ namespace GameUI.CreepMenus {
             purchaseText.text =  l.currentAttactment.definition == null ? "Apply" : "Replace";
 
             replaceButton.gameObject.SetActive(true);
-            replaceText.text = "Back"; 
+            replaceText.text = l.currentAttactment.definition == null ? "Clost" : "Back"; 
             leftButton.gameObject.SetActive(true);
             rightButton.gameObject.SetActive(true);
         }
@@ -194,5 +196,4 @@ namespace GameUI.CreepMenus {
             return 0;
         }
     }
-
 }
