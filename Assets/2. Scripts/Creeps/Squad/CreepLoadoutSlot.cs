@@ -6,12 +6,12 @@
         public CreepLoadoutSlot(params CreepAttachmentDefinition[] allowed) {
             allowedAttachments = allowed;
         }
-        public void GetApplication(CreepStatModification stage1, CreepStatModification stage2) {
+        public void Apply(CreepStatSet stats) {
             if (currentAttactment.definition == null) {
                 return;
             }
 
-            currentAttactment.definition.ApplyModification(currentAttactment.level, stage1, stage2);
+            currentAttactment.definition.ApplyModification(currentAttactment.level, stats);
         }
     }
 }

@@ -59,12 +59,13 @@ namespace Core {
             ReDraw();
         }
 
-        public void SetPageToCreep(CreepArmy army, CreepSquad squad) {
+        public void SetPageToCreep(CreepSquad squad) {
             for (int i = 0; i < army.count; i++) {
                 var s = army.GetSquad(i);
 
                 if (s == squad) {
                     page = i / entries.Length;
+                    break;
                 }
             }
             ReDraw();

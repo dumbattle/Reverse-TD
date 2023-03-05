@@ -11,6 +11,31 @@ namespace Core {
         public BasicCreepStat spawnRate { get; private set; } = BasicCreepStat.NewSpawnRate();
         public BasicCreepStat damageMult { get; private set; } = BasicCreepStat.NewDamageMult();
         public BasicCreepStat incomeMult { get; private set; } = BasicCreepStat.NewIncomeMult();
+
+        public ResourceCollection income { get; private set; } = new ResourceCollection();
+        public float radius { get; private set; } = 0.25f;
+
+
+        public void ResetExternalModifications() {
+            hp.ResetExternalModifications();
+            spd.ResetExternalModifications();
+            count.ResetExternalModifications();
+            spawnRate.ResetExternalModifications();
+            damageMult.ResetExternalModifications();
+            incomeMult.ResetExternalModifications();
+
+            income[ResourceType.green] = 0;
+            income[ResourceType.red] = 0;
+            income[ResourceType.blue] = 0;
+            income[ResourceType.yellow] = 0;
+            income[ResourceType.diamond] = 0;
+            radius = 0.25f;
+        }
+
+        public void ScaleRadius (float scale) {
+            radius *= scale;
+            radius = Mathf.Clamp(radius, 0.1f, 0.45f);
+        }
     }
 
     public class BasicCreepStat {
@@ -286,7 +311,16 @@ namespace Core {
         public float GetRatioToBase() {
             return GetValueForCurrentLevel() / data[0].value;
         }
+        
+        public void AddModification(float stage1, float stage2) {
+            mod1.AddScale(stage1);
+            mod2.AddScale(stage2);
+        }
 
+        public void ResetExternalModifications() {
+            mod1.Reset();
+            mod2.Reset();
+        }
 
 
         public static BasicCreepStat NewHp() {
@@ -406,14 +440,22 @@ namespace Core {
         }
 
        
+        /// <summary>
+        /// Call this whenever the squad changes any stat/loadout to update actual definition
+        /// </summary>
         public void Recalculate() {
-            actualDefinition.resourceReward[ResourceType.green] = 100;
+            stats.ResetExternalModifications();
+            loadout.Apply(stats);
+            actualDefinition.radius = stats.radius;
             actualDefinition.hp = stats.hp.GetValueForCurrentLevel();
             actualDefinition.speed = stats.spd.GetValueForCurrentLevel();
             actualDefinition.count = stats.count.GetValueForCurrentLevel();
             actualDefinition.spawnRate = stats.spawnRate.GetValueForCurrentLevel();
             actualDefinition.damageScale = stats.damageMult.GetValueForCurrentLevel();
             actualDefinition.incomeScale = stats.incomeMult.GetValueForCurrentLevel();
+            actualDefinition.resourceReward.Reset();
+            actualDefinition.resourceReward.Add(stats.income);
+
         }
 
         public CreepSquad GetDeathSplitSquad() {

@@ -1,43 +1,42 @@
 ﻿namespace Core {
     public class CreepLoadout {
-        public CreepLoadoutSlot specialization { get; private set; } = GetSpecializationSlot();
         public CreepLoadoutSlot resource { get; private set; } = GetResourceSlot();
+        public CreepLoadoutSlot specialization { get; private set; } = GetSpecializationSlot();
+        public CreepLoadoutSlot armor { get; private set; } = new CreepLoadoutSlot();
 
-        public CreepLoadoutSlot tier1_1 { get; private set; } = GetTier1Slot();
-        public CreepLoadoutSlot tier1_2 { get; private set; } = GetTier1Slot();
-        public CreepLoadoutSlot tier1_3 { get; private set; } = GetTier1Slot();
+        public CreepLoadoutSlot attr1 { get; private set; } = new CreepLoadoutSlot();
+        public CreepLoadoutSlot attr2 { get; private set; } = new CreepLoadoutSlot();
+        public CreepLoadoutSlot attr3 { get; private set; } = new CreepLoadoutSlot();
 
-        public CreepLoadoutSlot tier2_1 { get; private set; } = GetTier2Slot();
-        public CreepLoadoutSlot tier2_2 { get; private set; } = GetTier2Slot();
+        public CreepLoadoutSlot spec1 { get; private set; } = new CreepLoadoutSlot();
+        public CreepLoadoutSlot spec2 { get; private set; } = new CreepLoadoutSlot();
 
-        public CreepLoadoutSlot tier3_A { get; private set; } = new CreepLoadoutSlot();
-        public CreepLoadoutSlot tier3_B { get; private set; } = new CreepLoadoutSlot();
+        public void Apply(CreepStatSet stats) {
+            resource.Apply(stats);
+            specialization.Apply(stats);
+            armor.Apply(stats);
 
-        public void GetApplication(CreepStatModification stage1, CreepStatModification stage2) {
-            specialization.GetApplication(stage1, stage2);
-            resource.GetApplication(stage1, stage2);
+            attr1.Apply(stats);
+            attr2.Apply(stats);
+            attr3.Apply(stats);
 
-            tier1_1.GetApplication(stage1, stage2);
-            tier1_2.GetApplication(stage1, stage2);
-            tier1_3.GetApplication(stage1, stage2);
+            spec1.Apply(stats);
+            spec2.Apply(stats);
 
-            tier2_1.GetApplication(stage1, stage2);
-            tier2_2.GetApplication(stage1, stage2);
-
-            tier3_A.GetApplication(stage1, stage2);
-            tier3_B.GetApplication(stage1, stage2);
         }
 
         static CreepLoadoutSlot GetSpecializationSlot() {
-            return new CreepLoadoutSlot(
-                CreepAttachment_Specialization_Spd2HP.Get(),
-                CreepAttachment_Specialization_Count2HP.Get(),
-                CreepAttachment_Specialization_HP2Count.Get(),
+            var result = new CreepLoadoutSlot(
+                //CreepAttachment_Specialization_Spd2HP.Get(),
+                CreepAttachment_Specialization_Count2HP.Get()
+                //CreepAttachment_Specialization_HP2Count.Get(),
 
-                CreepAttachment_Specialization_Spd2Count.Get(),
-                CreepAttachment_Specialization_HP2SPD.Get(),
-                CreepAttachment_Specialization_Count2SPD.Get()
+            //CreepAttachment_Specialization_Spd2Count.Get(),
+            //CreepAttachment_Specialization_HP2SPD.Get(),
+            //CreepAttachment_Specialization_Count2SPD.Get()
             );
+            result.currentAttactment.ResetAttachment(CreepAttachment_Specialization_Count2HP.Get());
+            return result;
         }
         static CreepLoadoutSlot GetResourceSlot() {
             var result = new CreepLoadoutSlot(
@@ -46,25 +45,25 @@
                 CreepAttachment_Resource_Red.Get(),
                 CreepAttachment_Resource_Yellow.Get(),
 
-                CreepAttachment_Resource_Diamond.Get(),
-                CreepAttachment_Resource_RBY.Get()
+                CreepAttachment_Resource_Diamond.Get()
+                //CreepAttachment_Resource_RBY.Get()
             );
             result.currentAttactment.ResetAttachment(CreepAttachment_Resource_Green.Get());
             return result;
         }
-        static CreepLoadoutSlot GetTier1Slot() {
-            return new CreepLoadoutSlot(
-                CreepAttachment_Tier1_HP.Get(),
-                CreepAttachment_Tier1_SPD.Get(),
-                CreepAttachment_Tier1_SpawnRate.Get(),
-                CreepAttachment_Tier1_Count.Get(),
-                CreepAttachment_Tier1_Damage.Get()
-            );
-        }
-        static CreepLoadoutSlot GetTier2Slot() {
-            return new CreepLoadoutSlot(
-                CreepAttachment_Tier2_Regen.Get()
-            );
-        }
+        //static CreepLoadoutSlot GetTier1Slot() {
+        //    return new CreepLoadoutSlot(
+        //        CreepAttachment_Tier1_HP.Get(),
+        //        CreepAttachment_Tier1_SPD.Get(),
+        //        CreepAttachment_Tier1_SpawnRate.Get(),
+        //        CreepAttachment_Tier1_Count.Get(),
+        //        CreepAttachment_Tier1_Damage.Get()
+        //    );
+        //}
+        //static CreepLoadoutSlot GetTier2Slot() {
+        //    return new CreepLoadoutSlot(
+        //        CreepAttachment_Tier2_Regen.Get()
+        //    );
+        //}
     }
 }

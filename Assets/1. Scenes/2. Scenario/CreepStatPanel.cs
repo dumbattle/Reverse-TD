@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameUI.CreepMenus {
     [System.Serializable]
-    public class CreepStatEntries {
+    public class CreepStatPanel {
         public GameObject root;
         public CreepStatEntryBehaviour hp;
         public CreepStatEntryBehaviour count;
@@ -21,6 +21,10 @@ namespace GameUI.CreepMenus {
             spd.Redraw(s, c.stats.spd);
             spawnRate.Redraw(s, c.stats.spawnRate);
             incomeMult.Redraw(s, c.stats.incomeMult);
+            root.gameObject.SetActive(true);
+        }
+
+        public void Open() {
             root.gameObject.SetActive(true);
         }
 

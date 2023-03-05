@@ -9,6 +9,7 @@ namespace Core {
         CreepAttachment_Specialization_Count2HP() { }
         const float SIZE_INCREASE = 30;
         const float COUNT_DECREASE = 50;
+
         static float[] _statScales = {
             50,
             57,
@@ -85,13 +86,15 @@ namespace Core {
             return _descCache[level];
         }
 
-        public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage1.AddHpScale(_statScales[level - 1] / 100f);
-            stage1.AddSizeScale(SIZE_INCREASE / 100f);
 
-            stage1.AddCountScale(1 - (100 / (100f - COUNT_DECREASE)));
-            stage1.AddSpawnRateScale(1 - (100 / (100f - COUNT_DECREASE)));
+        public override void ApplyModification(int level, CreepStatSet stats) {
+            stats.hp.AddModification(_statScales[level - 1] / 100f, 0);
+            stats.ScaleRadius((100f + SIZE_INCREASE) / 100f);
+
+            stats.count.AddModification(1 - (100 / (100f - COUNT_DECREASE)), 0);
+            stats.spawnRate.AddModification(1 - (100 / (100f - COUNT_DECREASE)), 0);
         }
+
 
         protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {
@@ -100,7 +103,7 @@ namespace Core {
 
                 new ResourceAmount(green: 108, red: 116, blue: 25),
                 new ResourceAmount(green: 123, red: 167, blue: 35),
-                
+
                 new ResourceAmount(green: 142, red: 243, blue: 50),
                 new ResourceAmount(green: 165, red: 344, blue: 70),
 

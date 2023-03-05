@@ -16,11 +16,7 @@ namespace GameUI.CreepMenus.GameStates {
 
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
             menu.Open(s);
-            if (menu.currentSquad == null) {
-                menu.SetSelectedSquad(s.playerFunctions.GetCreepArmy().GetSquad(0));
-            }
-            menu.selections.SetPageToCreep(s.playerFunctions.GetCreepArmy(), menu.currentSquad);
-
+            menu.CloseAllSubMenus();
             return CreepMenu_StatsPanel_GameState.Get(s, menu);
         }
     }

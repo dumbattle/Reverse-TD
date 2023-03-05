@@ -5,17 +5,47 @@ using GameUI.CreepMenus;
 using GameUI.CreepMenus.GameStates;
 
 
-namespace Core {
 
+namespace Core {
     public class CreepMenu : MonoBehaviour {
-        public CreepMenu_CreepSelection selections;
-        public CreepStatEntries statEntries;
+        //************************************************************************************
+        // References
+        //************************************************************************************
+
+
+        //--------------------------------------------------------
+        // Sub panels (bottom)
+        //--------------------------------------------------------
+
+        public CreepStatPanel statEntries;
+        public CreepLoadoutPanel loadoutPanel;
+
+        //--------------------------------------------------------
+        // Data (Top Right)
+        //--------------------------------------------------------
+
         public CreepPurchasePanel purchasePanel;
+
+        //--------------------------------------------------------
+        // Other
+        //--------------------------------------------------------
+
+        public CreepMenu_SubmenuButtons submenuButtons;
+        public CreepMenu_CreepSelection selections;
+
 
         public Image creepIcon;
         public Image creepGlow;
 
+        //************************************************************************************
+        // State
+        //************************************************************************************
+
         public CreepSquad currentSquad { get; private set; }
+
+        //************************************************************************************
+        // Control
+        //************************************************************************************
 
         public IFSM_State<ScenarioInstance> GetGameState(ScenarioInstance s) {
             return CreepMenu_Open_GameState.Get(this);
@@ -23,13 +53,22 @@ namespace Core {
 
 
         public void Open(ScenarioInstance s) {
-            gameObject.SetActive(true);
             selections.SetCreepMenu(this);
             selections.SetArmy(s.playerFunctions.GetCreepArmy());
+            if (currentSquad == null) {
+                SetSelectedSquad(s.playerFunctions.GetCreepArmy().GetSquad(0));
+            }
+
+            gameObject.SetActive(true);
+            selections.SetPageToCreep(currentSquad);
         }
 
         public void Close() {
             gameObject.SetActive(false);
+        }
+        public void CloseAllSubMenus() {
+            statEntries.Close();
+            loadoutPanel.Close();
         }
 
 

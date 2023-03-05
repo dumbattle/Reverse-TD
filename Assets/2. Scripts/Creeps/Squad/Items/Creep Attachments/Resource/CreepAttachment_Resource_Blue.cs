@@ -54,7 +54,7 @@ namespace Core {
 
 
         public override string GetName(int level) {
-            return "Green Collecter";
+            return "Blue Collecter";
         }
 
         public override Sprite GetIcon(int level) {
@@ -65,9 +65,10 @@ namespace Core {
             return _descCache[level];
         }
 
-        public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage1.AddResourceReward(ResourceType.blue, _amounts[level - 1]);
+        public override void ApplyModification(int level, CreepStatSet stats) {
+            stats.income[ResourceType.blue] += _amounts[level - 1];
         }
+
 
         protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {

@@ -31,6 +31,15 @@ namespace Core {
             player.money[ResourceType.diamond] += amnt[ResourceType.diamond] * multiplier;
             RedrawMoneyUI();
         }
+
+        public bool TrySpend(ResourceAmount cost) {
+            if (!player.money.Satisfies(cost)) {
+                return false;
+            }
+            Spend(cost);
+            return true;
+        }
+
         public CreepArmy GetCreepArmy() {
             return player.creepArmy;
         }

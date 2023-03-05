@@ -1,49 +1,7 @@
 ﻿using Core;
-using UnityEngine;
 
 
 namespace GameUI.CreepMenus.GameStates {
-    public class CreepMenu_BuyCreepMenu_GameState : IFSM_State<ScenarioInstance> {
-        CreepMenu_BuyCreepMenu_GameState() { }
-        static CreepMenu_BuyCreepMenu_GameState instance = new CreepMenu_BuyCreepMenu_GameState();
-
-        public static CreepMenu_BuyCreepMenu_GameState Get(ScenarioInstance s, CreepMenu menu) {
-            instance.menu = menu;
-            menu.SetSelectedSquad(null);
-            menu.purchasePanel.Open(s, s.playerFunctions.GetNewCreepCost());
-
-            return instance;
-        }
-
-        CreepMenu menu;
-
-
-        public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
-            // close all
-            if (InputManager.Cancel.requested) {
-                InputManager.Consume.Cancel();
-                menu.purchasePanel.Close();
-                menu.Close();
-                return null;
-            }
-
-            // purchase
-            if (menu.purchasePanel.buyButton.Clicked) {
-                if (s.playerFunctions.GetCurrentResources().Satisfies(menu.purchasePanel.cost)) {
-                    s.playerFunctions.Spend(menu.purchasePanel.cost);
-                    var newSquad = s.playerFunctions.GetCreepArmy().AddNewSquad(CreepSelectionUtility.GetRandomNewCreep());
-                    menu.purchasePanel.Close();
-                    menu.selections.ReDraw();
-                    menu.SetSelectedSquad(newSquad);
-                    return CreepMenu_StatsPanel_GameState.Get(s, menu);
-                }
-            }
-
-
-            return this;
-        }
-    }
-
     public class CreepMenu_StatsPanel_GameState : IFSM_State<ScenarioInstance> {
         CreepMenu_StatsPanel_GameState() { }
         static CreepMenu_StatsPanel_GameState instance = new CreepMenu_StatsPanel_GameState();
@@ -51,24 +9,36 @@ namespace GameUI.CreepMenus.GameStates {
         public static CreepMenu_StatsPanel_GameState Get(ScenarioInstance s, CreepMenu menu) {
             instance.menu = menu;
             menu.statEntries.Redraw(s, menu.currentSquad);
+            menu.statEntries.Open();
             return instance;
         }
 
         CreepMenu menu;
 
         public IFSM_State<ScenarioInstance> Update(ScenarioInstance s) {
+            // exit all menus
             if (InputManager.Cancel.requested) {
                 InputManager.Consume.Cancel();
                 menu.Close();
                 return null;
             }
 
+            // select submenu
+            if (menu.submenuButtons.AttachmentClicked()) {
+                menu.statEntries.Close();
+                return CreepMenu_LoadoutPanel_GameState.Get(s, menu);
+            }
+
+            if (menu.submenuButtons.SummaryClicked()) {
+            }
+
+
+            // select creep
             CreepMenu_CreepSelection_InputAction creepSelectionAction = menu.selections.GetInputAction();
 
             if (creepSelectionAction.squad != null) {
                 menu.SetSelectedSquad(creepSelectionAction.squad);
                 menu.statEntries.Redraw(s, creepSelectionAction.squad);
-                menu.purchasePanel.Close();
             }
 
             if (creepSelectionAction.emptySelected) {
@@ -80,11 +50,11 @@ namespace GameUI.CreepMenus.GameStates {
                 menu.selections.MovePageUp();
             }
 
-
             if (creepSelectionAction.downSelected) {
                 menu.selections.MovePageDown();
             }
 
+            // select upgrade button
             if (menu.statEntries.hp.upgradeButton.Clicked) {
                 TryUpgradeStat(s, menu.currentSquad.stats.hp);
             }

@@ -65,11 +65,11 @@ namespace Core {
             return _descCache[level];
         }
 
-        public override void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2) {
-            stage1.AddResourceReward(ResourceType.green, _amounts[level - 1]);
+        public override void ApplyModification(int level, CreepStatSet stats) {
+            stats.income[ResourceType.green] += _amounts[level - 1];
         }
 
-        protected override ResourceAmount[] InitUpgradeCosts() {    
+        protected override ResourceAmount[] InitUpgradeCosts() {
             return new[] {
                 new ResourceAmount(green: 0),
                 new ResourceAmount(green: 50),

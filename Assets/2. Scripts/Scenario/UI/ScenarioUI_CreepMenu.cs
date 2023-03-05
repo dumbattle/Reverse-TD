@@ -350,18 +350,18 @@ namespace Core {
         }
 
         void UpdateAttachmentSubMenu(ScenarioInstance s, CreepSquad squad) {
-            UpdateLoadoutSlot(details.submenu.loadout.specialization, squad.loadout.specialization);
-            UpdateLoadoutSlot(details.submenu.loadout.resource, squad.loadout.resource);
+            //UpdateLoadoutSlot(details.submenu.loadout.specialization, squad.loadout.specialization);
+            //UpdateLoadoutSlot(details.submenu.loadout.resource, squad.loadout.resource);
 
-            UpdateLoadoutSlot(details.submenu.loadout.tier1_1, squad.loadout.tier1_1);
-            UpdateLoadoutSlot(details.submenu.loadout.tier1_2, squad.loadout.tier1_2);
-            UpdateLoadoutSlot(details.submenu.loadout.tier1_3, squad.loadout.tier1_3);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier1_1, squad.loadout.tier1_1);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier1_2, squad.loadout.tier1_2);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier1_3, squad.loadout.tier1_3);
 
-            UpdateLoadoutSlot(details.submenu.loadout.tier2_1, squad.loadout.tier2_1);
-            UpdateLoadoutSlot(details.submenu.loadout.tier2_2, squad.loadout.tier2_2);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier2_1, squad.loadout.tier2_1);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier2_2, squad.loadout.tier2_2);
 
-            UpdateLoadoutSlot(details.submenu.loadout.tier3_A, squad.loadout.tier3_A);
-            UpdateLoadoutSlot(details.submenu.loadout.tier3_B, squad.loadout.tier3_B);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier3_A, squad.loadout.tier3_A);
+            //UpdateLoadoutSlot(details.submenu.loadout.tier3_B, squad.loadout.tier3_B);
 
 
             void UpdateLoadoutSlot(ScenarioUI_CreepMenu_Details_AttachmentEntry_Behaviour entry, CreepLoadoutSlot slot) {

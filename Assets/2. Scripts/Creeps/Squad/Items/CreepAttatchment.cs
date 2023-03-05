@@ -8,9 +8,10 @@ namespace Core {
     public class CreepAttachmentInstance {
         public CreepAttachmentDefinition definition;
         /// <summary>
-        /// Between [1, 10] inclusive
+        /// 1 - indexed
         /// </summary>
         public int level { get; private set; } = 1;
+        public int maxLevel => definition?.maxLevel ?? -1;
 
         //***************************************************************************************
         // Control
@@ -45,6 +46,11 @@ namespace Core {
             return definition?.GetDescription(level) ?? null;
         }
 
+
+        /// <summary>
+        /// Return null if max level or if there is no attachment selected
+        /// </summary>
+        /// <returns></returns>
         public ResourceAmount GetCostForUpgrade() {
             if (level == 10) {
                 return null;

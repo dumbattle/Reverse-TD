@@ -10,6 +10,8 @@ namespace Core {
             _upgradeCosts = InitUpgradeCosts();
         }
 
+
+        public int maxLevel => _upgradeCosts.Length;
         /// <summary>
         /// To unlock provided level. level is 1-indexed
         /// </summary>
@@ -34,7 +36,7 @@ namespace Core {
         /// </summary>
         public abstract Sprite GetIcon(int level);
 
-        public abstract void ApplyModification(int level, CreepStatModification stage1, CreepStatModification stage2);
+        public abstract void ApplyModification(int level, CreepStatSet stats);
 
 
         protected abstract ResourceAmount[] InitUpgradeCosts();
