@@ -5,6 +5,16 @@ using System.Collections.Generic;
 
 
 namespace Core {
+    public struct TowerDamageInstance {
+        public DamageType damageType;
+        public float value;
+
+        public TowerDamageInstance(DamageType damageType, float value) {
+            this.damageType = damageType;
+            this.value = value;
+        }
+    }
+
     public class CreepInstance {
         static ObjectPool<CreepInstance> _pool = new ObjectPool<CreepInstance>(() => new CreepInstance());
         CreepInstance() { }
@@ -76,6 +86,7 @@ namespace Core {
         public ResourceCollection GetMaxMoneyReward() {
             return definition.resourceReward;
         }
+
         public float IncomeMultiplier() {
             return definition.incomeScale;
         }
@@ -112,14 +123,6 @@ namespace Core {
         float slowLevel;
         float slowTimer;
 
-        //.............................................................................
-        // Apply
-        //.............................................................................
-
-        public void ApplySlow(float strength, float time) {
-            slowLevel = Mathf.Sqrt(slowLevel * slowLevel + strength * strength);
-            slowTimer = Mathf.Sqrt(slowTimer * slowTimer + time * time);
-        }
 
         //**********************************************************************************************************
         // Control
@@ -160,6 +163,25 @@ namespace Core {
             _pool.Return(this);
         }
 
+        //.............................................................................
+        // Modify
+        //.............................................................................
+
+        public void ApplySlow(float strength, float time) {
+            slowLevel = Mathf.Sqrt(slowLevel * slowLevel + strength * strength);
+            slowTimer = Mathf.Sqrt(slowTimer * slowTimer + time * time);
+        }
+
+        /// <summary>
+        /// Returns actual damage dealt.  Does not check for death or other effects besides logging
+        /// </summary>
+        public float ApplyDamage(TowerDamageInstance dmg) {
+            var armor = definition.armor;
+
+            var result = dmg.damageType.ApplyArmor(dmg.value, armor);
+            health.DealDamage(result);
+            return result;
+        }
         //**********************************************************************************************************
         // Query
         //**********************************************************************************************************

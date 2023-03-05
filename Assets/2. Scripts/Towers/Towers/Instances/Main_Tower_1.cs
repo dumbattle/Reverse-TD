@@ -20,8 +20,8 @@ namespace Core {
             return 1;
         }
 
-        protected override int GetDamage() {
-            return 25;
+        protected override TowerDamageInstance GetDamage() {
+            return new TowerDamageInstance(DamageType.normal, 25);
         }
 
         protected override float GetProjectileSpeed() {

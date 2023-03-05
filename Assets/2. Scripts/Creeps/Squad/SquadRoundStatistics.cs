@@ -3,7 +3,7 @@
         public float damageDealt { get; private set; }
         public ResourceAmount resourcesEarned => _resourcesearned;
 
-        public int damageRecieved { get; private set; }
+        public float damageRecieved { get; private set; }
 
         ResourceCollection _resourcesearned = new ResourceCollection();
 
@@ -14,7 +14,7 @@
             damageRecieved = 0;
         }
 
-        public void AddDamageTaken(int amnt) {
+        public void AddDamageTaken(float amnt) {
             damageRecieved += amnt;
         }
 

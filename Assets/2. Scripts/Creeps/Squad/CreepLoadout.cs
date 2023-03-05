@@ -2,7 +2,7 @@
     public class CreepLoadout {
         public CreepLoadoutSlot loot { get; private set; } = GetResourceSlot();
         public CreepLoadoutSlot build { get; private set; } = GetSpecializationSlot();
-        public CreepLoadoutSlot armor { get; private set; } = new CreepLoadoutSlot();
+        public CreepLoadoutSlot armor { get; private set; } = GetArmorSlot();
 
         public CreepLoadoutSlot attr1 { get; private set; } = new CreepLoadoutSlot();
         public CreepLoadoutSlot attr2 { get; private set; } = new CreepLoadoutSlot();
@@ -45,9 +45,17 @@
                 CreepAttachment_Resource_Yellow.Get(),
 
                 CreepAttachment_Resource_Diamond.Get()
-                //CreepAttachment_Resource_RBY.Get()
+            //CreepAttachment_Resource_RBY.Get()
             );
             result.currentAttactment.ResetAttachment(CreepAttachment_Resource_Green.Get());
+            return result;
+        }
+        static CreepLoadoutSlot GetArmorSlot() {
+            var result = new CreepLoadoutSlot(
+                CreepAttachment_Armor_Normal.Get()
+             
+            );
+            result.currentAttactment.ResetAttachment(CreepAttachment_Armor_Normal.Get());
             return result;
         }
         //static CreepLoadoutSlot GetTier1Slot() {

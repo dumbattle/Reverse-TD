@@ -124,9 +124,10 @@ namespace Core {
             return results;
         }
 
-        public void DamageCreep(CreepInstance c, int amnt) {
-            c.health.DealDamage(amnt);
+        public void DamageCreep(CreepInstance c, TowerDamageInstance dmg) {
+            var amnt = c.ApplyDamage(dmg);
             c.squad.roundStatistics.AddDamageTaken(amnt);
+
             if (c.health.current <= 0) {
                 var deathSplitDef = c.GetDeathSplitDefinition();
 

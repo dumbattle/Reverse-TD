@@ -96,7 +96,7 @@ namespace Core {
         // Abstract
         //******************************************************************************************************
 
-        protected abstract int GetDamage();
+        protected abstract TowerDamageInstance GetDamage();
         protected abstract float GetAtkDelay();
 
         protected abstract float GetRange();

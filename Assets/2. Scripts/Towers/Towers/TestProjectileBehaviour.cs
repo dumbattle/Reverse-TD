@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
 namespace Core {
-
-
     public class TestProjectileBehaviour : ProjectileBehaviour {
         public SpriteRenderer sr;
 
@@ -11,14 +9,14 @@ namespace Core {
         float speed; 
         float maxDist;
         float radius;
-        int damage;
+        TowerDamageInstance damage;
 
         float traveled;
         bool active;
         bool hit;
 
 
-        public override void Init(ScenarioInstance s, Vector2 start, Vector2 direction, float speed, float maxDist, float radius, int damage) {
+        public override void Init(ScenarioInstance s, Vector2 start, Vector2 direction, float speed, float maxDist, float radius, TowerDamageInstance damage) {
             this.start = start;
             this.direction = (direction + Random.insideUnitCircle * 0.2f).normalized;
             this.speed = speed;

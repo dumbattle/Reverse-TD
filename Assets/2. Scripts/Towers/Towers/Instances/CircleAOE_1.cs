@@ -65,8 +65,8 @@ namespace Core {
             return _xtraRange[splashUpgrade.currentLevel];
         }
 
-        protected override int GetDamage() {
-            return _damage[dmgUpgrade.currentLevel];
+        protected override TowerDamageInstance GetDamage() {
+            return new TowerDamageInstance(DamageType.normal, _damage[dmgUpgrade.currentLevel]);
         }
     }
 }

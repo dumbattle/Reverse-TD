@@ -2,6 +2,68 @@
 
 
 namespace Core {
+    public abstract class DamageType {
+        public static DamageType normal { get; private set; } = new _NormalDamage();
+        public static DamageType explosive { get; private set; } = new _ExplosiveDamage();
+        public static DamageType energy { get; private set; } = new _EnergyDamage();
+
+
+        public float ApplyArmor(float rawDamage, CreepArmor armor) {
+            int armorRating = GetArmorRating(armor);
+
+            float scale = rawDamage / (rawDamage + armorRating);
+            float result = rawDamage * scale;
+
+            if (result < 1) {
+                result = 1 - result;
+                result = Mathf.Sqrt(result);
+                result = 1 - result;
+            }
+            return result;
+        }
+
+
+        protected abstract int GetArmorRating(CreepArmor armor);
+
+        class _NormalDamage : DamageType {
+            protected override int GetArmorRating(CreepArmor armor) {
+                return armor.normalRating;
+            }
+        }
+        class _ExplosiveDamage : DamageType {
+            protected override int GetArmorRating(CreepArmor armor) {
+                return armor.explosiveRating;
+            }
+        }
+        class _EnergyDamage : DamageType {
+            protected override int GetArmorRating(CreepArmor armor) {
+                return armor.energyRating;
+            }
+        }
+    }
+
+
+    public class CreepArmor {
+        public int normalRating;
+        public int explosiveRating;
+        public int energyRating;
+
+        /// <summary>
+        /// resets all armor ratings to 0
+        /// </summary>
+        public void ResetValues() {
+            normalRating = 0;
+            explosiveRating = 0;
+            energyRating = 0;
+        }
+
+        public void CopyFrom(CreepArmor src) {
+            normalRating = src.normalRating;
+            explosiveRating = src.explosiveRating;
+            energyRating = src.energyRating;
+        }
+    }
+
     public class CreepDefinition {
         public string name;
         public Sprite sprite;
@@ -22,6 +84,7 @@ namespace Core {
         public ResourceCollection resourceReward = new ResourceCollection();
 
         public float spawnInterval => 1 / spawnRate;
+        public CreepArmor armor = new CreepArmor();
 
         //----------------------------------
         // Special

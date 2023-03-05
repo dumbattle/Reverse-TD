@@ -24,6 +24,12 @@ namespace GameUI.CreepMenus {
         }
     }
 
+    public class CreepLoadoutSlotSelector_Armor : CreepLoadoutSlotSelector {
+        public override CreepLoadoutSlot Select(CreepLoadout l) {
+            return l.armor;
+        }
+    }
+
 
     public class  CreepMenuLoadoutEntryBehaviour : MonoBehaviour {
         public CreepLoadoutSlotSelector selector { get; private set; }

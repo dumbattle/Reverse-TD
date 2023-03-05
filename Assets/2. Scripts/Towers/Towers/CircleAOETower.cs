@@ -80,7 +80,7 @@ namespace Core {
         protected abstract float GetAtkDelay();
         protected abstract float GetRange();
         protected abstract float GetExtraRange();
-        protected abstract int GetDamage();
+        protected abstract TowerDamageInstance GetDamage();
 
     }
 }

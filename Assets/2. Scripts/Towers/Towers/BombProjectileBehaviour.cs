@@ -13,7 +13,7 @@ namespace Core {
         float speed;
         float maxDist;
         float radius;
-        int damage;
+        TowerDamageInstance damage;
 
         float traveled;
         bool active;
@@ -25,7 +25,7 @@ namespace Core {
         
         List<CreepInstance> creepResults = new List<CreepInstance>();
 
-        public override void Init(ScenarioInstance s, Vector2 start, Vector2 direction, float speed, float maxDist, float radius, int damage) {
+        public override void Init(ScenarioInstance s, Vector2 start, Vector2 direction, float speed, float maxDist, float radius, TowerDamageInstance damage) {
             this.start = start;
             this.direction = (direction + Random.insideUnitCircle * 0.2f).normalized;
             this.speed = speed;
@@ -117,11 +117,11 @@ namespace Core {
                 float scale = dist / splashRadius;
                 scale = Mathf.Lerp(1, splashScale, scale);
 
-                int scaledDamage = (int)(damage * scale);
+                float scaledDamage = (int)(damage.value * scale);
                 if (scaledDamage < 1) {
                     scaledDamage = 1;
                 }
-                s.creepFunctions.DamageCreep(c, scaledDamage);
+                s.creepFunctions.DamageCreep(c, new TowerDamageInstance(damage.damageType, scaledDamage));
             }
         }
 

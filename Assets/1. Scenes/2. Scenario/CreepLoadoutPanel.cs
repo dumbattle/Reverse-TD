@@ -24,6 +24,7 @@ namespace GameUI.CreepMenus {
 
         public void Init() {
             lootEntry.InitSelector(new CreepLoadoutSlotSelector_Loot());
+            armorEntry.InitSelector(new CreepLoadoutSlotSelector_Armor());
             classEntry.InitSelector(new CreepLoadoutSlotSelector_Build());
         }
 
@@ -40,44 +41,16 @@ namespace GameUI.CreepMenus {
 
         public void Redraw(ScenarioInstance s, CreepLoadout l) {
             lootEntry.Set(s, l);
+            armorEntry.Set(s, l);
             classEntry.Set(s, l);
         }
         public CreepMenuLoadoutEntryBehaviour CheckSelection(CreepLoadout l) {
-            if (lootEntry.Clicked()) {
-                return lootEntry;
-            }
-
-            //if (armorEntry.Clicked()) {
-            //    return (armorEntry, l.armor);
-            //}
-
-            if (classEntry.Clicked()) {
-                return classEntry;
-            }
-
-            //if (attr1Entry.Clicked()) {
-            //    return (attr1Entry, l.attr1);
-            //}
-
-            //if (attr2Entry.Clicked()) {
-            //    return (attr2Entry, l.attr2);
-            //}
-
-            //if (attr3Entry.Clicked()) {
-            //    return (attr3Entry, l.attr3);
-            //}
-
-            //if (special1Entry.Clicked()) {
-            //    return (special1Entry, l.spec1);
-            //}
-
-            //if (special2Entry.Clicked()) {
-            //    return (special2Entry, l.spec2);
-            //}
-
-            return null;
+            return
+                lootEntry.Clicked() ? lootEntry :
+                armorEntry.Clicked() ? armorEntry :
+                classEntry.Clicked() ? classEntry :
+                null;
         }
-
     }
 
     [System.Serializable]

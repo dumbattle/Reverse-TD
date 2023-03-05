@@ -68,7 +68,7 @@ namespace Core {
 
         public void Init(ScenarioInstance s) {
             // main towers
-            int totalHp = 0;
+            float totalHp = 0;
             
             foreach (var tp in s.parameters.mainTowers) {
                 var t = s.towerFunctions.AddMainTower(tp.definition, tp.position);
@@ -132,7 +132,7 @@ namespace Core {
         //*********************************************************************************************************************************
 
         void SetTotalHpScale(ScenarioInstance s) {
-            int currentTotal = 0;
+            float currentTotal = 0;
             foreach (var mh in main2Health) {
                 var h = mh.Value;
                 currentTotal += h.current;

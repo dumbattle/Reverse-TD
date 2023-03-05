@@ -15,6 +15,7 @@ namespace Core {
         public ResourceCollection income { get; private set; } = new ResourceCollection();
         public float radius { get; private set; } = 0.25f;
 
+        public CreepArmor armor { get; private set; } = new CreepArmor();
 
         public void ResetExternalModifications() {
             hp.ResetExternalModifications();
@@ -23,6 +24,7 @@ namespace Core {
             spawnRate.ResetExternalModifications();
             damageMult.ResetExternalModifications();
             incomeMult.ResetExternalModifications();
+            armor.ResetValues();
 
             income[ResourceType.green] = 0;
             income[ResourceType.red] = 0;
@@ -455,6 +457,7 @@ namespace Core {
             actualDefinition.incomeScale = stats.incomeMult.GetValueForCurrentLevel();
             actualDefinition.resourceReward.Reset();
             actualDefinition.resourceReward.Add(stats.income);
+            actualDefinition.armor.CopyFrom(stats.armor);
 
         }
 

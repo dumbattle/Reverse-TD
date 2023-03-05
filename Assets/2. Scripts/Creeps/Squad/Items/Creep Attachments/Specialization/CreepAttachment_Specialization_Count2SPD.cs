@@ -2,11 +2,21 @@
 
 
 namespace Core {
+
+
     public class CreepAttachment_Specialization_Count2SPD : CreepAttachmentDefinition {
+        //*******************************************************************************************************************
+        // Singleton
+        //*******************************************************************************************************************
+
         static CreepAttachment_Specialization_Count2SPD instance = new CreepAttachment_Specialization_Count2SPD();
         public static CreepAttachment_Specialization_Count2SPD Get() => instance;
 
         CreepAttachment_Specialization_Count2SPD() { }
+
+        //*******************************************************************************************************************
+        // Cache
+        //*******************************************************************************************************************
 
         const float COUNT_DECREASE = 50;
 
@@ -53,6 +63,9 @@ namespace Core {
                 $"Base <color=yellow>Spawn Rate</color>";
         }
 
+        //*******************************************************************************************************************
+        // Implementation
+        //*******************************************************************************************************************
 
         public override string GetName(int level) {
             return "Fat Gem";
@@ -83,7 +96,6 @@ namespace Core {
         public override string GetDescription(int level) {
             return _descCache[level];
         }
-
 
         public override void ApplyModification(int level, CreepStatSet stats) {
             stats.spd.AddModification(_statScales[level - 1] / 100f, 0);
